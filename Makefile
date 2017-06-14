@@ -1,7 +1,8 @@
 CC			= g++
 CFLAGS		= -g -Wall
 EXECUTABLE	= 3d-soft-engine
-SRCFILES	:= $(wildcard ./src/*.cpp)
+# SRCFILES	:= $(wildcard ./src/**/*.cpp)
+SRCFILES	:= $(shell find . -name *.cpp)
 OBJFILES	:= $(SRCFILES:.cpp=.o)
 
 # Rules
