@@ -62,7 +62,7 @@ class VectF4 {
         float squareLength3() const;
 
         /**
-         * Returns a normalized copy of this vector
+         * Returns a normalized copy of this vector.
          * Vector shouldn't be null (No check done here).
          *
          * \return The normalized vector.
@@ -77,6 +77,16 @@ class VectF4 {
          * \return The normalized vector.
          */
         VectF4 normalize3() const;
+
+        /**
+         * Get Cross Product of this vector with another.
+         * (a.k.a vector product or outer product).
+         * Cross Product is only defined for 3 dimension. W axis is skipped.
+         *
+         * \param v Vector to cross with
+         * \return The Vector cross product (this x other).
+         */
+        VectF4 crossProduct3(VectF4 const& v) const;
 
 
     // -------------------------------------------------------------------------
@@ -94,9 +104,9 @@ class VectF4 {
         void set(float const x, float const y, float const z, float const w);
 
         /**
-         * Change axis values by the given vector values
+         * Change axis values by the given vector values.
          *
-         * \param v Vector to use as copy
+         * \param v Vector to use as copy.
          */
         void set(VectF4 const& v);
 
@@ -107,21 +117,23 @@ class VectF4 {
     public:
         /**
          * Get Dot Product of 2 vectors.
+         * (a.k.a scalar product or inner product).
          *
-         * \param v1 Vector 1
-         * \param v2 Vector 2
-         * \return The dot product v1.v2
-         */
-        static float dotProduct3(VectF4 const& v1, VectF4 const& v2);
-
-        /**
-         * Get Dot Product of 2 vectors using only axis X,Y,and Z (No W)
-         *
-         * \param v1 Vector 1
-         * \param v2 Vector 2
-         * \return The dot product v1.v2
+         * \param v1 Vector 1.
+         * \param v2 Vector 2.
+         * \return The dot product (v1.v2).
          */
         static float dotProduct(VectF4 const& v1, VectF4 const& v2);
+
+        /**
+         * Get Dot Product of 2 vectors using only axis X, Y, and Z (No W).
+         * (a.k.a scalar product or inner product).
+         *
+         * \param v1 Vector 1.
+         * \param v2 Vector 2.
+         * \return The dot product (v1.v2).
+         */
+        static float dotProduct3(VectF4 const& v1, VectF4 const& v2);
 
 
     // -------------------------------------------------------------------------
@@ -193,6 +205,15 @@ inline VectF4 VectF4::normalize3() const {
     float l = this->length3();
     VectF4 v(x/l, y/l, z/l, 0.0f);
     return v;
+}
+
+inline VectF4 VectF4::crossProduct3(VectF4 const& v) const {
+    return VectF4(
+        (y*v.z) - (z*v.y),
+        (z*v.x) - (x*v.z),
+        (x*v.y) - (y*v.x),
+        0.0f
+    );
 }
 
 
