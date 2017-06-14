@@ -1,5 +1,5 @@
-#ifndef ENGINE_3D_MATHS_VECT4_H_
-#define ENGINE_3D_MATHS_VECT4_H_
+#ifndef ENGINE_MATHS_VECT4_H_
+#define ENGINE_MATHS_VECT4_H_
 
 #include <iostream>
 #include <cmath>
@@ -21,13 +21,16 @@ class VectF4 {
         float w;
 
     // -------------------------------------------------------------------------
-    // Functions
+    // Constructors
     // -------------------------------------------------------------------------
     public:
         VectF4();
         VectF4(float x, float y, float z, float w);
         VectF4(VectF4 const& v);
 
+    // -------------------------------------------------------------------------
+    // Functions
+    // -------------------------------------------------------------------------
     public:
         float length() const;
         float squareLength() const;
@@ -46,17 +49,15 @@ class VectF4 {
 
     public:
         // Arithmetic operators
-        VectF4 operator/(float s);
-        VectF4 operator*(float s);
-
-        //TODO
+        VectF4 operator*(float const s);
+        VectF4 operator/(float const s);
         VectF4 operator+(VectF4 const& v);
         VectF4 operator-(VectF4 const& v);
-        VectF4 operator*(VectF4 const& v);
+
+        VectF4& operator*=(float const s);
+        VectF4& operator/=(float const s);
         VectF4& operator+=(VectF4 const& v);
         VectF4& operator-=(VectF4 const& v);
-        VectF4& operator/=(VectF4 const& v);
-        VectF4& operator*=(VectF4 const& v);
 };
 
 #endif
