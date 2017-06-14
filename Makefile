@@ -1,26 +1,26 @@
-CC			= c++
-CF_FLAGS	= -g -Wall
-LIBS_FLAGS	=
-EXEC_FILE	= 3d-soft-engine
-OBJS_FILE	:= $(wildcard ./src/*.cpp)
+CC			= g++
+CFLAGS		= -g -Wall
+EXECUTABLE	= 3d-soft-engine
+SRCFILES	:= $(wildcard ./src/*.cpp)
+OBJFILES	:= $(SRCFILES:.cpp=.o)
 
-# General
-.PHONY: $(EXEC_FILE)
-$(EXEC_FILE): $(OBJS_FILE)
-	$(CC) $(CF_FLAGS) $(LIBS_FLAGS) $^ -o $(EXEC_FILE)
+# Rules
+.PHONY: $(EXECUTABLE)
+$(EXECUTABLE): $(OBJFILES)
+	$(CC) $(CFLAGS) $^ -o $@
+
+%.cpp.o:
+	$(CC) $(CFLAGS) -c $<
 
 # Asset Rules
-.PHONY: all
-all: $(EXEC_FILE)
+all: $(EXECUTABLE)
 	@echo make project
 
-.PHONY: clean
 clean:
 	@echo cleaning
-	-rm -f *.o
-	-rm -f $(EXEC_FILE)
+	-rm -f $(OBJFILES)
+	-rm -f $(EXECUTABLE)
 
-.PHONY: run
 run:
 	@echo running
-	./$(EXEC)
+	./$(EXECUTABLE)
