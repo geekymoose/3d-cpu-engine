@@ -1,6 +1,6 @@
 #include <cstdlib>
 #include <iostream>
-#include "maths/VectF4.h"
+#include "math/VectF4.h"
 
 
 // Tmp debug function

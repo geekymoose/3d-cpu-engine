@@ -1,5 +1,5 @@
-#ifndef ENGINE_MATHS_VECTF4_H_
-#define ENGINE_MATHS_VECTF4_H_
+#ifndef ENGINE_MATH_VECTF4_H_
+#define ENGINE_MATH_VECTF4_H_
 
 #include <iostream>
 #include <cmath>
