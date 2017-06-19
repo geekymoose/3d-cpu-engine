@@ -3,7 +3,9 @@ project(3d-soft-engine)
 
 option(ENGINE_TEST_ENABLE "Build Unit tests" ON)
 
-# Build and start tests
+add_subdirectory(src)
+
+# Build and start tests (If needed)
 if(ENGINE_TEST_ENABLE)
     message("Test enabled")
     enable_testing()
@@ -11,4 +13,3 @@ if(ENGINE_TEST_ENABLE)
     add_subdirectory(test)
 endif()
 
-add_subdirectory(src)

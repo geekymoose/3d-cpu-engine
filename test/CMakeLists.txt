@@ -36,8 +36,9 @@ endif()
 
 # GoogleTest lib is now cloned and built
 
-# TODO
-# Now simply link against gtest or gtest_main as needed. Eg
-#add_executable(example example.cpp)
-#target_link_libraries(example gtest_main)
-#add_test(NAME example_test COMMAND example)
+# Create executable (To run all tests)
+include_directories("${CMAKE_SOURCE_DIR}/src")
+file(GLOB_RECURSE testfiles *.cpp)
+add_executable(runAllTests ${testfiles})
+target_link_libraries(runAllTests gtest)
+add_test(NAME allTests COMMAND runAllTests)
