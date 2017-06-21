@@ -155,6 +155,9 @@ class VectF4 {
         VectF4& operator+=(VectF4 const& v);
         VectF4& operator-=(VectF4 const& v);
 
+        // Other operators
+        //float& operator[](std::size_t idx) const; //TODO
+
         // Flux operators
         friend std::ostream& operator<<(std::ostream& os, VectF4 const& v);
 };
@@ -168,12 +171,8 @@ class VectF4 {
 // -----------------------------------------------------------------------------
 inline VectF4::VectF4(void) :x(0.0f), y(0.0f), z(0.0f), w(0.0f) {};
 
-inline VectF4::VectF4(float x, float y, float z, float w) 
-    : x(x),
-      y(y),
-      z(z),
-      w(w) {
-}
+inline VectF4::VectF4(float x, float y, float z, float w)
+    : x(x), y(y), z(z), w(w) {}
 
 
 // -----------------------------------------------------------------------------
