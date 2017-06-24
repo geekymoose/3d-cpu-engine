@@ -3,6 +3,7 @@ project(3d-soft-engine)
 
 option(ENGINE_TEST_ENABLE "Build Unit tests" ON)
 
+include_directories(src) #Add to include path
 add_subdirectory(src)
 
 # Build and start tests (If needed)
