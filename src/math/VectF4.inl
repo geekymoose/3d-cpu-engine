@@ -1,38 +1,69 @@
 /*
  * Inline function defintions of VectF4
  * Should be included by VectF4.h
+ *
  */
-
-
-// *********************** INLINES *********************************************
 
 
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
-FORCE_INLINE VectF4::VectF4(void) :x(0.0f), y(0.0f), z(0.0f), w(0.0f) {};
+FORCE_INLINE VectF4::VectF4(void){
+#ifdef __SSE4_1__
+    this->v = _mm_setzero_ps();
+#else
+    this->x = 0.0f;
+    this->y = 0.0f;
+    this->z = 0.0f;
+    this->w = 0.0f;
+#endif
+}
 
-FORCE_INLINE VectF4::VectF4(float x, float y, float z, float w)
-    : x(x), y(y), z(z), w(w) {}
+FORCE_INLINE VectF4::VectF4(float x, float y, float z, float w){
+#ifdef __SSE4_1__
+    this->v = _mm_setr_ps(x,y,z,w);
+#else
+    this->x = x;
+    this->y = y;
+    this->z = z;
+    this->w = w;
+#endif
+}
 
 
 // -----------------------------------------------------------------------------
 // Functions
 // -----------------------------------------------------------------------------
 FORCE_INLINE float VectF4::length() const {
+#ifdef __SSE4_1__
+    return _mm_cvtss_f32(_mm_sqrt_ss(_mm_dp_ps(v,v,0xF1)));
+#else
     return sqrt(this->squareLength());
+#endif
 }
 
 FORCE_INLINE float VectF4::length3() const {
+#ifdef __SSE4_1__
+    return _mm_cvtss_f32(_mm_sqrt_ss(_mm_dp_ps(v,v,0x71)));
+#else
     return sqrt(this->squareLength3());
+#endif
 }
 
 FORCE_INLINE float VectF4::squareLength() const {
+#ifdef __SSE4_1__
+    return _mm_cvtss_f32(_mm_dp_ps(v,v,0xF1));
+#else
     return (x*x) + (y*y) + (z*z) + (w*w);
+#endif
 }
 
 FORCE_INLINE float VectF4::squareLength3() const {
+#ifdef __SSE4_1__
+    return _mm_cvtss_f32(_mm_dp_ps(v,v,0x71));
+#else
     return (x*x) + (y*y) + (z*z);
+#endif
 }
 
 FORCE_INLINE VectF4 VectF4::normalize() const {

@@ -1,9 +1,16 @@
 #ifndef ENGINE_MATH_VECTF4_H_
 #define ENGINE_MATH_VECTF4_H_
 
+// General includes
 #include <iostream>
 #include <cmath>
+#ifdef __SSE4_1__
+    #include <x86intrin.h>
+#endif
+
+// Project includes
 #include "core/config.h"
+
 
 /**
  * 4 Dimensions vector with float precision.
@@ -16,10 +23,23 @@ class VectF4 {
     // Attributes
     // -------------------------------------------------------------------------
     public:
+#ifdef __SSE4_1__
+        union{
+            __m128 v;
+            struct{
+                // To allow calling v.x / v.y / etc...
+                float x;
+                float y;
+                float z;
+                float w;
+            };
+        };
+#else
         float x;
         float y;
         float z;
         float w;
+#endif
 
 
     // -------------------------------------------------------------------------
