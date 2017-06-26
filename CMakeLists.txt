@@ -27,6 +27,7 @@ if(ENGINE_BUILD_MODE_DEBUG)
     message("Build mode: DEBUG")
     add_definitions(-D _DEBUG)
     add_definitions(-g -Wall)
+    add_definitions(-D _ASSERTIONS_ENABLED)
 elseif(ENGINE_BUILD_MODE_RELEASE)
     message("Build mode: RELEASE")
     add_definitions(-D NDEBUG)
@@ -41,7 +42,7 @@ endif()
 # -----------------------------------------------------------------------------
 # Unit Test options
 # -----------------------------------------------------------------------------
-option(ENGINE_TEST_ENABLE "Build Unit tests" ON)
+option(ENGINE_TEST_ENABLE "Build Unit tests" OFF)
 
 if(ENGINE_TEST_ENABLE)
     message("Test enabled")

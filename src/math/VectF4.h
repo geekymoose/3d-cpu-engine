@@ -13,7 +13,7 @@
 
 
 /**
- * 4 Dimensions vector with float precision.
+ * 4 Dimensions vector with bits float precision.
  *
  * \since   Jun 4, 2017
  * \author  Constantin MASSON
@@ -28,6 +28,7 @@ class VectF4 {
             __m128 v;
             struct{
                 // To allow calling v.x / v.y / etc...
+                // Warning: this assume float is 32, don't know a way to force it
                 float x;
                 float y;
                 float z;
