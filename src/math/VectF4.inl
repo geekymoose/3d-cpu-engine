@@ -4,6 +4,10 @@
  *
  */
 
+#ifndef ENGINE_MATH_VECTF4_INL_
+#define ENGINE_MATH_VECTF4_INL_
+
+
 
 // -----------------------------------------------------------------------------
 // Constructors
@@ -187,3 +191,9 @@ FORCE_INLINE std::ostream& operator<<(std::ostream &os, VectF4 const& v){
     os << "(" << v.x << ", " << v.y << ", " << v.z << ", " << v.w << ")";
     return os;
 }
+
+
+#endif
+
+
+

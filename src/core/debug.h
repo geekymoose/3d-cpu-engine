@@ -20,7 +20,7 @@
 #define debugBreak() \
     __asm__("int $3") // GCC with Intel only
 #define assertFailureMsg(EXP) \
-    fprintf(stderr, "[ASSERT] %s:%d: error: "#EXP" should be true", __FILE__, __LINE__)
+    fprintf(stderr, "[ASSERT] %s:%d: error: ("#EXP") should be true.\n", __FILE__, __LINE__)
 
 // ASSERT Macro
 // NOTE: doesn't work like <assert.h>
