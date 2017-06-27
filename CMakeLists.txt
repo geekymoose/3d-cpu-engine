@@ -42,7 +42,7 @@ endif()
 # -----------------------------------------------------------------------------
 # Unit Test options
 # -----------------------------------------------------------------------------
-option(ENGINE_TEST_ENABLE "Build Unit tests" OFF)
+option(ENGINE_TEST_ENABLE "Build Unit tests" ON)
 
 if(ENGINE_TEST_ENABLE)
     message("Test enabled")

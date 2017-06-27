@@ -1,5 +1,25 @@
+#
+# CMake to build tests
+# Each test file creates a specific executable
+#
+# EXECUTE TESTS
+# `make test` to run them all
+# `./test/x_test` to run only the specific one (With GoogleTest syntax)
+#
+
+
 # -----------------------------------------------------------------------------
-# Build tests
+# Functions
+# -----------------------------------------------------------------------------
+function (add_test_executable target_name srcfile)
+    add_executable(${target_name} runAllTests.cpp ${srcfile})
+    target_link_libraries(${target_name} gtest)
+    add_test(NAME ${target_name} COMMAND ${target_name})
+endfunction()
+
+
+# -----------------------------------------------------------------------------
+# Build Google Test framework
 # -----------------------------------------------------------------------------
 
 # Clone GoogleTest lib and build it
@@ -36,9 +56,12 @@ endif()
 
 # GoogleTest lib is now cloned and built
 
-# Create executable (To run all tests)
+
+# -----------------------------------------------------------------------------
+# Create all test executables
+# -----------------------------------------------------------------------------
 include_directories("${CMAKE_SOURCE_DIR}/src")
-file(GLOB_RECURSE testfiles *.cpp)
-add_executable(runAllTests ${testfiles})
-target_link_libraries(runAllTests gtest)
-add_test(NAME allTests COMMAND runAllTests)
+
+add_test_executable("runMatrixF4_tests" math/MatrixF4_Test.cpp)
+add_test_executable("runVectF4_tests" math/VectF4_Test.cpp)
+
