@@ -26,7 +26,7 @@ class VectF4 {
     public:
 #ifdef __SSE4_1__
         union{
-            __m128 v;
+            __m128 m128;
             struct{
                 // To allow calling v.x / v.y / etc...
                 // Warning: this assume float is 32, don't know a way to force it
@@ -50,6 +50,10 @@ class VectF4 {
     public:
         VectF4(void);
         explicit VectF4(float x, float y, float z, float w);
+#ifdef __SSE4_1__
+        explicit VectF4(__m128 v); // Only for internal use
+#endif
+
 
 
     // -------------------------------------------------------------------------
