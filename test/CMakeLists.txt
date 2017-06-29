@@ -62,6 +62,7 @@ endif()
 # -----------------------------------------------------------------------------
 include_directories("${CMAKE_SOURCE_DIR}/src")
 
+add_test_executable("runVectF3_tests"   math/VectF3_Test.cpp)
+add_test_executable("runVectF4_tests"   math/VectF4_Test.cpp)
 add_test_executable("runMatrixF4_tests" math/MatrixF4_Test.cpp)
-add_test_executable("runVectF4_tests" math/VectF4_Test.cpp)
 
