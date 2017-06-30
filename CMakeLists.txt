@@ -5,7 +5,7 @@ project(3d-soft-engine)
 # -----------------------------------------------------------------------------
 # SSE Optimizations
 # -----------------------------------------------------------------------------
-option(ENGINE_ENABLE_SIMD_SSE4_1 "Enable SSE4.1 optimizations" ON)
+option(ENGINE_ENABLE_SIMD_SSE4_1 "Enable SSE4.1 optimizations" OFF)
 
 if(ENGINE_ENABLE_SIMD_SSE4_1)
     message("SSE4.1 optimizations allowed")

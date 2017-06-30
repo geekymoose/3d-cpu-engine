@@ -147,7 +147,7 @@ FORCE_INLINE void VectF4::set(VectF4 const& v) {
 // -----------------------------------------------------------------------------
 // Static functions
 // -----------------------------------------------------------------------------
-float VectF4::dotProduct(VectF4 const& v1, VectF4 const& v2) {
+FORCE_INLINE float VectF4::dotProduct(VectF4 const& v1, VectF4 const& v2) {
 #ifdef __SSE4_1__
     return _mm_cvtss_f32(_mm_dp_ps(v1.m128, v2.m128, 0xF1));
 #else
@@ -155,7 +155,7 @@ float VectF4::dotProduct(VectF4 const& v1, VectF4 const& v2) {
 #endif
 }
 
-float VectF4::dotProduct3(VectF4 const& v1, VectF4 const& v2) {
+FORCE_INLINE float VectF4::dotProduct3(VectF4 const& v1, VectF4 const& v2) {
 #ifdef __SSE4_1__
     return _mm_cvtss_f32(_mm_dp_ps(v1.m128, v2.m128, 0x71));
 #else

@@ -114,7 +114,7 @@ FORCE_INLINE void VectF3::set(VectF3 const& v) {
 // -----------------------------------------------------------------------------
 // Static functions
 // -----------------------------------------------------------------------------
-float VectF3::dotProduct(VectF3 const& v1, VectF3 const& v2) {
+FORCE_INLINE float VectF3::dotProduct(VectF3 const& v1, VectF3 const& v2) {
 #ifdef __SSE4_1__
     return _mm_cvtss_f32(_mm_dp_ps(v1.m128, v2.m128, 0x71));
 #else
