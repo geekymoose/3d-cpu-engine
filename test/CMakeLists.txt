@@ -60,7 +60,7 @@ endif()
 # -----------------------------------------------------------------------------
 # Create all test executables
 # -----------------------------------------------------------------------------
-include_directories("${CMAKE_SOURCE_DIR}/src")
+include_directories("${CMAKE_SOURCE_DIR}/include")
 
 add_test_executable("runVectF3_tests"   math/VectF3_Test.cpp)
 add_test_executable("runVectF4_tests"   math/VectF4_Test.cpp)
