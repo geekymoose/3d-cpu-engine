@@ -1,4 +1,3 @@
-
 #ifndef ENGINE_MATH_MATRIXF4_H_
 #define ENGINE_MATH_MATRIXF4_H_
 
@@ -10,13 +9,15 @@
 /**
  * A 4x4 matrix with float components.
  * Use Row vector representation for multiplication and data layout.
+ * Multiplication is done in a left to right order.
+ * Meaning that M1 * M2 * M3 , multiplication order is 1, 2, then 3.
  *
  * \since:  Jun 24, 2017
  * \author: Constantin Masson
  */
 class MatrixF4 {
     public:
-        //Matrix entires indexed by [row][column]
+        //Matrix indexed by [row][column]
         float m[4][4];
 
     public:
@@ -29,17 +30,11 @@ class MatrixF4 {
         // ---------------------------------------------------------------------
 
         /**
-         * Returns the transposition matrix of this matrix
+         * Returns the transposition of this matrix.
          *
-         * \return New Transposition matrix
+         * \return New Transposition matrix.
          */
         MatrixF4 transposition() const;
-
-
-    public:
-        // ---------------------------------------------------------------------
-        // Static functions
-        // ---------------------------------------------------------------------
 
 
     public:
@@ -50,14 +45,14 @@ class MatrixF4 {
         /**
          * Multiply the matrix by another matrix.
          *
-         * \param m Matrix to multiply with
-         * \return New matrix resulting from (this * m)
+         * \param m Matrix to multiply with.
+         * \return New matrix resulting from (this * m).
          */
         MatrixF4 operator*(MatrixF4 const& m) const;
 
         /**
          * Multiply matrix by a scalar.
-         * (Each component is multiplied by s)
+         * (Each component is multiplied by s).
          *
          * \param s Scalar
          * \return New matrix multiplied by the scalar s.
@@ -101,15 +96,15 @@ FORCE_INLINE MatrixF4 MatrixF4::operator*(MatrixF4 const& o) const {
     row2.z = m[1][0]*o.m[0][2] + m[1][1]*o.m[1][2] + m[1][2]*o.m[2][2] + m[1][3]*o.m[3][2];
     row2.w = m[1][0]*o.m[0][3] + m[1][1]*o.m[1][3] + m[1][2]*o.m[2][3] + m[1][3]*o.m[3][3];
     VectF4 row3;
-    row2.x = m[2][0]*o.m[0][0] + m[2][1]*o.m[1][0] + m[2][2]*o.m[2][0] + m[2][3]*o.m[3][0];
-    row2.y = m[2][0]*o.m[0][1] + m[2][1]*o.m[1][1] + m[2][2]*o.m[2][1] + m[2][3]*o.m[3][1];
-    row2.z = m[2][0]*o.m[0][2] + m[2][1]*o.m[1][2] + m[2][2]*o.m[2][2] + m[2][3]*o.m[3][2];
-    row2.w = m[2][0]*o.m[0][3] + m[2][1]*o.m[1][3] + m[2][2]*o.m[2][3] + m[2][3]*o.m[3][3];
+    row3.x = m[2][0]*o.m[0][0] + m[2][1]*o.m[1][0] + m[2][2]*o.m[2][0] + m[2][3]*o.m[3][0];
+    row3.y = m[2][0]*o.m[0][1] + m[2][1]*o.m[1][1] + m[2][2]*o.m[2][1] + m[2][3]*o.m[3][1];
+    row3.z = m[2][0]*o.m[0][2] + m[2][1]*o.m[1][2] + m[2][2]*o.m[2][2] + m[2][3]*o.m[3][2];
+    row3.w = m[2][0]*o.m[0][3] + m[2][1]*o.m[1][3] + m[2][2]*o.m[2][3] + m[2][3]*o.m[3][3];
     VectF4 row4;
-    row2.x = m[3][0]*o.m[0][0] + m[3][1]*o.m[1][0] + m[3][2]*o.m[2][0] + m[3][3]*o.m[3][0];
-    row2.y = m[3][0]*o.m[0][1] + m[3][1]*o.m[1][1] + m[3][2]*o.m[2][1] + m[3][3]*o.m[3][1];
-    row2.z = m[3][0]*o.m[0][2] + m[3][1]*o.m[1][2] + m[3][2]*o.m[2][2] + m[3][3]*o.m[3][2];
-    row2.w = m[3][0]*o.m[0][3] + m[3][1]*o.m[1][3] + m[3][2]*o.m[2][3] + m[3][3]*o.m[3][3];
+    row4.x = m[3][0]*o.m[0][0] + m[3][1]*o.m[1][0] + m[3][2]*o.m[2][0] + m[3][3]*o.m[3][0];
+    row4.y = m[3][0]*o.m[0][1] + m[3][1]*o.m[1][1] + m[3][2]*o.m[2][1] + m[3][3]*o.m[3][1];
+    row4.z = m[3][0]*o.m[0][2] + m[3][1]*o.m[1][2] + m[3][2]*o.m[2][2] + m[3][3]*o.m[3][2];
+    row4.w = m[3][0]*o.m[0][3] + m[3][1]*o.m[1][3] + m[3][2]*o.m[2][3] + m[3][3]*o.m[3][3];
     return MatrixF4(row1, row2, row3, row4);
 }
 
