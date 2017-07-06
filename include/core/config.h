@@ -1,6 +1,5 @@
 /*
  * General project configurations and settings
- *
  * WARNING: for the moment, GCC with Intel processor only supported
  */
 

@@ -46,6 +46,28 @@ namespace {
 // ----------------------------------------------------------------------------
 class MatrixF4Test : public ::testing::Test {
     protected:
+        MatrixF4 m1;
+        MatrixF4 m2;
+        MatrixF4 m3;
+    protected:
+        MatrixF4Test()
+            : m1(
+                VectF4(1,1,1,1),
+                VectF4(1,1,1,1),
+                VectF4(1,1,1,1),
+                VectF4(1,1,1,1)),
+              m2(
+                VectF4(1,42,5,0),
+                VectF4(-2,6,-12,0),
+                VectF4(-2,9,14.5,0),
+                VectF4(-42,42,0,1)),
+              m3(
+                VectF4(1,2,3,4),
+                VectF4(-1,-2.5,-3.2,-4),
+                VectF4(-22.5,8.5,32,-1.5),
+                VectF4(0,0,0,1)){
+
+        }
         virtual void SetUp() {
         }
         virtual void TearDown() {
@@ -57,14 +79,11 @@ class MatrixF4Test : public ::testing::Test {
 // TESTS - MatrixF4 functions
 // -----------------------------------------------------------------------------
 TEST_F(MatrixF4Test, multiply) {
-    MatrixF4 m1(
-            VectF4(1,1,1,1),
-            VectF4(1,1,1,1),
-            VectF4(1,1,1,1),
-            VectF4(1,1,1,1)
-        );
-    MatrixF4 m2 = m1 * m1;
-    ASSERT_MATRIXF4_EQ(m2, 4,4,4,4, 4,4,4,4, 4,4,4,4, 4,4,4,4);
+    ASSERT_MATRIXF4_EQ((m1 * m1), 4,4,4,4, 4,4,4,4, 4,4,4,4, 4,4,4,4);
+    ASSERT_MATRIXF4_EQ((m2 * m3),   -153.5, -60.5, 28.599991, -171.5, 
+                                    262, -121, -409.2, -14, 
+                                    -337.25, 96.75, 429.2, -65.75,
+                                    -84, -189, -260.4, -335);
 }
 
 

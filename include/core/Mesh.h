@@ -11,9 +11,16 @@
  */
 class Mesh {
     public:
+        /** The nice mesh's name */
         std::string name;
+
+        /** All mesh's vertices */
         std::vector<float> vertices;
+
+        /** Mesh's position in 3D world space */
         VectF3 position;
+
+        /** Mesh's rotation */
         VectF3 rotation;
 
     public:
