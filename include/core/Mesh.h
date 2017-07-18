@@ -7,7 +7,8 @@
 
 
 /**
- * Mesh is a set of vertices to be displayed.
+ * Mesh is used to represent a 3D object.
+ * It is made of a set of vertices.
  */
 class Mesh {
     public:
@@ -15,7 +16,7 @@ class Mesh {
         std::string name;
 
         /** All mesh's vertices */
-        std::vector<float> vertices;
+        std::vector<VectF3> vertices;
 
         /** Mesh's position in 3D world space */
         VectF3 position;

@@ -6,6 +6,7 @@
 #include "core/debug.h"
 #include "core/Mesh.h"
 #include "core/Camera.h"
+#include "sdl/SDLApp.h"
 
 
 int main(int argc, char**argv){
@@ -18,5 +19,9 @@ int main(int argc, char**argv){
     MatrixF4 m1;
     Camera camera;
     Mesh cube("A Nice Cube");
+
+    SDLApp app;
+    app.initApp();
+    app.runApp();
     return EXIT_SUCCESS;
 }

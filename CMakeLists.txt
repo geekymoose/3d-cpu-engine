@@ -40,9 +40,16 @@ endif()
 
 
 # -----------------------------------------------------------------------------
+# Dependencies
+# -----------------------------------------------------------------------------
+#add_definitions(-lSDL2)
+include(CMake/Dependencies.cmake)
+
+
+# -----------------------------------------------------------------------------
 # Unit Test options
 # -----------------------------------------------------------------------------
-option(ENGINE_TEST_ENABLE "Build Unit tests" ON)
+option(ENGINE_TEST_ENABLE "Build Unit tests" OFF)
 
 if(ENGINE_TEST_ENABLE)
     message("Test enabled")
