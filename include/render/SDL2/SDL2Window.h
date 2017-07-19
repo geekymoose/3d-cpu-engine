@@ -13,8 +13,8 @@ class SDL2Window {
         //----------------------------------------------------------------------
         // Constants - Attributes
         //----------------------------------------------------------------------
-        SDL_Window*     window; // The famous SDL windows
-        SDL_Surface*    screen; // The window surface where to draw
+        SDL_Window*     window; // The famous SDL window
+        SDL_Renderer*   renderer; // Renderer for this window
         char*           title;
         int             width;
         int             height;

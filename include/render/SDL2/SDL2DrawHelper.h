@@ -7,13 +7,13 @@
 /**
  * Abstract class for Drawing utilities with SDL2.
  *
+ * Note: for performance, none of these functions actually lock the surface.
  */
 class SDL2DrawHelper {
     private:
         SDL2DrawHelper();
 
     public:
-        /** TODO To document */
         static void clearSurface(SDL_Surface* surface);
 };
 

@@ -35,11 +35,8 @@ bool Engine::startRendering(){
 }
 
 bool Engine::renderOneFrame(){
-    // Refresh background to white
-    SDL2DrawHelper::clearSurface(window.screen);
-
-    // Update window
-    SDL_UpdateWindowSurface(window.window);
+    SDL_RenderClear(this->window.renderer);
+    SDL_RenderPresent(this->window.renderer);
     return true;
 }
 
@@ -54,3 +51,6 @@ void Engine::handleEvent(SDL_Event* sdlevent){
         this->stopRendering();
     }
 }
+
+
+

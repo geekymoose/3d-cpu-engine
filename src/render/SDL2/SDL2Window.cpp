@@ -6,7 +6,7 @@
 //------------------------------------------------------------------------------
 SDL2Window::SDL2Window(){
     this->window    = NULL;
-    this->screen    = NULL;
+    this->renderer  = NULL;
     this->width     = 0;
     this->height    = 0;
     this->left      = SDL_WINDOWPOS_UNDEFINED;
@@ -25,7 +25,7 @@ bool SDL2Window::showWindow(const char* title, const int w, const int h) {
 bool SDL2Window::showWindow(const char* title, const int w, const int h, const int l, const int t) {
     // Set values
     this->window    = NULL;
-    this->screen    = NULL;
+    this->renderer  = NULL;
     this->width     = w;
     this->height    = h;
     this->left      = l;
@@ -38,18 +38,23 @@ bool SDL2Window::showWindow(const char* title, const int w, const int h, const i
         return false;
     }
 
-    // Load SDL_Surface from the window
-    this->screen = SDL_GetWindowSurface(window);
-    SDL_FillRect(this->screen, NULL, SDL_MapRGB(screen->format, 0xFF, 0xFF, 0xFF));
-    SDL_UpdateWindowSurface(this->window);
+    // Load renderer
+    this->renderer = SDL_CreateRenderer(this->window, -1, 0);
+    if(this->renderer == NULL){
+        std::clog << "[ERR] Unable to start SDL window. SDL_Error: " << SDL_GetError() << std::endl;
+        return false;
+    }
     return true;
 }
 
 bool SDL2Window::closeWindow(){
-    SDL_FreeSurface(screen);
-    SDL_DestroyWindow(window);
+    SDL_DestroyRenderer(this->renderer);
+    SDL_DestroyWindow(this->window);
     SDL_Quit();
     this->window = NULL;
-    this->screen = NULL;
+    this->renderer = NULL;
     return true;
 }
+
+
+
