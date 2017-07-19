@@ -2,6 +2,7 @@
 #define ENGINE_CORE_ENGINE_H_
 
 #include "render/SDL2/SDL2Window.h"
+#include "render/SDL2/SDL2DrawHelper.h"
 
 /**
  * The core engine that runs the rendering.
@@ -9,7 +10,6 @@
 class Engine {
     private:
         bool isRunning;
-        // float depthBuffer[];
         SDL2Window window;
 
     public:

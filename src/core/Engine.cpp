@@ -26,18 +26,20 @@ bool Engine::startRendering(){
     // Main loop
     SDL_Event sdlevent;
     while(isRunning){
+        renderOneFrame();
         while(SDL_PollEvent(&sdlevent)){
             handleEvent(&sdlevent);
         }
-        renderOneFrame();
     }
     return true;
 }
 
 bool Engine::renderOneFrame(){
     // Refresh background to white
-    // SDL_FillRect(screen, NULL, SDL_MapRGB(screen->format, 0x00, 0x00, 0x00));
-    // SDL_UpdateWindowSurface(window);
+    SDL2DrawHelper::clearSurface(window.screen);
+
+    // Update window
+    SDL_UpdateWindowSurface(window.window);
     return true;
 }
 

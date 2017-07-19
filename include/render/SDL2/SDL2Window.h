@@ -21,6 +21,8 @@ class SDL2Window {
         int             left;
         int             top;
 
+        friend class    Engine;
+
     public:
         //----------------------------------------------------------------------
         // Constructors - Destructor
