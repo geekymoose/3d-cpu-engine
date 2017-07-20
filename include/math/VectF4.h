@@ -5,7 +5,7 @@
 #include <iostream>
 #include <cmath>
 #ifdef __SSE4_1__
-    #include <x86intrin.h>
+#   include <x86intrin.h>
 #endif
 
 // Project includes
