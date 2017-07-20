@@ -15,6 +15,7 @@ class SDL2Window {
         //----------------------------------------------------------------------
         SDL_Window*     window; // The famous SDL window
         SDL_Renderer*   renderer; // Renderer for this window
+        SDL_Texture*    texture; // Texture used with the renderer
         char*           title;
         int             width;
         int             height;

@@ -1,7 +1,7 @@
 #include "core/Engine.h"
 
 
-Engine::Engine(){
+Engine::Engine() : backbuffer() {
     this->isRunning = false;
 }
 
@@ -15,7 +15,7 @@ bool Engine::init(){
         std::clog << "[ERR] Unable to init Window. SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
-    return window.showWindow("3D soft Engine", 960, 540);
+    return window.showWindow("3D soft Engine", WINDOW_WIDTH, WINDOW_HEIGHT); // Open SDL Window
 }
 
 bool Engine::startRendering(){
@@ -35,7 +35,10 @@ bool Engine::startRendering(){
 }
 
 bool Engine::renderOneFrame(){
+    // Last value is the pitch. Here, pixel are 32 bits of size so pitch is 4bytes * width
+    SDL_UpdateTexture(this->window.texture, NULL, this->backbuffer, this->window.width * sizeof(int));
     SDL_RenderClear(this->window.renderer);
+    SDL_RenderCopy(this->window.renderer, this->window.texture, NULL, NULL);
     SDL_RenderPresent(this->window.renderer);
     return true;
 }
