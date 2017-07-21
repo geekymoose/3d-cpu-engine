@@ -17,8 +17,10 @@
  */
 class MatrixF4 {
     public:
-        //Matrix indexed by [row][column]
-        float m[4][4];
+        // Matrix indexed by [row][column]
+        float m[4][4] GCC_ALIGNED(16);
+
+        static const MatrixF4 IDENTITY;
 
     public:
         MatrixF4();
@@ -35,6 +37,8 @@ class MatrixF4 {
          * \return New Transposition matrix.
          */
         MatrixF4 transposition() const;
+
+        float determinant() const;
 
 
     public:
@@ -58,7 +62,7 @@ class MatrixF4 {
          * \return New matrix multiplied by the scalar s.
          */
         MatrixF4 operator*(float const s) const;
-} GCC_ALIGNED(16);
+};
 
 
 #include "MatrixF4.inl"

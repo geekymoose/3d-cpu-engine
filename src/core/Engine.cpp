@@ -1,7 +1,7 @@
 #include "core/Engine.h"
 
 
-Engine::Engine() : backbuffer() {
+Engine::Engine() : renderWindow() {
     this->isRunning = false;
 }
 
@@ -11,11 +11,18 @@ Engine::Engine() : backbuffer() {
 
 bool Engine::init(){
     //Init SDL
+    // TODO To export from Engine to a general 'init manager' or something like
     if(SDL_Init(SDL_INIT_EVERYTHING) != 0){
         std::clog << "[ERR] Unable to init Window. SDL_Error: " << SDL_GetError() << std::endl;
         return false;
     }
-    return window.showWindow("3D soft Engine", WINDOW_WIDTH, WINDOW_HEIGHT); // Open SDL Window
+    renderWindow.initialize("3D soft Engine", WINDOW_DEFAULT_SIZE_W, WINDOW_DEFAULT_SIZE_H);
+    renderWindow.show();
+    return true;
+}
+
+void destroy(){
+    SDL_Quit();
 }
 
 bool Engine::startRendering(){
@@ -35,17 +42,19 @@ bool Engine::startRendering(){
 }
 
 bool Engine::renderOneFrame(){
-    // Last value is the pitch. Here, pixel are 32 bits of size so pitch is 4bytes * width
-    SDL_UpdateTexture(this->window.texture, NULL, this->backbuffer, this->window.width * sizeof(int));
-    SDL_RenderClear(this->window.renderer);
-    SDL_RenderCopy(this->window.renderer, this->window.texture, NULL, NULL);
-    SDL_RenderPresent(this->window.renderer);
+    // TODO Texture may be not used finally (To delete later)
+    SDL_Renderer*   renderer    = this->renderWindow.sdl_renderer;
+    //SDL_Texture*    texture     = this->renderWindow.sdl_texture;
+    //SDL_UpdateTexture(texture, NULL, pixels, w * format);
+    SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
+    SDL_RenderClear(renderer);
+    //SDL_RenderCopy(renderer, texture, NULL, NULL);
+    SDL_RenderPresent(renderer);
     return true;
 }
 
 bool Engine::stopRendering(){
     this->isRunning = false;
-    this->window.closeWindow();
     return true;
 }
 

@@ -2,12 +2,14 @@
 #define ENGINE_CORE_ENGINE_H_
 
 #include <SDL2/SDL.h>
-#include "render/SDL2/SDL2Window.h"
-#include "render/SDL2/SDL2DrawHelper.h"
+#include "render/AppWindow.h"
+#include "render/SDL2/AppWindowSDL2.h"
 
-// TODO: works for now, but we can't resize window then
-#define WINDOW_WIDTH 960
-#define WINDOW_HEIGHT 540
+
+// TODO Probably to change later
+// Default window value
+#define WINDOW_DEFAULT_SIZE_W 960
+#define WINDOW_DEFAULT_SIZE_H 540
 
 /**
  * The core engine that runs the rendering.
@@ -15,8 +17,7 @@
 class Engine {
     private:
         bool isRunning;
-        SDL2Window window;
-        int backbuffer[WINDOW_WIDTH * WINDOW_HEIGHT]; // TODO Assumed to be 32 bits of size for now
+        AppWindowSDL2 renderWindow;
 
     public:
         Engine();
@@ -25,6 +26,7 @@ class Engine {
         bool init();
         bool startRendering();
         bool stopRendering();
+        void destroy();
 
     private:
         bool renderOneFrame();
