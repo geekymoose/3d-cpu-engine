@@ -10,14 +10,18 @@
  * A 4x4 matrix with float components.
  *
  * \remarks
- * Matrix multiplication with Vector use a 'Row vector' representation.
- * This means a multiplication with a vector V is done in the right to left order.
+ * Matrix multiplication with Vector use a 'Column vector' transformation.
+ * This means a multiplication with a vector V is done in the right-to-left order.
  * For instance, M1 * M2 * M3 * Vect will actually calculate M3 * V1 first.
  * This is an illustration of the final calculation: (M1 * (M2 * (M3 * V1) ) )
  *
  * \par
  * Order is important since matrix multiplication is not commutative.
- * Right to left order is the common representation used by OpenGL for instance.
+ * Right-to-left order is the common representation used by OpenGL for instance.
+ *
+ * \par
+ * Matrix is stored contiguously in memory in a row fashion:
+ * each row contains a single vector.
  *
  * \since:  Jun 24, 2017
  * \author: Constantin Masson
@@ -27,7 +31,11 @@ class MatrixF4 {
         // Matrix indexed by [row][column]
         float _m[4][4] GCC_ALIGNED(16);
 
+        // Identity Matrix
         static const MatrixF4 IDENTITY;
+
+        // Matrix filled with 0
+        static const MatrixF4 ZERO;
 
     public:
         MatrixF4();
@@ -45,6 +53,7 @@ class MatrixF4 {
 
         /**
          * Returns the transposition of this matrix.
+         * Transposition if a matrix as new matrix m[i][j] = this[j][i].
          *
          * \return New Transposition matrix.
          */
