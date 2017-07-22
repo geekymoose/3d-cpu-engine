@@ -39,12 +39,9 @@ class VectF3Test : public ::testing::Test {
               v2(5.5f, 3.5f, -1.0f),
               v3(-10.0f, 2.1f, -2.1f){
         }
-        virtual ~VectF3Test() {
-        }
-        virtual void SetUp() {
-        }
-        virtual void TearDown() {
-        }
+        virtual ~VectF3Test() {}
+        virtual void SetUp() {}
+        virtual void TearDown() {}
 };
 
 

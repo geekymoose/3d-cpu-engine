@@ -43,12 +43,9 @@ class VectF4Test : public ::testing::Test {
               v2(5.5f, 3.5f, -1.0f, 10.0f),
               v3(-10.0f, 2.1f, -2.1f, -2.8f){
         }
-        virtual ~VectF4Test() {
-        }
-        virtual void SetUp() {
-        }
-        virtual void TearDown() {
-        }
+        virtual ~VectF4Test() {}
+        virtual void SetUp() {}
+        virtual void TearDown() {}
 };
 
 

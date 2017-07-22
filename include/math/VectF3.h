@@ -72,7 +72,10 @@ class VectF3 {
 
         /**
          * Returns a normalized copy of this vector.
-         * Vector shouldn't be null (No check done here).
+         *
+         * \warning
+         * Function will crash if vector length is zero!
+         * Not verification is done for performance.
          *
          * \return The normalized vector.
          */

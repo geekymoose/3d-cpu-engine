@@ -73,10 +73,8 @@ class MatrixF4Test : public ::testing::Test {
                 VectF4(-22.5,   8.5,   32,     -1.5),
                 VectF4(0,       0,      0,      1)) {
         }
-        virtual void SetUp() {
-        }
-        virtual void TearDown() {
-        }
+        virtual void SetUp() {}
+        virtual void TearDown() {}
 };
 
 

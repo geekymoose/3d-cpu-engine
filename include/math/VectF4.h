@@ -89,7 +89,10 @@ class VectF4 {
 
         /**
          * Returns a normalized copy of this vector.
-         * Vector shouldn't be null (No check done here).
+         *
+         * \warning
+         * Function will crash if vector length is zero!
+         * Not verification is done for performance.
          *
          * \return The normalized vector.
          */
@@ -97,8 +100,11 @@ class VectF4 {
 
         /**
          * Returns a normalized copy of this vector without taking W axis into account.
-         * Vector shouldn't be null (No check done here).
          * W axis is set to 0.
+         *
+         * \warning
+         * Function will crash if vector length3 is zero!
+         * Not verification is done for performance.
          *
          * \return The normalized vector.
          */
