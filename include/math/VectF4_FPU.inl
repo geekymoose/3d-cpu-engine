@@ -1,6 +1,7 @@
 // =============================================================================
 // INLINE.
 // FPU Implementation. This is the common Vector implementation.
+// Author: Constantin Masson
 // =============================================================================
 
 

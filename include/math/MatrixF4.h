@@ -8,9 +8,16 @@
 
 /**
  * A 4x4 matrix with float components.
- * Use Row vector representation for multiplication and data layout.
- * Multiplication is done in a left to right order.
- * Meaning that M1 * M2 * M3 , multiplication order is 1, 2, then 3.
+ *
+ * \remarks
+ * Matrix multiplication with Vector use a 'Row vector' representation.
+ * This means a multiplication with a vector V is done in the right to left order.
+ * For instance, M1 * M2 * M3 * Vect will actually calculate M3 * V1 first.
+ * This is an illustration of the final calculation: (M1 * (M2 * (M3 * V1) ) )
+ *
+ * \par
+ * Order is important since matrix multiplication is not commutative.
+ * Right to left order is the common representation used by OpenGL for instance.
  *
  * \since:  Jun 24, 2017
  * \author: Constantin Masson
@@ -18,7 +25,7 @@
 class MatrixF4 {
     public:
         // Matrix indexed by [row][column]
-        float m[4][4] GCC_ALIGNED(16);
+        float _m[4][4] GCC_ALIGNED(16);
 
         static const MatrixF4 IDENTITY;
 
@@ -38,8 +45,6 @@ class MatrixF4 {
          */
         MatrixF4 transposition() const;
 
-        float determinant() const;
-
 
     public:
         // ---------------------------------------------------------------------
@@ -55,13 +60,33 @@ class MatrixF4 {
         MatrixF4 operator*(MatrixF4 const& m) const;
 
         /**
+         * Multiply the matrix with a Vector.
+         * Use row vector representation, so multiplication is done in Right to Left order.
+         * (See remark for several informations).
+         *
+         * \param v Vector to multiply with.
+         * \return New vector V2 = matrix * v.
+         */
+        VectF4 operator*(VectF4 const& v) const;
+
+        /**
          * Multiply matrix by a scalar.
          * (Each component is multiplied by s).
          *
-         * \param s Scalar
+         * \param s Scalar.
          * \return New matrix multiplied by the scalar s.
          */
         MatrixF4 operator*(float const s) const;
+
+        /**
+         * Test equality of 2 matrix.
+         * This test if both matrix contains same values.
+         * (This doesn't check matrix are the same memory entity).
+         *
+         * \param m Matrix to test with.
+         * \return True if this == m, otherwise, return false.
+         */
+        bool operator==(MatrixF4 const& m) const;
 };
 
 

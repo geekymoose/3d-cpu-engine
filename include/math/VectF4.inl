@@ -1,6 +1,7 @@
 // =============================================================================
 // INLINE.
 // General inlined definitions for Vector. (Common for SSE, FPU etc).
+// Author: Constantin Masson
 // =============================================================================
 
 
