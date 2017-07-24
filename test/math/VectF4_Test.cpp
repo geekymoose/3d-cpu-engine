@@ -50,6 +50,11 @@ class VectF4Test : public ::testing::Test {
 
 
 // -----------------------------------------------------------------------------
+// TESTS - VectF4 constructors
+// -----------------------------------------------------------------------------
+
+
+// -----------------------------------------------------------------------------
 // TESTS - VectF4 functions
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, length) {
@@ -80,31 +85,31 @@ TEST_F(VectF4Test, squareLength3) {
     ASSERT_FLOAT_EQ(v3.squareLength3(), 108.82);
 }
 
-TEST_F(VectF4Test, normalize) {
-    ASSERT_VECTF4_VALUES_EQ(v1.normalize(), 0.1825742, 0.3651484, 0.5477226, 0.7302967);
-    ASSERT_VECTF4_VALUES_EQ(v2.normalize(), 0.4591311, 0.2921744, -0.0834784, 0.8347839);
-    ASSERT_VECTF4_VALUES_EQ(v3.normalize(), -0.9258466, 0.1944278, -0.1944278, -0.259237);
+TEST_F(VectF4Test, getNormalFast) {
+    ASSERT_VECTF4_VALUES_EQ(v1.getNormalFast(), 0.1825742, 0.3651484, 0.5477226, 0.7302967);
+    ASSERT_VECTF4_VALUES_EQ(v2.getNormalFast(), 0.4591311, 0.2921744, -0.0834784, 0.8347839);
+    ASSERT_VECTF4_VALUES_EQ(v3.getNormalFast(), -0.9258466, 0.1944278, -0.1944278, -0.259237);
 }
 
-TEST_F(VectF4Test, normalize3) {
-    ASSERT_VECTF4_VALUES_EQ(v1.normalize3(), 0.2672612, 0.5345225, 0.8017837, 0);
-    ASSERT_VECTF4_VALUES_EQ(v2.normalize3(), 0.8339078, 0.5306686, -0.1516196, 0);
-    ASSERT_VECTF4_VALUES_EQ(v3.normalize3(), -0.9586181, 0.2013098, -0.2013098, 0);
+TEST_F(VectF4Test, getNormalFast3) {
+    ASSERT_VECTF4_VALUES_EQ(v1.getNormalFast3(), 0.2672612, 0.5345225, 0.8017837, 0);
+    ASSERT_VECTF4_VALUES_EQ(v2.getNormalFast3(), 0.8339078, 0.5306686, -0.1516196, 0);
+    ASSERT_VECTF4_VALUES_EQ(v3.getNormalFast3(), -0.9586181, 0.2013098, -0.2013098, 0);
 }
 
-TEST_F(VectF4Test, crossProduct3) {
+TEST_F(VectF4Test, getCrossProduct) {
     // v1
-    ASSERT_VECTF4_VALUES_EQ(v1.crossProduct3(v1), 0,0,0,0);
-    ASSERT_VECTF4_VALUES_EQ(v1.crossProduct3(v2), -12.5, 17.5, -7.5, 0);
-    ASSERT_VECTF4_VALUES_EQ(v1.crossProduct3(v3), -10.5, -27.9, 22.1, 0);
+    ASSERT_VECTF4_VALUES_EQ(v1.getCrossProduct(v1), 0,0,0,0);
+    ASSERT_VECTF4_VALUES_EQ(v1.getCrossProduct(v2), -12.5, 17.5, -7.5, 0);
+    ASSERT_VECTF4_VALUES_EQ(v1.getCrossProduct(v3), -10.5, -27.9, 22.1, 0);
     // v2
-    ASSERT_VECTF4_VALUES_EQ(v2.crossProduct3(v1), 12.5, -17.5, 7.5, 0);
-    ASSERT_VECTF4_VALUES_EQ(v2.crossProduct3(v2), 0,0,0,0);
-    ASSERT_VECTF4_VALUES_EQ(v2.crossProduct3(v3), -5.25, 21.55, 46.55, 0);
+    ASSERT_VECTF4_VALUES_EQ(v2.getCrossProduct(v1), 12.5, -17.5, 7.5, 0);
+    ASSERT_VECTF4_VALUES_EQ(v2.getCrossProduct(v2), 0,0,0,0);
+    ASSERT_VECTF4_VALUES_EQ(v2.getCrossProduct(v3), -5.25, 21.55, 46.55, 0);
     // v3
-    ASSERT_VECTF4_VALUES_EQ(v3.crossProduct3(v1), 10.5, 27.9, -22.1, 0);
-    ASSERT_VECTF4_VALUES_EQ(v3.crossProduct3(v2), 5.25, -21.55, -46.55, 0);
-    ASSERT_VECTF4_VALUES_EQ(v3.crossProduct3(v3), 0,0,0,0);
+    ASSERT_VECTF4_VALUES_EQ(v3.getCrossProduct(v1), 10.5, 27.9, -22.1, 0);
+    ASSERT_VECTF4_VALUES_EQ(v3.getCrossProduct(v2), 5.25, -21.55, -46.55, 0);
+    ASSERT_VECTF4_VALUES_EQ(v3.getCrossProduct(v3), 0,0,0,0);
 }
 
 
@@ -163,7 +168,7 @@ TEST_F(VectF4Test, notequal) {
     ASSERT_TRUE(v3!=v2);
 }
 
-TEST_F(VectF4Test, multiply) {
+TEST_F(VectF4Test, multiply_scalar) {
     // v0
     VectF4 vt1 = v0 * 13.3;
     VectF4 vt2 = v0 * -9.2;
@@ -194,7 +199,7 @@ TEST_F(VectF4Test, multiply) {
     ASSERT_VECTF4_VALUES_EQ(vt3, -49.0, 10.29, -10.29, -13.72);
 }
 
-TEST_F(VectF4Test, divide) {
+TEST_F(VectF4Test, divide_scalar) {
     float s1 = 13.3;
     float s2 = -9.2;
     float s3 = 4.9;
@@ -231,7 +236,7 @@ TEST_F(VectF4Test, add) {
     ASSERT_VECTF4_VALUES_EQ((v3 + v3), -20, 4.2, -4.2, -5.6);
 }
 
-TEST_F(VectF4Test, substract) {
+TEST_F(VectF4Test, substract_vector) {
     // v1
     ASSERT_VECTF4_VALUES_EQ((v1 - v1), 0,0,0,0);
     ASSERT_VECTF4_VALUES_EQ((v1 - v2), -4.5, -1.5, 4, -6);
@@ -251,7 +256,7 @@ TEST_F(VectF4Test, substract) {
 // Operators overload TESTS (Others)
 // -----------------------------------------------------------------------------
 
-TEST_F(VectF4Test, multiplyinplace) {
+TEST_F(VectF4Test, multiply_scalar_inplace) {
     v0 *= 13.3;
     v1 *= -9.2;
     v2 *= 4.9;
@@ -262,7 +267,7 @@ TEST_F(VectF4Test, multiplyinplace) {
     ASSERT_VECTF4_VALUES_EQ(v3, -133.0, 27.93, -27.93, -37.24);
 }
 
-TEST_F(VectF4Test, divideinplace) {
+TEST_F(VectF4Test, divide_scalar_inplace) {
     v0 /= 13.3;
     v1 /= -9.2;
     v2 /= 13.3;
@@ -273,14 +278,14 @@ TEST_F(VectF4Test, divideinplace) {
     ASSERT_VECTF4_VALUES_EQ(v3, -2.0408163, 0.4285714, -0.4285714, -0.5714286);
 }
 
-TEST_F(VectF4Test, addinplace) {
+TEST_F(VectF4Test, add_vector_inplace) {
     v1 += v1;
     v2 += v3;
     ASSERT_VECTF4_VALUES_EQ(v1, 2, 4, 6, 8);
     ASSERT_VECTF4_VALUES_EQ(v2, -4.5, 5.6, -3.1, 7.2);
 }
 
-TEST_F(VectF4Test, substractinplace) {
+TEST_F(VectF4Test, subtract_vector_inplace) {
     v2 -= v1;
     v3 -= v3;
     ASSERT_VECTF4_VALUES_EQ(v2, 4.5, 1.5, -4, 6);
