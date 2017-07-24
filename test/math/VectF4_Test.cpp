@@ -50,7 +50,7 @@ class VectF4Test : public ::testing::Test {
 
 
 // -----------------------------------------------------------------------------
-// TESTS - VectF4 constructors / Setters
+// Constructors / Setters
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, constructors) {
     VectF4 vec1(42);
@@ -68,7 +68,7 @@ TEST_F(VectF4Test, setters) {
 
 
 // -----------------------------------------------------------------------------
-// TESTS - VectF4 functions
+// Class functions
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, length) {
     ASSERT_FLOAT_EQ(v0.length(), 0);
@@ -136,7 +136,7 @@ TEST_F(VectF4Test, getCrossProduct) {
 
 
 // -----------------------------------------------------------------------------
-// TESTS - VectF4 static functions
+// Static functions
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, dotProduct) {
     // v1
@@ -185,7 +185,7 @@ TEST_F(VectF4Test, crossProduct) {
 
 
 // -----------------------------------------------------------------------------
-// TESTS - Operators overload
+// Operators overload
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, multiply_scalar) {
     float s1 = 13.3;
@@ -285,9 +285,8 @@ TEST_F(VectF4Test, substract_vector) {
 
 
 // -----------------------------------------------------------------------------
-// Operators overload TESTS (Others)
+// Operators overload (Inplace)
 // -----------------------------------------------------------------------------
-
 TEST_F(VectF4Test, multiply_scalar_inplace) {
     v0 *= 13.3;
     v1 *= -9.2;
@@ -354,6 +353,10 @@ TEST_F(VectF4Test, subtract_vector_inplace) {
     ASSERT_VECTF4_VALUES_EQ(v3, 0,0,0,0);
 }
 
+
+// -----------------------------------------------------------------------------
+// Operators overload (Other)
+// -----------------------------------------------------------------------------
 TEST_F(VectF4Test, equal) {
     ASSERT_TRUE(v0==v0);
     ASSERT_TRUE(v1==v1);
@@ -372,8 +375,15 @@ TEST_F(VectF4Test, notequal) {
     ASSERT_TRUE(v3!=v2);
 }
 
+TEST_F(VectF4Test, access_operator) {
+    ASSERT_EQ(v0[2], 0);
+    ASSERT_EQ(v1[3], 4);
+    ASSERT_EQ(v3[0], -10);
+}
+
 
 
 } // End namespace
+
 
 
