@@ -93,7 +93,7 @@ FORCE_INLINE VectF4 VectF4::crossProduct(VectF4 const& v1, VectF4 const& v2) {
                 _mm_shuffle_ps(v1.m128, v1.m128, _MM_SHUFFLE(3,0,2,1)),
                 _mm_shuffle_ps(v2.m128, v2.m128, _MM_SHUFFLE(3,1,0,2))),
             _mm_mul_ps(
-                _mm_shuffle_ps(v1->m128, v1->m128, _MM_SHUFFLE(3,1,0,2)),
+                _mm_shuffle_ps(v1.m128, v1.m128, _MM_SHUFFLE(3,1,0,2)),
                 _mm_shuffle_ps(v2.m128, v2.m128, _MM_SHUFFLE(3,0,2,1))));
     rabit[3] = 0; // Set w to 0 (crossProduct only on 3 axis)
     return VectF4(rabit);
@@ -132,7 +132,7 @@ FORCE_INLINE VectF4 VectF4::operator/(float const s) const {
 }
 
 FORCE_INLINE VectF4 VectF4::operator/(VectF4 const& v) const {
-    return VectF4(_mm_mul_ps(this->m128, v.m128));
+    return VectF4(_mm_div_ps(this->m128, v.m128));
 }
 
 FORCE_INLINE VectF4 VectF4::operator+(float const s) const {
