@@ -382,8 +382,9 @@ class VectF4 {
          * Gets a copy of the component at requested position.
          *
          * \warning
-         * Must be between 0 and 3 or program will crash.
+         * Index must be in ranger, otherwise this function will crash.
          * For performance raison, no check is done.
+         *
          * \return Copy of component v[index].
          */
         float operator[](const size_t index) const;
@@ -392,8 +393,9 @@ class VectF4 {
          * Gets a reference to the  component at requested position.
          *
          * \warning
-         * Must be between 0 and 3 or program will crash.
+         * Index must be in ranger, otherwise this function will crash.
          * For performance raison, no check is done.
+         *
          * \return Reference to component v[index].
          */
         float& operator[](const size_t index);

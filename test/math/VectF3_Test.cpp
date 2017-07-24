@@ -62,25 +62,25 @@ TEST_F(VectF3Test, squareLength) {
     ASSERT_FLOAT_EQ(v3.squareLength(), 108.82);
 }
 
-TEST_F(VectF3Test, normalize) {
-    ASSERT_VECTF3_VALUES_EQ(v1.normalize(), 0.2672612, 0.5345225, 0.8017837);
-    ASSERT_VECTF3_VALUES_EQ(v2.normalize(), 0.8339078, 0.5306686, -0.1516196);
-    ASSERT_VECTF3_VALUES_EQ(v3.normalize(), -0.9586181, 0.2013098, -0.2013098);
+TEST_F(VectF3Test, getNormalFast) {
+    ASSERT_VECTF3_VALUES_EQ(v1.getNormalFast(), 0.2672612, 0.5345225, 0.8017837);
+    ASSERT_VECTF3_VALUES_EQ(v2.getNormalFast(), 0.8339078, 0.5306686, -0.1516196);
+    ASSERT_VECTF3_VALUES_EQ(v3.getNormalFast(), -0.9586181, 0.2013098, -0.2013098);
 }
 
-TEST_F(VectF3Test, crossProduct) {
+TEST_F(VectF3Test, getCrossProduct) {
     // v1
-    ASSERT_VECTF3_VALUES_EQ(v1.crossProduct(v1), 0,0,0);
-    ASSERT_VECTF3_VALUES_EQ(v1.crossProduct(v2), -12.5, 17.5, -7.5);
-    ASSERT_VECTF3_VALUES_EQ(v1.crossProduct(v3), -10.5, -27.9, 22.1);
+    ASSERT_VECTF3_VALUES_EQ(v1.getCrossProduct(v1), 0,0,0);
+    ASSERT_VECTF3_VALUES_EQ(v1.getCrossProduct(v2), -12.5, 17.5, -7.5);
+    ASSERT_VECTF3_VALUES_EQ(v1.getCrossProduct(v3), -10.5, -27.9, 22.1);
     // v2
-    ASSERT_VECTF3_VALUES_EQ(v2.crossProduct(v1), 12.5, -17.5, 7.5);
-    ASSERT_VECTF3_VALUES_EQ(v2.crossProduct(v2), 0,0,0);
-    ASSERT_VECTF3_VALUES_EQ(v2.crossProduct(v3), -5.25, 21.55, 46.55);
+    ASSERT_VECTF3_VALUES_EQ(v2.getCrossProduct(v1), 12.5, -17.5, 7.5);
+    ASSERT_VECTF3_VALUES_EQ(v2.getCrossProduct(v2), 0,0,0);
+    ASSERT_VECTF3_VALUES_EQ(v2.getCrossProduct(v3), -5.25, 21.55, 46.55);
     // v3
-    ASSERT_VECTF3_VALUES_EQ(v3.crossProduct(v1), 10.5, 27.9, -22.1);
-    ASSERT_VECTF3_VALUES_EQ(v3.crossProduct(v2), 5.25, -21.55, -46.55);
-    ASSERT_VECTF3_VALUES_EQ(v3.crossProduct(v3), 0,0,0);
+    ASSERT_VECTF3_VALUES_EQ(v3.getCrossProduct(v1), 10.5, 27.9, -22.1);
+    ASSERT_VECTF3_VALUES_EQ(v3.getCrossProduct(v2), 5.25, -21.55, -46.55);
+    ASSERT_VECTF3_VALUES_EQ(v3.getCrossProduct(v3), 0,0,0);
 }
 
 TEST_F(VectF3Test, dotProduct) {

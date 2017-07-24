@@ -46,20 +46,20 @@ FORCE_INLINE float VectF4::squareLength3() const {
 
 FORCE_INLINE VectF4 VectF4::getNormalFast() const {
     __m128 l    = _mm_sqrt_ps(_mm_dp_ps(this->m128, this->m128, 0xFF));
-    __m128 res  = _mm_div_ps(this->m128,l);
+    __m128 res  = _mm_div_ps(this->m128, l);
     return VectF4(res);
 }
 
 FORCE_INLINE VectF4 VectF4::getNormalFast3() const {
     __m128 l    = _mm_sqrt_ps(_mm_dp_ps(this->m128, this->m128, 0x7F));
-    __m128 res  = _mm_div_ps(this->m128,l);
+    __m128 res  = _mm_div_ps(this->m128, l);
     res[3]      = 0.0f; // Set w to 0
     return VectF4(res);
 }
 
 FORCE_INLINE void VectF4::normalizeFast() {
     __m128 l    = _mm_sqrt_ps(_mm_dp_ps(this->m128, this->m128, 0xFF));
-    __m128 res  = _mm_div_ps(this->m128,l);
+    __m128 res  = _mm_div_ps(this->m128, l);
     this->set(res);
 }
 
