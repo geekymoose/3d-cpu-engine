@@ -70,16 +70,44 @@ class MatrixTransform {
         static MatrixF4 creaScale(const float sx, const float sy, const float sz);
 
         /**
-         * Create a rotation matrix on x axes.
+         * Create a rotation matrix on the x axe.
          *
-         * \param angle The X rotation in radians.
+         * \param angle The x rotation in radians.
          * \return The new rotation matrix.
          */
         static MatrixF4 creaRotateX(const float angle);
 
+        /**
+         * Create a rotation matrix on the y axe.
+         *
+         * \param angle The y rotation angle in radians.
+         * \return The new rotation matrix.
+         */
         static MatrixF4 creaRotateY(const float angle);
 
+        /**
+         * Create a rotation matrix on the z axe.
+         *
+         * \param angle The z rotation angle in radians.
+         * \return The new rotation matrix.
+         */
         static MatrixF4 creaRotateZ(const float angle);
+
+        /**
+         * Create a rotation matrix on the 3 axes.
+         *
+         * \param angle The x rotation angle in radians.
+         * \param angle The y rotation angle in radians.
+         * \param angle The z rotation angle in radians.
+         * \return The new rotation matrix.
+         */
+        static MatrixF4 creaRotateXYZ(const float rx, const float ry, const float rz);
+
+        /**
+         * Create a LookAt matrix.
+         * TODO Documentation to add
+         */
+        static MatrixF4 creaLookAt(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& Up);
 };
 
 

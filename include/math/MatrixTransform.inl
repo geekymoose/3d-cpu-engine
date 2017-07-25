@@ -63,5 +63,28 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
     return roo;
 }
 
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateXYZ(const float rx, const float ry, const float rz){
+    MatrixF4 m = MatrixF4::IDENTITY;
+    m *= MatrixTransform::creaRotateX(rx);
+    m *= MatrixTransform::creaRotateY(ry);
+    m *= MatrixTransform::creaRotateZ(rz);
+    return m;
+}
+
+FORCE_INLINE MatrixF4 MatrixTransform::creaLookAt(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp){
+    // Create the 3 Camera vectors.
+    VectF3 cx, cy, cz;
+    cz = cPos - cTarget;
+    cx = VectF3::crossProduct(cUp, cz);
+    cy = VectF3::crossProduct(cz, cx);
+    cz.normalizeFast();
+    cx.normalizeFast();
+    cy.normalizeFast();
+
+    // Create the lookAt matrix from camera vectors.
+    // TODO (Need to create Matrix3 first
+    MatrixF4 m;
+    return m;
+}
 
 
