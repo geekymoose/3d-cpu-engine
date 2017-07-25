@@ -81,6 +81,8 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAt(VectF3 const& cPos, VectF3 con
     cx.normalizeFast();
     cy.normalizeFast();
 
+    MatrixF3 m3(cx, cy, cz);
+
     // Create the lookAt matrix from camera vectors.
     // TODO (Need to create Matrix3 first
     MatrixF4 m;

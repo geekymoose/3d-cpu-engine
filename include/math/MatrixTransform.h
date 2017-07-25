@@ -4,9 +4,10 @@
 #include <cmath>
 #include "core/config.h"
 #include "core/debug.h"
+#include "math/MatrixF3.h"
 #include "math/MatrixF4.h"
-#include "math/VectF4.h"
 #include "math/VectF3.h"
+#include "math/VectF4.h"
 
 
 // Macro just to avoid to have 'std::' all over the code

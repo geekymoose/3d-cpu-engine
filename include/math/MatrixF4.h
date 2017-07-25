@@ -4,6 +4,7 @@
 #include "core/config.h"
 #include "core/debug.h"
 #include "math/VectF4.h"
+#include "math/MatrixF3.h"
 
 
 /**
@@ -39,12 +40,33 @@ class MatrixF4 {
 
     public:
         MatrixF4();
-        explicit MatrixF4(VectF4 const r1, VectF4 const r2, VectF4 const r3, VectF4 const r4);
+        explicit MatrixF4(VectF4 const& r1, VectF4 const& r2, VectF4 const& r3, VectF4 const& r4);
         explicit MatrixF4(
-            float m00, float m01, float m02, float m03,
-            float m10, float m11, float m12, float m13,
-            float m20, float m21, float m22, float m23,
-            float m30, float m31, float m32, float m33);
+            const float m00, const float m01, const float m02, const float m03,
+            const float m10, const float m11, const float m12, const float m13,
+            const float m20, const float m21, const float m22, const float m23,
+            const float m30, const float m31, const float m32, const float m33);
+
+        /**
+         * Create a new 4x4 matrix from a 3x3.
+         *
+         * \remark
+         * A 4x4 matrix can be partitioned into 4 components.
+         * The upper 3x3 matrix U.
+         * The 1x3 translation vector t.
+         * The 3x1 vector of 0.
+         * And the scalar 1 at the bottom right.
+         *
+         * \par
+         * The given 3x3 is the U matrix.
+         * Translation vector is set to 0 and scalar is set to 1.
+         *
+         * \par
+         * This is the case of Column vector convention.
+         * \see MatrixF4 documentation for remind about the used Matrix representation.
+         *
+         */
+        explicit MatrixF4(MatrixF3 const& m3);
 
 
     public:
