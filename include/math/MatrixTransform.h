@@ -105,10 +105,14 @@ class MatrixTransform {
         static MatrixF4 creaRotateXYZ(const float rx, const float ry, const float rz);
 
         /**
-         * Create a LookAt matrix.
-         * TODO Documentation to add
+         * Create a LookAt matrix left-handed (LH).
+         *
+         * \param cPos Position of the camera (Eye point).
+         * \param cTarget Position of a point camera is pointing toward.
+         * \param cUp The up vector for the current world. (Generally 0,1,0).
+         * \return The lookAt matrix.
          */
-        static MatrixF4 creaLookAt(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& Up);
+        static MatrixF4 creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& Up);
 };
 
 

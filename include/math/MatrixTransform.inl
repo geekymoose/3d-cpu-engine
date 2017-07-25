@@ -71,21 +71,22 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateXYZ(const float rx, const float
     return m;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaLookAt(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp){
+FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp){
     // Create the 3 Camera vectors.
     VectF3 cx, cy, cz;
-    cz = cPos - cTarget;
+    cz = cTarget - cPos;
     cx = VectF3::crossProduct(cUp, cz);
     cy = VectF3::crossProduct(cz, cx);
     cz.normalizeFast();
     cx.normalizeFast();
     cy.normalizeFast();
 
-    MatrixF3 m3(cx, cy, cz);
-
     // Create the lookAt matrix from camera vectors.
-    // TODO (Need to create Matrix3 first
-    MatrixF4 m;
+    MatrixF3 m3(cx, cy, cz);
+    MatrixF4 m(m3);
+    m._m[0][3] = -(VectF3::dotProduct(cx, cPos));
+    m._m[1][3] = -(VectF3::dotProduct(cy, cPos));
+    m._m[2][3] = -(VectF3::dotProduct(cz, cPos));
     return m;
 }
 
