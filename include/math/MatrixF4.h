@@ -46,18 +46,38 @@ class MatrixF4 {
             float m20, float m21, float m22, float m23,
             float m30, float m31, float m32, float m33);
 
+
     public:
         // ---------------------------------------------------------------------
-        // General functions
+        // Class functions
         // ---------------------------------------------------------------------
 
         /**
          * Returns the transposition of this matrix.
-         * Transposition if a matrix as new matrix m[i][j] = this[j][i].
+         * Transposition is the matrix where m[i][j] = this[j][i].
          *
          * \return New Transposition matrix.
          */
-        MatrixF4 transposition() const;
+        MatrixF4 getTransposition() const;
+
+        /**
+         * Transpose this matrix in place.
+         * Transposition is the matrix where m[i][j] = this[j][i].
+         */
+        void transpose();
+
+
+    public:
+        // ---------------------------------------------------------------------
+        // Getters / Setters
+        // ---------------------------------------------------------------------
+
+        /**
+         * Set this matrix values from another matrix.
+         *
+         * \param m The other matrix to copy.
+         */
+        void set(MatrixF4 const& m);
 
 
     public:
@@ -66,15 +86,16 @@ class MatrixF4 {
         // ---------------------------------------------------------------------
 
         /**
-         * Multiply the matrix by another matrix.
+         * Multiplies this matrix by a scalar and returns the new matrix.
+         * Each this component is multiplied by s.
          *
-         * \param m Matrix to multiply with.
-         * \return New matrix resulting from (this * m).
+         * \param s Scalar.
+         * \return New matrix multiplied by the scalar s.
          */
-        MatrixF4 operator*(MatrixF4 const& m) const;
+        MatrixF4 operator*(float const s) const;
 
         /**
-         * Multiply the matrix with a Vector.
+         * Multiplies the matrix with a Vector and returns the new Vector.
          * Use row vector representation, so multiplication is done in Right to Left order.
          * (See remark for several informations).
          *
@@ -84,23 +105,48 @@ class MatrixF4 {
         VectF4 operator*(VectF4 const& v) const;
 
         /**
-         * Multiply matrix by a scalar.
-         * (Each component is multiplied by s).
+         * Multiplies this matrix with another and returns a new matrix.
+         *
+         * \param m Matrix to multiply with.
+         * \return New matrix resulting from the multiplication (this * m).
+         */
+        MatrixF4 operator*(MatrixF4 const& m) const;
+
+        /**
+         * Multiplies in place this matrix with a scalar.
          *
          * \param s Scalar.
-         * \return New matrix multiplied by the scalar s.
+         * \return Reference to this.
          */
-        MatrixF4 operator*(float const s) const;
+        MatrixF4& operator*=(float const s);
+
+        /**
+         * Multiplies in place this matrix with another.
+         *
+         * \param m The other matrix.
+         * \return Reference to this.
+         */
+        MatrixF4& operator*=(MatrixF4 const& m);
+
 
         /**
          * Test equality of 2 matrix.
          * This test if both matrix contains same values.
-         * (This doesn't check matrix are the same memory entity).
+         * (Does not check if matrix are the same memory entity).
          *
          * \param m Matrix to test with.
          * \return True if this == m, otherwise, return false.
          */
         bool operator==(MatrixF4 const& m) const;
+
+        /**
+         * Test inequality of 2 matrix.
+         * False as soon as at least one value is not equal.
+         *
+         * \param m Matrix to test with.
+         * \return True if this != m, otherwise, return false.
+         */
+        bool operator!=(MatrixF4 const& m) const;
 };
 
 

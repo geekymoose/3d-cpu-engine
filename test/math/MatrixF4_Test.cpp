@@ -79,36 +79,50 @@ class MatrixF4Test : public ::testing::Test {
 
 
 // -----------------------------------------------------------------------------
-// TESTS - Constructors
+// Constructors / Setters
 // -----------------------------------------------------------------------------
-TEST_F(MatrixF4Test, constructor) {
+TEST_F(MatrixF4Test, constructors) {
     MatrixF4 mm1(1,2,3,4 ,5,6,7,8, 0,0,1,1, 1,1,5,5);
     MatrixF4 mm2(VectF4(1,2,3,4), VectF4(5,6,7,8), VectF4(0,0,1,1), VectF4(1,1,5,5));
     ASSERT_MATRIXF4_EQ(mm1, 1,2,3,4 ,5,6,7,8, 0,0,1,1, 1,1,5,5);
     ASSERT_MATRIXF4_EQ(mm2, 1,2,3,4 ,5,6,7,8, 0,0,1,1, 1,1,5,5);
 }
 
-
-// -----------------------------------------------------------------------------
-// TESTS - General functions
-// -----------------------------------------------------------------------------
-TEST_F(MatrixF4Test, transposition) {
-    ASSERT_MATRIXF4_EQ( (m1.transposition()), 1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1);
-    ASSERT_MATRIXF4_EQ( (m2.transposition()), 1,-2,-2,-42, 42,6,9,42, 5,-12,14.5,0, 0,0,0,1);
-    ASSERT_MATRIXF4_EQ( (m3.transposition()), 1,-1,-22.5,0, 2,-2.5,8.5,0, 3,-3.2,32,0, 4,-4,-1.5,1);
+TEST_F(MatrixF4Test, setters) {
+    m1.set(m2);
+    ASSERT_TRUE(m1 == m2);
+    m1.set(m3);
+    ASSERT_TRUE(m1 == m3);
 }
 
 
 // -----------------------------------------------------------------------------
-// TESTS - perator overload
+// Class functions
 // -----------------------------------------------------------------------------
-TEST_F(MatrixF4Test, multiply_by_matrix) {
-    ASSERT_MATRIXF4_EQ((m1 * m1), 4,4,4,4, 4,4,4,4, 4,4,4,4, 4,4,4,4);
-    ASSERT_MATRIXF4_EQ((m2 * m3),
-            -153.5,     -60.5,  28.599991,  -171.5,
-            262,        -121,   -409.2,     -14,
-            -337.25,    96.75,  429.2,      -65.75,
-            -84,        -189,   -260.4,     -335);
+TEST_F(MatrixF4Test, getTransposition) {
+    ASSERT_MATRIXF4_EQ( (m1.getTransposition()), 1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1);
+    ASSERT_MATRIXF4_EQ( (m2.getTransposition()), 1,-2,-2,-42, 42,6,9,42, 5,-12,14.5,0, 0,0,0,1);
+    ASSERT_MATRIXF4_EQ( (m3.getTransposition()), 1,-1,-22.5,0, 2,-2.5,8.5,0, 3,-3.2,32,0, 4,-4,-1.5,1);
+}
+
+TEST_F(MatrixF4Test, transpose) {
+    m1.transpose();
+    m2.transpose();
+    m3.transpose();
+    ASSERT_MATRIXF4_EQ(m1, 1,1,1,1, 1,1,1,1, 1,1,1,1, 1,1,1,1);
+    ASSERT_MATRIXF4_EQ(m2, 1,-2,-2,-42, 42,6,9,42, 5,-12,14.5,0, 0,0,0,1);
+    ASSERT_MATRIXF4_EQ(m3, 1,-1,-22.5,0, 2,-2.5,8.5,0, 3,-3.2,32,0, 4,-4,-1.5,1);
+}
+
+
+// -----------------------------------------------------------------------------
+// Operator overload (General)
+// -----------------------------------------------------------------------------
+TEST_F(MatrixF4Test, multiply_by_scalar) {
+    ASSERT_MATRIXF4_EQ( (m1 * 0.5), 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5);
+    ASSERT_MATRIXF4_EQ( (m1 * 20), 20,20,20,20, 20,20,20,20, 20,20,20,20, 20,20,20,20);
+    ASSERT_MATRIXF4_EQ( (m2 * 10), 10,420,50,0, -20,60,-120,0, -20,90,145,0, -420,420,0,10);
+    ASSERT_MATRIXF4_EQ( (m3 * -4), -4,-8,-12,-16, 4,10,12.8,16, 90,-34,-128,6, 0,0,0,-4);
 }
 
 TEST_F(MatrixF4Test, multiply_by_vect4) {
@@ -118,17 +132,53 @@ TEST_F(MatrixF4Test, multiply_by_vect4) {
     ASSERT_VECTF4_VALUES_EQ( (m3 * v1), 24, -23.5, 320.25, 1.5);
 }
 
-TEST_F(MatrixF4Test, multiply_by_scalar) {
-    ASSERT_MATRIXF4_EQ( (m1 * 0.5), 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5);
-    ASSERT_MATRIXF4_EQ( (m1 * 20), 20,20,20,20, 20,20,20,20, 20,20,20,20, 20,20,20,20);
-    ASSERT_MATRIXF4_EQ( (m2 * 10), 10,420,50,0, -20,60,-120,0, -20,90,145,0, -420,420,0,10);
-    ASSERT_MATRIXF4_EQ( (m3 * -4), -4,-8,-12,-16, 4,10,12.8,16, 90,-34,-128,6, 0,0,0,-4);
+TEST_F(MatrixF4Test, multiply_by_matrix) {
+    ASSERT_MATRIXF4_EQ((m1 * m1), 4,4,4,4, 4,4,4,4, 4,4,4,4, 4,4,4,4);
+    ASSERT_MATRIXF4_EQ((m2 * m3),
+            -153.5,     -60.5,  28.599991,  -171.5,
+            262,        -121,   -409.2,     -14,
+            -337.25,    96.75,  429.2,      -65.75,
+            -84,        -189,   -260.4,     -335);
 }
 
-TEST_F(MatrixF4Test, equal_operator) {
+
+// -----------------------------------------------------------------------------
+// Operator overload (Inplace)
+// -----------------------------------------------------------------------------
+TEST_F(MatrixF4Test, multiply_by_scalar_inplace) {
+    m1 *= 0.5;
+    m2 *= 10;
+    m3 *= -4;
+    ASSERT_MATRIXF4_EQ(m1, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5, 0.5,0.5,0.5,0.5);
+    ASSERT_MATRIXF4_EQ(m2, 10,420,50,0, -20,60,-120,0, -20,90,145,0, -420,420,0,10);
+    ASSERT_MATRIXF4_EQ(m3, -4,-8,-12,-16, 4,10,12.8,16, 90,-34,-128,6, 0,0,0,-4);
+}
+
+TEST_F(MatrixF4Test, multiply_by_matrix_inplace) {
+    m1 *= m1;
+    m2 *= m3;
+    ASSERT_MATRIXF4_EQ(m1, 4,4,4,4, 4,4,4,4, 4,4,4,4, 4,4,4,4);
+    ASSERT_MATRIXF4_EQ(m2,
+            -153.5,     -60.5,  28.599991,  -171.5,
+            262,        -121,   -409.2,     -14,
+            -337.25,    96.75,  429.2,      -65.75,
+            -84,        -189,   -260.4,     -335);
+}
+
+
+// -----------------------------------------------------------------------------
+// Operator overload (Other)
+// -----------------------------------------------------------------------------
+TEST_F(MatrixF4Test, operator_eq) {
     ASSERT_TRUE(m1 == m1);
     ASSERT_TRUE(m2 == m2);
     ASSERT_TRUE(m3 == m3);
+}
+
+TEST_F(MatrixF4Test, operator_neq) {
+    ASSERT_TRUE(m1 != m2);
+    ASSERT_TRUE(m2 != m1);
+    ASSERT_TRUE(m3 != m2);
 }
 
 
