@@ -10,9 +10,11 @@
 #include "math/VectF4.h"
 
 
-// Macro just to avoid to have 'std::' all over the code
+// Macro just to avoid having 'std::' all over the code (But can be discussed)
 #define SINE(angle) std::sin(angle)
 #define COSINE(angle) std::cos(angle)
+#define ARCTAN(angle) std::atan(angle)
+
 
 /**
  * Abstract class that define matrix utilities for transformation.
@@ -27,6 +29,14 @@
  *
  * \see
  * MatrixF4 class for several information (Read class documentation).
+ *
+ * \remark
+ * For further informations about matrix transformations,
+ * here some useful links.
+ * \see http://www.codinglabs.net/article_world_view_projection_matrix.aspx
+ * \see https://web.archive.org/web/20131222170415/http:/robertokoci.com/world-view-projection-matrix-unveiled/
+ * \see http://www.opengl-tutorial.org/beginners-tutorials/tutorial-3-matrices/
+ * \see http://www.scratchapixel.com/lessons/3d-basic-rendering/perspective-and-orthographic-projection-matrix/building-basic-perspective-projection-matrix
  *
  * \author  Constantin Masson
  */
@@ -120,6 +130,19 @@ class MatrixTransform {
          * \return The lookAt matrix.
          */
         static MatrixF4 creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& Up);
+
+        /**
+         * Create a left-handed (LH) perspective projection matrix.
+         * The field of view (Fov) represents the area Camera see the scene.
+         *
+         * \param fov Field of View. Camera scene angle in radians. (Must be positive).
+         * \param h Screen height (Number of pixels).
+         * \param w Screen width (Number of pixels).
+         * \param n Nearest distance camera can see. (Must be positive)
+         * \param f Farther distance camera can see. (Must be positive)
+         * \return The LH perspective matrix.
+         */
+        static MatrixF4 creaPerspectiveFovLH(float fov, float w, float h, float n, float f);
 };
 
 

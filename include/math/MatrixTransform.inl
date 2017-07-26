@@ -11,9 +11,9 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(VectF3 const& v) {
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(const float tx, const float ty, const float tz) {
     MatrixF4 momo = MatrixF4::IDENTITY; // Yeah, momo is a cool name
-    momo._m[3][0] = tx;
-    momo._m[3][1] = ty;
-    momo._m[3][2] = tz;
+    momo._m[0][3] = tx;
+    momo._m[1][3] = ty;
+    momo._m[2][3] = tz;
     return momo; // In case of: [3][3] already set to 1 thanks to IDENTITY
 }
 
@@ -63,7 +63,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
     return roo;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float ry, const float rx){
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float ry, const float rx) {
     MatrixF4 m = MatrixF4::IDENTITY;
     m *= MatrixTransform::creaRotateZ(rz);
     m *= MatrixTransform::creaRotateY(ry);
@@ -71,7 +71,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float
     return m;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp){
+FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp) {
     // Create the 3 Camera vectors.
     VectF3 cx, cy, cz;
     cz = cTarget - cPos;
@@ -90,4 +90,15 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 c
     return m;
 }
 
+FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, float h, float n, float f) {
+    // TODO Add assert to check invalid values
+    MatrixF4 result= MatrixF4::ZERO;
+    const float atan = ARCTAN((fov * 0.5));
+    result._m[0][0] = atan;
+    result._m[1][1] = atan * w / h; // w/h cuz ratio is h/w and here: atan / ratio
+    result._m[2][2] = f / (f - n);
+    result._m[2][3] = -(f * n) / (f - n);
+    result._m[3][2] = 1;
+    return result;
+}
 

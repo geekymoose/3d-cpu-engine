@@ -51,12 +51,25 @@ namespace {
 // Fixture object to test Matrix
 // ----------------------------------------------------------------------------
 class MatrixTransformTest : public ::testing::Test {
-    MatrixF4 m4_1;
     protected:
-        MatrixTransformTest() : m4_1(1) {}
+        MatrixTransformTest() {}
         virtual void SetUp() {}
         virtual void TearDown() {}
 };
+
+TEST_F(MatrixTransformTest, creaTranslate) {
+    MatrixF4 mm1 = MatrixTransform::creaTranslate(32, -2, 7.9);
+    MatrixF4 mm2 = MatrixTransform::creaTranslate(VectF3(32, -2, 7.9));
+    ASSERT_MATRIXF4_EQ(mm1, 1,0,0,32, 0,1,0,-2, 0,0,1,7.9, 0,0,0,1);
+    ASSERT_MATRIXF4_EQ(mm2, 1,0,0,32, 0,1,0,-2, 0,0,1,7.9, 0,0,0,1);
+}
+
+TEST_F(MatrixTransformTest, creaScale) {
+    MatrixF4 mm1 = MatrixTransform::creaScale(VectF3(8.9, -0.2, 9.2));
+    MatrixF4 mm2 = MatrixTransform::creaScale(8.9, -0.2, 9.2);
+    ASSERT_MATRIXF4_EQ(mm1, 8.9,0,0,0, 0,-0.2,0,0, 0,0,9.2,0, 0,0,0,1);
+    ASSERT_MATRIXF4_EQ(mm2, 8.9,0,0,0, 0,-0.2,0,0, 0,0,9.2,0, 0,0,0,1);
+}
 
 TEST_F(MatrixTransformTest, creaRotateX) {
     MatrixF4 mm1 = MatrixTransform::creaRotateX(0);
@@ -74,6 +87,12 @@ TEST_F(MatrixTransformTest, creaRotateZ) {
     MatrixF4 mm1 = MatrixTransform::creaRotateZ(0);
     ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
     // TODO Some more
+}
+
+TEST_F(MatrixTransformTest, creaRotateZYX) {
+    MatrixF4 mm1 = MatrixTransform::creaRotateZYX(0,0,0);
+    ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
+    // TODO
 }
 
 TEST_F(MatrixTransformTest, creaLookAtLH) {
@@ -94,6 +113,12 @@ TEST_F(MatrixTransformTest, creaLookAtLH) {
         0.577350, 0.577350, 0.577350, -0.000000,
         0.000000, 0.000000, 0.000000, 1.000000);
 }
+
+TEST_F(MatrixTransformTest, creaPerspectiveFovLH) {
+    MatrixF4 m = MatrixTransform::creaPerspectiveFovLH(0.70f, 1024, 640, 0.01f, 1.0f);
+    // TODO
+}
+
 
 
 } // End namespace
