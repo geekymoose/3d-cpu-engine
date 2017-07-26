@@ -39,8 +39,32 @@ class MatrixF4 {
         static const MatrixF4 ZERO;
 
     public:
-        MatrixF4();
+
+        /**
+         * Create a new 4x4 matrix filled with zero.
+         */
+        MatrixF4(void);
+
+        /**
+         * Create a new 4x4 matrix with all components set to a specific value.
+         *
+         * \param value Matrix is filled with it.
+         */
+        explicit MatrixF4(const float value);
+
+        /**
+         * Create a new 4x4 matrix from 4 vectors.
+         *
+         * \param r1 The matrix row 1.
+         * \param r2 The matrix row 2.
+         * \param r3 The matrix row 3.
+         * \param r4 The matrix row 4.
+         */
         explicit MatrixF4(VectF4 const& r1, VectF4 const& r2, VectF4 const& r3, VectF4 const& r4);
+
+        /**
+         * Create a new 4x4 matrix with each component explicitly set.
+         */
         explicit MatrixF4(
             const float m00, const float m01, const float m02, const float m03,
             const float m10, const float m11, const float m12, const float m13,

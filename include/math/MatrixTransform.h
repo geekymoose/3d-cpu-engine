@@ -96,13 +96,20 @@ class MatrixTransform {
 
         /**
          * Create a rotation matrix on the 3 axes.
+         * It use the Yaw-Pitch-Roll order.
          *
-         * \param angle The x rotation angle in radians.
-         * \param angle The y rotation angle in radians.
-         * \param angle The z rotation angle in radians.
+         * \note
+         * To learn more about, search for information about
+         * "Converting Euler Angles to a Rotation Matrix".
+         * \see http://danceswithcode.net/engineeringnotes/rotations_in_3d/rotations_in_3d_part1.html
+         * For more informations.
+         *
+         * \param angle The z rotation angle in radians. (Yaw)
+         * \param angle The y rotation angle in radians. (Pitch)
+         * \param angle The x rotation angle in radians. (Roll)
          * \return The new rotation matrix.
          */
-        static MatrixF4 creaRotateXYZ(const float rx, const float ry, const float rz);
+        static MatrixF4 creaRotateZYX(const float rz, const float ry, const float rx);
 
         /**
          * Create a LookAt matrix left-handed (LH).

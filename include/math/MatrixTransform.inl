@@ -36,8 +36,8 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float angle) {
     const float s = SINE(angle);
     roo._m[1][1] = c;
     roo._m[1][2] = -s;
-    roo._m[2][2] = c;
     roo._m[2][1] = s;
+    roo._m[2][2] = c;
     return roo;
 }
 
@@ -63,11 +63,11 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
     return roo;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateXYZ(const float rx, const float ry, const float rz){
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float ry, const float rx){
     MatrixF4 m = MatrixF4::IDENTITY;
-    m *= MatrixTransform::creaRotateX(rx);
-    m *= MatrixTransform::creaRotateY(ry);
     m *= MatrixTransform::creaRotateZ(rz);
+    m *= MatrixTransform::creaRotateY(ry);
+    m *= MatrixTransform::creaRotateX(rx);
     return m;
 }
 

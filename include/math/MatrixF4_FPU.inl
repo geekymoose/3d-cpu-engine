@@ -12,11 +12,18 @@
 // -----------------------------------------------------------------------------
 // Constructors - Initialization
 // -----------------------------------------------------------------------------
-FORCE_INLINE MatrixF4::MatrixF4() {
+FORCE_INLINE MatrixF4::MatrixF4(void) {
     _m[0][0] = _m[0][1] = _m[0][2] = _m[0][3] = 0.0f;
     _m[1][0] = _m[1][1] = _m[1][2] = _m[1][3] = 0.0f;
     _m[2][0] = _m[2][1] = _m[2][2] = _m[2][3] = 0.0f;
     _m[3][0] = _m[3][1] = _m[3][2] = _m[3][3] = 0.0f;
+}
+
+FORCE_INLINE MatrixF4::MatrixF4(const float value) {
+    _m[0][0] = _m[0][1] = _m[0][2] = _m[0][3] = value;
+    _m[1][0] = _m[1][1] = _m[1][2] = _m[1][3] = value;
+    _m[2][0] = _m[2][1] = _m[2][2] = _m[2][3] = value;
+    _m[3][0] = _m[3][1] = _m[3][2] = _m[3][3] = value;
 }
 
 FORCE_INLINE MatrixF4::MatrixF4(VectF4 const& v1, VectF4 const& v2, VectF4 const& v3, VectF4 const& v4) {

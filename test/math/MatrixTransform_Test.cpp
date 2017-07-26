@@ -51,8 +51,9 @@ namespace {
 // Fixture object to test Matrix
 // ----------------------------------------------------------------------------
 class MatrixTransformTest : public ::testing::Test {
+    MatrixF4 m4_1;
     protected:
-        MatrixTransformTest() {}
+        MatrixTransformTest() : m4_1(1) {}
         virtual void SetUp() {}
         virtual void TearDown() {}
 };
@@ -73,6 +74,25 @@ TEST_F(MatrixTransformTest, creaRotateZ) {
     MatrixF4 mm1 = MatrixTransform::creaRotateZ(0);
     ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
     // TODO Some more
+}
+
+TEST_F(MatrixTransformTest, creaLookAtLH) {
+    // Test 1
+    VectF3 cPos(4.0f), cTarget(150.0f), cUp(0,1,0);
+    MatrixF4 mm1 = MatrixTransform::creaLookAtLH(cPos, cTarget, cUp);
+    ASSERT_MATRIXF4_EQ(mm1,
+        0.707107, 0.000000, -0.707107, -0.000000,
+        -0.40824828, 0.81649655, -0.40824828, -0.000000,
+        0.577350, 0.577350, 0.577350, -6.928203,
+        0.000000, 0.000000, 0.000000, 1.000000);
+    // Test 2
+    VectF3 cPos2(0.0f), cTarget2(10.0f), cUp2(0,1,0);
+    MatrixF4 mm2 = MatrixTransform::creaLookAtLH(cPos2, cTarget2, cUp2);
+    ASSERT_MATRIXF4_EQ(mm2,
+        0.707107, 0.000000, -0.707107, -0.000000,
+        -0.40824828, 0.81649655, -0.40824828, -0.000000,
+        0.577350, 0.577350, 0.577350, -0.000000,
+        0.000000, 0.000000, 0.000000, 1.000000);
 }
 
 

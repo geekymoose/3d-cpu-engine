@@ -84,8 +84,10 @@ class MatrixF4Test : public ::testing::Test {
 TEST_F(MatrixF4Test, constructors) {
     MatrixF4 mm1(1,2,3,4 ,5,6,7,8, 0,0,1,1, 1,1,5,5);
     MatrixF4 mm2(VectF4(1,2,3,4), VectF4(5,6,7,8), VectF4(0,0,1,1), VectF4(1,1,5,5));
+    MatrixF4 mm3(1);
     ASSERT_MATRIXF4_EQ(mm1, 1,2,3,4 ,5,6,7,8, 0,0,1,1, 1,1,5,5);
     ASSERT_MATRIXF4_EQ(mm2, 1,2,3,4 ,5,6,7,8, 0,0,1,1, 1,1,5,5);
+    ASSERT_TRUE(mm3 == m1);
 }
 
 TEST_F(MatrixF4Test, setters) {
