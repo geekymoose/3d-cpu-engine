@@ -53,6 +53,11 @@ bool Engine::renderOneFrame(){
     return true;
 }
 
+void Engine::renderAll(Camera camera, std::vector<Mesh> meshes) {
+    for (std::vector<Mesh>::iterator it = meshes.begin(); it != meshes.end(); it++) {
+    }
+}
+
 bool Engine::stopRendering(){
     this->isRunning = false;
     return true;

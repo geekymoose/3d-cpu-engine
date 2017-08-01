@@ -1,5 +1,5 @@
-#ifndef ENGINE_MATH_MATRIXF4_TRANSFORM_H_
-#define ENGINE_MATH_MATRIXF4_TRANSFORM_H_
+#ifndef ENGINE_MATH_MATRIX_TRANSFORM_H_
+#define ENGINE_MATH_MATRIX_TRANSFORM_H_
 
 #include <cmath>
 #include "core/config.h"

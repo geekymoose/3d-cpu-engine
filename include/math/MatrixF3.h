@@ -21,16 +21,34 @@
  */
 class MatrixF3 {
     public:
+        // ---------------------------------------------------------------------
+        // Class members
+        // ---------------------------------------------------------------------
+
         // Matrix indexed by [row][column]
         float _m[3][3]; // TODO See if alignment is needed here (GCC_ALIGN)
 
-        // Identity Matrix
-        static const MatrixF3 IDENTITY;
+        /**
+         * Identity matrix.
+         * Matrix filled with 1 on its diagonal.
+         *
+         * \return New identity matrix.
+         */
+        static MatrixF3 IDENTITY();
 
-        // Matrix filled with 0
-        static const MatrixF3 ZERO;
+        /**
+         * Zero matrix.
+         * Matrix filled with 0 everywhere!
+         *
+         * \return New zero matrix.
+         */
+        static MatrixF3 ZERO();
+
 
     public:
+        // ---------------------------------------------------------------------
+        // Constructors / Initialization
+        // ---------------------------------------------------------------------
         MatrixF3();
         explicit MatrixF3(VectF3 const r1, VectF3 const r2, VectF3 const r3);
         explicit MatrixF3(

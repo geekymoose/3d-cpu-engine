@@ -10,7 +10,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(VectF3 const& v) {
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(const float tx, const float ty, const float tz) {
-    MatrixF4 momo = MatrixF4::IDENTITY; // Yeah, momo is a cool name
+    MatrixF4 momo = MatrixF4::IDENTITY(); // Yeah, momo is a cool name
     momo._m[0][3] = tx;
     momo._m[1][3] = ty;
     momo._m[2][3] = tz;
@@ -22,7 +22,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaScale(VectF3 const& v) {
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaScale(const float sx, const float sy, const float sz) {
-    MatrixF4 soso = MatrixF4::ZERO;
+    MatrixF4 soso = MatrixF4::ZERO();
     soso._m[0][0] = sx;
     soso._m[1][1] = sy;
     soso._m[2][2] = sz;
@@ -31,7 +31,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaScale(const float sx, const float sy,
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float angle) {
-    MatrixF4 roo = MatrixF4::IDENTITY; // Pronounce "Roooohhh!!!" like if someone does something stupid! :P
+    MatrixF4 roo = MatrixF4::IDENTITY(); // Pronounce "Roooohhh!!!" like if someone does something stupid! :P
     const float c = std::cos(angle);
     const float s = std::sin(angle);
     roo._m[1][1] = c;
@@ -42,7 +42,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float angle) {
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateY(const float angle) {
-    MatrixF4 roo = MatrixF4::IDENTITY;
+    MatrixF4 roo = MatrixF4::IDENTITY();
     const float c = std::cos(angle);
     const float s = std::sin(angle);
     roo._m[0][0] = c;
@@ -53,7 +53,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateY(const float angle) {
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
-    MatrixF4 roo = MatrixF4::IDENTITY;
+    MatrixF4 roo = MatrixF4::IDENTITY();
     const float c = std::cos(angle);
     const float s = std::sin(angle);
     roo._m[0][0] = c;
@@ -64,7 +64,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float ry, const float rx) {
-    MatrixF4 m = MatrixF4::IDENTITY;
+    MatrixF4 m = MatrixF4::IDENTITY();
     m *= MatrixTransform::creaRotateZ(rz);
     m *= MatrixTransform::creaRotateY(ry);
     m *= MatrixTransform::creaRotateX(rx);
@@ -72,7 +72,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float
 }
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp) {
-    // Create the 3 Camera vectors.
+    // Creates the 3 Camera's vectors.
     VectF3 cx, cy, cz;
     cz = cTarget - cPos;
     cx = VectF3::crossProduct(cUp, cz);
@@ -81,7 +81,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 c
     cx.normalizeFast();
     cy.normalizeFast();
 
-    // Create the lookAt matrix from camera vectors.
+    // Creates the lookAt matrix from camera vectors.
     MatrixF3 m3(cx, cy, cz);
     MatrixF4 m(m3);
     m._m[0][3] = -(VectF3::dotProduct(cx, cPos));
@@ -92,7 +92,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 c
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, float h, float n, float f) {
     // TODO Add assert to check invalid values
-    MatrixF4 result     = MatrixF4::ZERO;
+    MatrixF4 result     = MatrixF4::ZERO();
     const float cot     = 1 / std::tan(fov * 0.5);
     const float depth   = f - n;
     const float aspect  = h / w; // Here, ratio is height / width

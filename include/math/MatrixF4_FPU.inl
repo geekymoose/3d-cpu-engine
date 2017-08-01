@@ -88,7 +88,7 @@ FORCE_INLINE MatrixF4::MatrixF4(MatrixF3 const& m3){
 // -----------------------------------------------------------------------------
 // class functions
 // -----------------------------------------------------------------------------
-MatrixF4 MatrixF4::getTransposition() const {
+FORCE_INLINE MatrixF4 MatrixF4::getTransposition() const {
     MatrixF4 nMatrix;
     // TODO Note: I have to check, but compiler might optimize this to remove loop
     for(int i=0; i<4; i++) {
@@ -99,7 +99,7 @@ MatrixF4 MatrixF4::getTransposition() const {
     return nMatrix;
 }
 
-void MatrixF4::transpose() {
+FORCE_INLINE void MatrixF4::transpose() {
     MatrixF4 m = this->getTransposition();
     this->set(m);
 }
@@ -171,7 +171,7 @@ FORCE_INLINE MatrixF4 MatrixF4::operator*(MatrixF4 const& o) const {
 // -----------------------------------------------------------------------------
 // Getters - Setters
 // -----------------------------------------------------------------------------
-void MatrixF4::set(MatrixF4 const& o){
+FORCE_INLINE void MatrixF4::set(MatrixF4 const& o){
     // Row 1
     this->_m[0][0] = o._m[0][0];
     this->_m[0][1] = o._m[0][1];

@@ -29,16 +29,34 @@
  */
 class MatrixF4 {
     public:
+        // ---------------------------------------------------------------------
+        // Class members
+        // ---------------------------------------------------------------------
+
         // Matrix indexed by [row][column]
         float _m[4][4] GCC_ALIGNED(16);
 
-        // Identity Matrix
-        static const MatrixF4 IDENTITY;
+        /**
+         * Identity matrix.
+         * Matrix filled with 1 on its diagonal.
+         *
+         * \return New identity matrix.
+         */
+        static MatrixF4 IDENTITY();
 
-        // Matrix filled with 0
-        static const MatrixF4 ZERO;
+        /**
+         * Zero matrix.
+         * Matrix filled with 0 everywhere!
+         *
+         * \return New zero matrix.
+         */
+        static MatrixF4 ZERO();
+
 
     public:
+        // ---------------------------------------------------------------------
+        // Constructors / Initialization
+        // ---------------------------------------------------------------------
 
         /**
          * Create a new 4x4 matrix filled with zero.

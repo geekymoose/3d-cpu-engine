@@ -28,6 +28,7 @@ if(ENGINE_BUILD_MODE_DEBUG)
     add_definitions(-D _DEBUG)
     add_definitions(-g -Wall)
     add_definitions(-D _ASSERTIONS_ENABLED)
+    add_definitions(-Winline) # Warn if unable to inline
 elseif(ENGINE_BUILD_MODE_RELEASE)
     message("Build mode: RELEASE")
     add_definitions(-D NDEBUG)

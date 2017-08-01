@@ -6,17 +6,22 @@
 
 
 // -----------------------------------------------------------------------------
-// Constants
+// Special class members
 // -----------------------------------------------------------------------------
-const MatrixF3 MatrixF3::IDENTITY(
+
+FORCE_INLINE MatrixF3 MatrixF3::IDENTITY() {
+    return MatrixF3(
         1,0,0,
         0,1,0,
         0,0,1);
+}
 
-const MatrixF3 MatrixF3::ZERO(
+FORCE_INLINE MatrixF3 MatrixF3::ZERO() {
+    return MatrixF3(
         0,0,0,
         0,0,0,
         0,0,0);
+}
 
 
 // -----------------------------------------------------------------------------
