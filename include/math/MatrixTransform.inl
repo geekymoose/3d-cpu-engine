@@ -32,8 +32,8 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaScale(const float sx, const float sy,
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float angle) {
     MatrixF4 roo = MatrixF4::IDENTITY; // Pronounce "Roooohhh!!!" like if someone does something stupid! :P
-    const float c = COSINE(angle);
-    const float s = SINE(angle);
+    const float c = std::cos(angle);
+    const float s = std::sin(angle);
     roo._m[1][1] = c;
     roo._m[1][2] = -s;
     roo._m[2][1] = s;
@@ -43,8 +43,8 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float angle) {
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateY(const float angle) {
     MatrixF4 roo = MatrixF4::IDENTITY;
-    const float c = COSINE(angle);
-    const float s = SINE(angle);
+    const float c = std::cos(angle);
+    const float s = std::sin(angle);
     roo._m[0][0] = c;
     roo._m[0][2] = s;
     roo._m[2][0] = -s;
@@ -54,8 +54,8 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateY(const float angle) {
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
     MatrixF4 roo = MatrixF4::IDENTITY;
-    const float c = COSINE(angle);
-    const float s = SINE(angle);
+    const float c = std::cos(angle);
+    const float s = std::sin(angle);
     roo._m[0][0] = c;
     roo._m[0][1] = -s;
     roo._m[1][0] = s;
@@ -92,13 +92,15 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 c
 
 FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, float h, float n, float f) {
     // TODO Add assert to check invalid values
-    MatrixF4 result= MatrixF4::ZERO;
-    const float atan = ARCTAN((fov * 0.5));
-    result._m[0][0] = atan;
-    result._m[1][1] = atan * w / h; // w/h cuz ratio is h/w and here: atan / ratio
-    result._m[2][2] = f / (f - n);
-    result._m[2][3] = -(f * n) / (f - n);
-    result._m[3][2] = 1;
+    MatrixF4 result     = MatrixF4::ZERO;
+    const float cot     = 1 / std::tan(fov * 0.5);
+    const float depth   = f - n;
+    const float aspect  = h / w; // Here, ratio is height / width
+    result._m[0][0]     = cot;
+    result._m[1][1]     = cot / aspect;
+    result._m[2][2]     = f / depth;
+    result._m[2][3]     = -(f * n) / depth;
+    result._m[3][2]     = 1.0f;
     return result;
 }
 

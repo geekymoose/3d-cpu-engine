@@ -10,12 +10,6 @@
 #include "math/VectF4.h"
 
 
-// Macro just to avoid having 'std::' all over the code (But can be discussed)
-#define SINE(angle) std::sin(angle)
-#define COSINE(angle) std::cos(angle)
-#define ARCTAN(angle) std::atan(angle)
-
-
 /**
  * Abstract class that define matrix utilities for transformation.
  * Mean to be used for operation like rotation, translation, specially with matrix 4x4).
@@ -133,14 +127,16 @@ class MatrixTransform {
 
         /**
          * Create a left-handed (LH) perspective projection matrix.
-         * The field of view (Fov) represents the area Camera see the scene.
+         * The viewed scene is a frustum defined by the Fov angle
+         * and the depth distances (Near and far).
+         * The field of view (Fov) is the angle the camera see the scene.
          *
          * \param fov Field of View. Camera scene angle in radians. (Must be positive).
          * \param h Screen height (Number of pixels).
          * \param w Screen width (Number of pixels).
          * \param n Nearest distance camera can see. (Must be positive)
          * \param f Farther distance camera can see. (Must be positive)
-         * \return The LH perspective matrix.
+         * \return The left-handed perspective matrix.
          */
         static MatrixF4 creaPerspectiveFovLH(float fov, float w, float h, float n, float f);
 };
