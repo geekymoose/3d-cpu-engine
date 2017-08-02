@@ -99,9 +99,9 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, 
     MatrixF4 result     = MatrixF4::ZERO();
     const float cot     = 1 / std::tan(fov * 0.5);
     const float depth   = f - n;
-    const float aspect  = h / w; // Here, ratio is height / width
+    const float aspect  = w / h;
     result._m[0][0]     = cot;
-    result._m[1][1]     = cot / aspect;
+    result._m[1][1]     = cot * aspect;
     result._m[2][2]     = f / depth;
     result._m[2][3]     = -(f * n) / depth;
     result._m[3][2]     = 1.0f;
