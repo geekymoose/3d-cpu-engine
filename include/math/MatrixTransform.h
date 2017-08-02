@@ -116,6 +116,15 @@ class MatrixTransform {
         static MatrixF4 creaRotateZYX(const float rz, const float ry, const float rx);
 
         /**
+         * Create a rotation matrix on the 3 axes.
+         * It use the Yaw-Pitch-Roll order.
+         *
+         * \param v Vector that represents the rotation.
+         * \return The new rotation matrix.
+         */
+        static MatrixF4 creaRotateZYX(VectF3 const& v);
+
+        /**
          * Create a LookAt matrix left-handed (LH).
          *
          * \param cPos Position of the camera (Eye point).
@@ -132,8 +141,8 @@ class MatrixTransform {
          * The field of view (Fov) is the angle the camera see the scene.
          *
          * \param fov Field of View. Camera scene angle in radians. (Must be positive).
-         * \param h Screen height (Number of pixels).
          * \param w Screen width (Number of pixels).
+         * \param h Screen height (Number of pixels).
          * \param n Nearest distance camera can see. (Must be positive)
          * \param f Farther distance camera can see. (Must be positive)
          * \return The left-handed perspective matrix.

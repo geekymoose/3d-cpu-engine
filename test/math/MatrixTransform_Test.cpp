@@ -89,8 +89,15 @@ TEST_F(MatrixTransformTest, creaRotateZ) {
     // TODO Some more
 }
 
-TEST_F(MatrixTransformTest, creaRotateZYX) {
+TEST_F(MatrixTransformTest, creaRotateZYX_floats) {
     MatrixF4 mm1 = MatrixTransform::creaRotateZYX(0,0,0);
+    ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
+    // TODO
+}
+
+TEST_F(MatrixTransformTest, creaRotateZYX_VectF3) {
+    VectF3 v1(0.0f, 0.0f, 0.0f);
+    MatrixF4 mm1 = MatrixTransform::creaRotateZYX(v1);
     ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
     // TODO
 }

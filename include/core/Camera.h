@@ -10,7 +10,10 @@
  */
 class Camera {
     public:
+        // Position of the camera in world space.
         VectF3 position;
+
+        // Position of the target in world space (Camera look at target).
         VectF3 target;
 
     public:

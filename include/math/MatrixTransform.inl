@@ -71,6 +71,10 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float
     return m;
 }
 
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(VectF3 const& v) {
+    return MatrixTransform::creaRotateZYX(v.x, v.y, v.z);
+}
+
 FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp) {
     // Creates the 3 Camera's vectors.
     VectF3 cx, cy, cz;

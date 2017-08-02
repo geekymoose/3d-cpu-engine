@@ -31,6 +31,13 @@ class Engine {
         bool isRunning;
         AppWindowSDL2 renderWindow;
 
+
+    private:
+        // These variable are hard coded for now
+        // TODO: Later, add meshes manager systems etc
+        std::vector<Mesh> listMeshes;
+        Camera cctv; // CCTV is watching you!
+
     public:
         Engine();
 
@@ -42,7 +49,8 @@ class Engine {
 
     private:
         bool renderOneFrame();
-        void renderAll(Camera camera, std::vector<Mesh> meshes);
+        void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> meshes);
+        void DrawPoint(SDL_Renderer* renderer, VectF3 const& p, MatrixF4 const& transformMatrix);
         void handleEvent(SDL_Event* sdlevent);
 };
 
