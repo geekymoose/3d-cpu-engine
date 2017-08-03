@@ -15,9 +15,9 @@ import math
 # ------------------------------------------------------------------------------
 # Default values
 # ------------------------------------------------------------------------------
-screen_width = 960
-screen_height = 540
-near = 0.1
+screen_width = 1000
+screen_height = 500
+near = 1
 far = 10
 
 
@@ -26,7 +26,9 @@ far = 10
 # ------------------------------------------------------------------------------
 def get_x_remap_factor(fov, w, h):
     """ Returns the factor that multiplies X. """
-    return 1/math.tan(fov/2)
+    cotanFov = 1 / math.tan(fov/2)
+    aspect = w / h
+    return cotanFov / aspect
 
 def get_y_remap_factor(fov, w, h):
     """ Returns the factor that multiplies Y. """

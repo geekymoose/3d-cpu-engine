@@ -97,11 +97,11 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 c
 FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, float h, float n, float f) {
     // TODO Add assert to check invalid values
     MatrixF4 result     = MatrixF4::ZERO();
-    const float cot     = 1 / std::tan(fov * 0.5);
+    const float cotanFov= 1 / std::tan(fov * 0.5);
     const float depth   = f - n;
-    const float aspect  = w / h;
-    result._m[0][0]     = cot;
-    result._m[1][1]     = cot * aspect;
+    const float aspect  = h / w; // Actual ratio is w/h but x/(w/h) == x*(h/w)
+    result._m[0][0]     = cotanFov * aspect;
+    result._m[1][1]     = cotanFov;
     result._m[2][2]     = f / depth;
     result._m[2][3]     = -(f * n) / depth;
     result._m[3][2]     = 1.0f;
