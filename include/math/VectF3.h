@@ -13,8 +13,9 @@
 
 
 /**
- * 3 Dimensions vector with float precision.
+ * 3 Dimensions vector with floating point precision.
  *
+ * \since   Jun 4, 2017
  * \author  Constantin MASSON
  */
 class VectF3 {
@@ -22,22 +23,22 @@ class VectF3 {
     // Attributes
     // -------------------------------------------------------------------------
     public:
-#ifdef __SSE4_1__
         union{
-            __m128 m128; // Last element is not used
             struct{
-                // To allow calling v.x / v.y / etc...
-                // Warning: this assume float is 32, don't know a way to force it
                 float x;
                 float y;
                 float z;
             };
-        };
-#else
-        float x;
-        float y;
-        float z;
+            struct {
+                // Useful for colors (Red / Green / Blue)
+                float r;
+                float g;
+                float b;
+            };
+#ifdef __SSE4_1__
+            __m128 m128; // Last element is not used
 #endif
+        };
 
     // -------------------------------------------------------------------------
     // Constructors
@@ -84,7 +85,7 @@ class VectF3 {
         /**
          * Gets the square length of this vector.
          *
-         *\return The square length (Magnitude) of this vector.
+         * \return The square length (Magnitude) of this vector.
          */
         float squareLength() const;
 
@@ -92,7 +93,8 @@ class VectF3 {
          * Returns a normalized copy of this vector.
          *
          * \warning
-         * Function will crash if vector length() is zero!
+         * If vector length is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
          * Not verification is done for performance. (Hence 'fast')
          *
          * \return The new normalized vector.
@@ -103,7 +105,8 @@ class VectF3 {
          * Normalize this vector in place.
          *
          * \warning
-         * Function will crash if vector length() is zero!
+         * If vector length is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
          * Not verification is done for performance. (Hence 'fast')
          */
         void normalizeFast();
@@ -193,7 +196,9 @@ class VectF3 {
          * Returns the division of each this components by a scalar.
          *
          * \warning
-         * Function will crash if scalar is zero.
+         * If scalar is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * \param v Vector to divide with.
          * \return New vector.
@@ -204,7 +209,9 @@ class VectF3 {
          * Returns the division of this components by another vector.
          *
          * \warning
-         * Function will crash if other vector has a zero component.
+         * If other vector has a zero component, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * \param v The other vector.
          * \return The new vector.
@@ -263,7 +270,9 @@ class VectF3 {
          * Divides this by a scalar.
          *
          * \warning
-         * Function will crash if scalar is zero.
+         * If scalar is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * param s The scalar value.
          * \return Reference to the current vector after division.
@@ -274,7 +283,9 @@ class VectF3 {
          * Divides this by a vector.
          *
          * \warning
-         * Function will crash if other vector has a zero component.
+         * If other vector has a zero component, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * param v The other vector.
          * \return Reference to the current vector after calculation.
@@ -358,7 +369,13 @@ class VectF3 {
          * \param v Vector print.
          */
         friend std::ostream& operator<<(std::ostream& os, VectF3 const& v);
+
+#ifdef __SSE4_1__
+// Required if SSE is used (Works with 16 bytes aligned memories. Type __m128)
 } GCC_ALIGNED(16);
+#else
+};
+#endif
 
 
 #include "VectF3.inl"

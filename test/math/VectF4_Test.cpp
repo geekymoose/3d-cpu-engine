@@ -53,6 +53,8 @@ class VectF4Test : public ::testing::Test {
 // Constructors / Setters
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, constructors) {
+    VectF4 vec0;
+    ASSERT_VECTF4_VALUES_EQ(vec0, 0.0f, 0.0f, 0.0f, 0.0f);
     VectF4 vec1(42);
     ASSERT_VECTF4_VALUES_EQ(vec1, 42, 42, 42, 42);
     VectF4 vec2(-32, 89, -4.2, 8.232);
@@ -64,6 +66,19 @@ TEST_F(VectF4Test, setters) {
     ASSERT_VECTF4_VALUES_EQ(v0, 4, -3, 2, 8.2);
     v0.set(v1);
     ASSERT_VECTF4_VALUES_EQ(v0, 1, 2, 3, 4);
+}
+
+TEST_F(VectF4Test, attributes) {
+    ASSERT_TRUE(v0.x == 0);
+    ASSERT_TRUE(v0.x == v0.r);
+    ASSERT_TRUE(v1.x == 1.0f);
+    ASSERT_TRUE(v1.x == v1.r);
+    ASSERT_TRUE(v1.y == 2.0f);
+    ASSERT_TRUE(v1.y == v1.g);
+    ASSERT_TRUE(v1.z == 3.0f);
+    ASSERT_TRUE(v1.z == v1.b);
+    ASSERT_TRUE(v1.w == 4.0f);
+    ASSERT_TRUE(v1.w == v1.a);
 }
 
 
@@ -285,7 +300,7 @@ TEST_F(VectF4Test, substract_vector) {
 
 
 // -----------------------------------------------------------------------------
-// Operators overload (Inplace)
+// Operators overload (In place)
 // -----------------------------------------------------------------------------
 TEST_F(VectF4Test, multiply_scalar_inplace) {
     v0 *= 13.3;

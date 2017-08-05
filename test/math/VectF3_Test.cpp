@@ -46,6 +46,37 @@ class VectF3Test : public ::testing::Test {
 
 
 // -----------------------------------------------------------------------------
+// Constructors / Setters
+// -----------------------------------------------------------------------------
+TEST_F(VectF3Test, constructors) {
+    VectF3 vec0;
+    ASSERT_VECTF3_VALUES_EQ(vec0, 0.0f, 0.0f, 0.0f);
+    VectF3 vec1(42.0f);
+    ASSERT_VECTF3_VALUES_EQ(vec1, 42.0f, 42.0f, 42.0f);
+    VectF3 vec2(-32.0f, 89.0f, -4.2f);
+    ASSERT_VECTF3_VALUES_EQ(vec2, -32.0f, 89.0f, -4.2f);
+}
+
+TEST_F(VectF3Test, setters) {
+    v0.set(4, -3, 2);
+    ASSERT_VECTF3_VALUES_EQ(v0, 4, -3, 2);
+    v0.set(v1);
+    ASSERT_VECTF3_VALUES_EQ(v0, 1, 2, 3);
+}
+
+TEST_F(VectF3Test, attributes) {
+    ASSERT_TRUE(v0.x == 0);
+    ASSERT_TRUE(v0.x == v0.r);
+    ASSERT_TRUE(v1.x == 1.0f);
+    ASSERT_TRUE(v1.x == v1.r);
+    ASSERT_TRUE(v1.y == 2.0f);
+    ASSERT_TRUE(v1.y == v1.g);
+    ASSERT_TRUE(v1.z == 3.0f);
+    ASSERT_TRUE(v1.z == v1.b);
+}
+
+
+// -----------------------------------------------------------------------------
 // Class Functions
 // -----------------------------------------------------------------------------
 TEST_F(VectF3Test, length) {

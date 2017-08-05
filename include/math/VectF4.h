@@ -13,7 +13,7 @@
 
 
 /**
- * 4 Dimensions vector with float precision.
+ * 4 Dimensions vector with floating point precision.
  *
  * \since   Jun 4, 2017
  * \author  Constantin MASSON
@@ -23,24 +23,24 @@ class VectF4 {
     // Attributes
     // -------------------------------------------------------------------------
     public:
-#ifdef __SSE4_1__
-        union{
-            __m128 m128;
-            struct{
-                // To allow calling v.x / v.y / etc...
-                // Warning: this assume float is 32, don't know a way to force it
+        union {
+            struct {
                 float x;
                 float y;
                 float z;
                 float w;
             };
-        };
-#else
-        float x;
-        float y;
-        float z;
-        float w;
+            struct {
+                // Useful for colors (Red / Green / Blue / Alpha)
+                float r;
+                float g;
+                float b;
+                float a;
+            };
+#ifdef __SSE4_1__
+            __m128 m128;
 #endif
+        };
 
     // -------------------------------------------------------------------------
     // Constructors
@@ -95,22 +95,24 @@ class VectF4 {
         /**
          * Gets the square length of this vector.
          *
-         *\return The square length (Magnitude) of this vector.
+         * \return The square length (Magnitude) of this vector.
          */
         float squareLength() const;
 
         /**
          * Gets the square length of this vector without W axis.
          *
-         *\return The square length (Magnitude) of this vector.
+         * \return The square length (Magnitude) of this vector.
          */
         float squareLength3() const;
 
         /**
          * Returns a normalized copy of this vector.
+         * Normalized vector has same direction but length = 1.
          *
          * \warning
-         * Function will crash if vector length() is zero!
+         * If vector length is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
          * Not verification is done for performance. (Hence 'fast')
          *
          * \return The new normalized vector.
@@ -120,9 +122,11 @@ class VectF4 {
         /**
          * Returns a normalized copy of this vector without taking W axis into account.
          * W axis is set to 0.
+         * Normalized vector has same direction but length = 1.
          *
          * \warning
-         * Function will crash if vector length3() is zero!
+         * If vector length is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
          * Not verification is done for performance. (Hence 'fast')
          *
          * \return The new normalized vector.
@@ -133,7 +137,8 @@ class VectF4 {
          * Normalize this vector in place.
          *
          * \warning
-         * Function will crash if vector length() is zero!
+         * If vector length is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
          * Not verification is done for performance. (Hence 'fast')
          */
         void normalizeFast();
@@ -242,7 +247,9 @@ class VectF4 {
          * Returns the division of each this components by a scalar.
          *
          * \warning
-         * Function will crash if scalar is zero.
+         * If scalar is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * \param v Vector to divide with.
          * \return New vector.
@@ -253,7 +260,9 @@ class VectF4 {
          * Returns the division of this components by another vector.
          *
          * \warning
-         * Function will crash if other vector has a zero component.
+         * If other vector has a zero component, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * \param v The other vector.
          * \return The new vector.
@@ -312,7 +321,9 @@ class VectF4 {
          * Divides this by a scalar.
          *
          * \warning
-         * Function will crash if scalar is zero.
+         * If scalar is zero, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * param s The scalar value.
          * \return Reference to the current vector after division.
@@ -323,7 +334,9 @@ class VectF4 {
          * Divides this by a vector.
          *
          * \warning
-         * Function will crash if other vector has a zero component.
+         * If other vector has a zero component, a division by zero appears.
+         * Since floating point division by 0, vector is filled with 'infinite'.
+         * Not verification is done for performance. (Hence 'fast')
          *
          * param v The other vector.
          * \return Reference to the current vector after calculation.
@@ -407,10 +420,11 @@ class VectF4 {
          * \param v Vector print.
          */
         friend std::ostream& operator<<(std::ostream& os, VectF4 const& v);
-} GCC_ALIGNED(16);
+} GCC_ALIGNED(16); // 16 bytes aligned. Required for SSE
 
 
 #include "VectF4.inl"
+
 
 #endif
 
