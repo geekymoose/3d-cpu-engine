@@ -7,6 +7,7 @@
 #include "render/SDL2/AppWindowSDL2.h"
 #include "core/Camera.h"
 #include "core/Mesh.h"
+#include "math/VectF2.h"
 #include "math/VectF3.h"
 #include "math/VectF4.h"
 #include "math/MatrixF3.h"
@@ -25,6 +26,7 @@
  * \remark
  * This class is subject to many change an is currently used to have a first
  * working version.
+ * Don't pay attention to ugly elements that will go away later.
  */
 class Engine {
     private:
@@ -50,6 +52,8 @@ class Engine {
     private:
         bool renderOneFrame();
         void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> meshes);
+        VectF3 projectPoint(VectF3 const& p, MatrixF4 const& mTransform);
+        void DrawPoint(SDL_Renderer* renderer, VectF3 const& p);
         void DrawPoint(SDL_Renderer* renderer, VectF3 const& p, MatrixF4 const& transformMatrix);
         void handleEvent(SDL_Event* sdlevent);
 };

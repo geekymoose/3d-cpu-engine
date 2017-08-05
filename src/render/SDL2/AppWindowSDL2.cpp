@@ -22,7 +22,7 @@ void AppWindowSDL2::initialize(const char* name, const int w, const int h) {
 // TODO To update: At the moment, flags is hard coded (To SDL_WINDOW_HIDDEN)
 void AppWindowSDL2::initialize(const char* title, const int w, const int h, const int l, const int t) {
     // Load sdl_window
-    this->sdl_window = SDL_CreateWindow(title, l, t, w, h, SDL_WINDOW_HIDDEN);
+    this->sdl_window = SDL_CreateWindow(title, l, t, w, h, SDL_WINDOW_HIDDEN | SDL_WINDOW_RESIZABLE);
     if(this->sdl_window == NULL){
         std::clog << "[ERR] Unable to start SDL window. SDL_Error: " << SDL_GetError() << std::endl;
         return;

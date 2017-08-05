@@ -12,15 +12,15 @@ Engine::Engine() : renderWindow() {
 bool Engine::init(){
     // Init the hard coded elements (Camera, meshes).
     Mesh meshCube;
-    VectF3 p1(1.0f, -1.0f, -1.0f);
-    VectF3 p2(-1.0f, -1.0f, -1.0f);
-    VectF3 p3(-1.0f, 1.0f, -1.0f);
-    VectF3 p4(1.0f, 1.0f, -1.0f);
 
-    VectF3 p5(1.0f, -1.0f, 1.0f);
-    VectF3 p6(-1.0f, -1.0f, 1.0f);
-    VectF3 p7(-1.0f, 1.0f, 1.0f);
-    VectF3 p8(1.0f, 1.0f, 1.0f);
+    VectF3 p1(-1.f, 1.f, 1.f);
+    VectF3 p2(1.f, 1.f, 1.f);
+    VectF3 p3(-1.f, -1.f, 1.f);
+    VectF3 p4(-1.f, -1.f, -1.f);
+    VectF3 p5(-1.f, 1.f, -1.f);
+    VectF3 p6(1.f, 1.f, -1.f);
+    VectF3 p7(1.f, -1.f, 1.f);
+    VectF3 p8(1.f, -1.f, -1.f);
 
     meshCube.vertices.push_back(p1);
     meshCube.vertices.push_back(p2);
@@ -62,10 +62,13 @@ bool Engine::startRendering(){
     // Main loop
     SDL_Event sdlevent;
     while(isRunning){
-        renderOneFrame();
+        /* TODO To update later
         while(SDL_PollEvent(&sdlevent)){
             handleEvent(&sdlevent);
-        }
+        } */
+        SDL_PollEvent(&sdlevent);
+        handleEvent(&sdlevent);
+        renderOneFrame();
     }
     return true;
 }
@@ -85,34 +88,41 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
     MatrixF4 viewMatrix;
     MatrixF4 worldMatrix;
     MatrixF4 projectionMatrix;
-    VectF3 up(0.0f, 1.0f, 0.0f);
-    const float fov     = 70.0f; // Just for test, angle is close to 60 degrees.
+    const VectF3 up(0.0f, 1.0f, 0.0f);
     const float w       = WINDOW_DEFAULT_SIZE_W;
     const float h       = WINDOW_DEFAULT_SIZE_H;
     viewMatrix          = MatrixTransform::creaLookAtLH(camera.position, camera.target, up);
-    projectionMatrix    = MatrixTransform::creaPerspectiveFovLH(fov, w, h, 0.3f, 1.0f);
+    projectionMatrix    = MatrixTransform::creaPerspectiveFovLH(1.57f, w, h, 1.0f, 45.0f);
 
     // Project each mesh
-    for(std::vector<int>::size_type i = 0; i < meshes.size(); i++){
-        Mesh &m = meshes[i];
+    for(auto m : meshes){
         worldMatrix = MatrixTransform::creaTranslate(m.position) * MatrixTransform::creaRotateZYX(m.rotation);
         MatrixF4 transformMatrix = projectionMatrix * viewMatrix * worldMatrix;
-        for(std::vector<int>::size_type j = 0; j < m.vertices.size(); j++){
-            this->DrawPoint(renderer, m.vertices[j], transformMatrix);
+        for(auto vertice : m.vertices) {
+            this->DrawPoint(renderer, this->projectPoint(vertice, transformMatrix));
         }
     }
 }
 
-void Engine::DrawPoint(SDL_Renderer* renderer, VectF3 const& p, MatrixF4 const& transformMatrix) {
-    VectF4 p2 = transformMatrix * VectF4(p.x, p.y, p.z, 1.0f);
-    float x = p2.x / p2.w;
-    float y = p2.y / p2.w;
+VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
+    const VectF4 p_prim = mTransform * VectF4(p.x, p.y, p.z, 1.0f);
+    float x = p_prim.x / p_prim.w;
+    float y = p_prim.y / p_prim.w;
+    float z = p_prim.z / p_prim.w;
+    return VectF3(x, y, z);
+}
+
+void Engine::DrawPoint(SDL_Renderer* renderer, VectF3 const& p) {
+    // TODO replace w and h by actual current size.
     const float w = WINDOW_DEFAULT_SIZE_W;
     const float h = WINDOW_DEFAULT_SIZE_H;
-    x = x * w + w / 2.0f;
-    y = y * h + h / 2.0f;
-    // TODO Add clipping (Don't draw if point is outside window)
-    SDL_RenderDrawPoint(renderer, x, y);
+    if(p.z >= 0 && p.z <= 1) {
+        if(p.x >= -1 && p.x <= 1 && p.y >= -1 && p.y <= 1) {
+            float x = p.x * w + w / 2.0f;
+            float y = p.y * h + h / 2.0f;
+            SDL_RenderDrawPoint(renderer, x, y);
+        }
+    }
 }
 
 bool Engine::stopRendering(){
@@ -121,8 +131,14 @@ bool Engine::stopRendering(){
 }
 
 void Engine::handleEvent(SDL_Event* sdlevent){
-    if (sdlevent->type == SDL_QUIT){
-        this->stopRendering();
+    switch (sdlevent->type) {
+        case SDL_QUIT:
+            this->stopRendering();
+            break;
+        case SDL_MOUSEWHEEL:
+            cctv.position.z += sdlevent->wheel.y * 0.005f;
+            break;
+
     }
 }
 
