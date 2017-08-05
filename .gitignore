@@ -1,6 +1,7 @@
 # Perso adds
 3d-soft-engine
 build/*
+*__pycache__
 
 # ------------------------------------------------------------------------------
 # Created by https://www.gitignore.io/api/vim,c++

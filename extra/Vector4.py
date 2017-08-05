@@ -1,7 +1,7 @@
 from math import sqrt
 
 class Vector4:
-    """ Simple Vector4 class """
+    """ Simple Vector4 class. """
 
     # --------------------------------------------------------------------------
     # Constructors
@@ -52,8 +52,7 @@ class Vector4:
 
     def divide(self, s):
         """ Returns a new version of this vector divided by s.
-        If s is 0, return null vector (All elements set to 0). 
-        """
+            If s is 0, return null vector (All elements set to 0).  """
         if (s==0): return Vector4(0,0,0,0)
         return Vector4(self.x/s, self.y/s, self.z/s, self.w/s)
 
