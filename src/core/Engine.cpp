@@ -69,12 +69,17 @@ bool Engine::startRendering(){
         SDL_PollEvent(&sdlevent);
         handleEvent(&sdlevent);
         renderOneFrame();
+
+        // TODO Temporary rotate the first mesh (And actually unique for now)
+        // Note: FPS not fixed. Fast computer -> fast rotation (It's just temporary)
+        this->listMeshes[0].rotation.x += 0.0005;
+        this->listMeshes[0].rotation.y += 0.0005;
     }
     return true;
 }
 
 bool Engine::renderOneFrame(){
-    SDL_Renderer*   renderer    = this->renderWindow.sdl_renderer;
+    SDL_Renderer* renderer = this->renderWindow.sdl_renderer;
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
@@ -99,8 +104,23 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
         worldMatrix = MatrixTransform::creaTranslate(m.position) * MatrixTransform::creaRotateZYX(m.rotation);
         MatrixF4 transformMatrix = projectionMatrix * viewMatrix * worldMatrix;
         for(auto vertice : m.vertices) {
-            this->DrawPoint(renderer, this->projectPoint(vertice, transformMatrix));
+            VectF3 projectPoint = this->projectPoint(vertice, transformMatrix);
+            this->DrawPoint(renderer, projectPoint);
         }
+
+        // TODO Test draw line -----------------
+        VectF3 p1 = this->projectPoint(m.vertices[0], transformMatrix);
+        VectF3 p2 = this->projectPoint(m.vertices[1], transformMatrix);
+        float x1 = p1.x * w + w / 2.0f;
+        float y1 = p1.y * h + h / 2.0f;
+        float x2 = p2.x * w + w / 2.0f;
+        float y2 = p2.y * h + h / 2.0f;
+        SDL_SetRenderDrawColor(renderer, 255, 0, 255, SDL_ALPHA_OPAQUE);
+        SDL_RenderDrawPoint(renderer, x2, y2); // Second point
+        SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+        SDL_RenderDrawPoint(renderer, x1, y1); // First
+        DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
+        // END DEBUG -----------------
     }
 }
 

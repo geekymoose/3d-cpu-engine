@@ -5,6 +5,7 @@
 
 #include "render/AppWindow.h"
 #include "render/SDL2/AppWindowSDL2.h"
+#include "render/SDL2/DrawSDLUtils.h"
 #include "core/Camera.h"
 #include "core/Mesh.h"
 #include "math/VectF2.h"
