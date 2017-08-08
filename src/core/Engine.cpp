@@ -13,27 +13,53 @@ bool Engine::init(){
     // Init the hard coded elements (Camera, meshes).
     Mesh meshCube;
 
-    VectF3 p1(-1.f, 1.f, 1.f);
-    VectF3 p2(1.f, 1.f, 1.f);
-    VectF3 p3(-1.f, -1.f, 1.f);
-    VectF3 p4(-1.f, -1.f, -1.f);
-    VectF3 p5(-1.f, 1.f, -1.f);
-    VectF3 p6(1.f, 1.f, -1.f);
-    VectF3 p7(1.f, -1.f, 1.f);
-    VectF3 p8(1.f, -1.f, -1.f);
-
+    // Create vertices
+    VectF3 p1(-1, 1, 1);
+    VectF3 p2(1, 1, 1);
+    VectF3 p3(-1, -1, 1);
+    VectF3 p4(1, -1, 1);
+    VectF3 p5(-1, 1, -1);
+    VectF3 p6(1, 1, -1);
+    VectF3 p7(1, -1, -1);
+    VectF3 p8(-1, -1, -1);
     meshCube.vertices.push_back(p1);
     meshCube.vertices.push_back(p2);
     meshCube.vertices.push_back(p3);
     meshCube.vertices.push_back(p4);
-
     meshCube.vertices.push_back(p5);
     meshCube.vertices.push_back(p6);
     meshCube.vertices.push_back(p7);
     meshCube.vertices.push_back(p8);
 
+    // Create faces
+    Face f1 = {0, 1, 2};
+    Face f2 = {1, 2, 3};
+    Face f3 = {1, 3, 6};
+    Face f4 = {1, 5, 6};
+    Face f5 = {0, 1, 4};
+    Face f6 = {1, 4, 5};
+    Face f7 = {2, 3, 7};
+    Face f8 = {3, 6, 7};
+    Face f9 = {0, 2, 7};
+    Face f10 = {0, 4, 7};
+    Face f11 = {4, 5, 6};
+    Face f12 = {4, 6, 7};
+    meshCube.faces.push_back(f1);
+    meshCube.faces.push_back(f2);
+    meshCube.faces.push_back(f3);
+    meshCube.faces.push_back(f4);
+    meshCube.faces.push_back(f5);
+    meshCube.faces.push_back(f6);
+    meshCube.faces.push_back(f7);
+    meshCube.faces.push_back(f8);
+    meshCube.faces.push_back(f9);
+    meshCube.faces.push_back(f10);
+    meshCube.faces.push_back(f11);
+    meshCube.faces.push_back(f12);
+
     meshCube.position = VectF3(0.0f);
     meshCube.rotation = VectF3(0.0f);
+
 
     this->listMeshes.push_back(meshCube);
     this->cctv.position = VectF3(0.0f, 0.0f, 10.0f);
@@ -103,24 +129,15 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
     for(auto m : meshes){
         worldMatrix = MatrixTransform::creaTranslate(m.position) * MatrixTransform::creaRotateZYX(m.rotation);
         MatrixF4 transformMatrix = projectionMatrix * viewMatrix * worldMatrix;
-        for(auto vertice : m.vertices) {
-            VectF3 projectPoint = this->projectPoint(vertice, transformMatrix);
-            this->DrawPoint(renderer, projectPoint);
+        for(auto face : m.faces) {
+            VectF3 p1 = this->projectPoint(m.vertices[face.a], transformMatrix);
+            VectF3 p2 = this->projectPoint(m.vertices[face.b], transformMatrix);
+            VectF3 p3 = this->projectPoint(m.vertices[face.c], transformMatrix);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+            this->drawLine(renderer, p1, p2);
+            this->drawLine(renderer, p2, p3);
+            this->drawLine(renderer, p3, p1);
         }
-
-        // TODO Test draw line -----------------
-        VectF3 p1 = this->projectPoint(m.vertices[0], transformMatrix);
-        VectF3 p2 = this->projectPoint(m.vertices[1], transformMatrix);
-        float x1 = p1.x * w + w / 2.0f;
-        float y1 = p1.y * h + h / 2.0f;
-        float x2 = p2.x * w + w / 2.0f;
-        float y2 = p2.y * h + h / 2.0f;
-        SDL_SetRenderDrawColor(renderer, 255, 0, 255, SDL_ALPHA_OPAQUE);
-        SDL_RenderDrawPoint(renderer, x2, y2); // Second point
-        SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
-        SDL_RenderDrawPoint(renderer, x1, y1); // First
-        DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
-        // END DEBUG -----------------
     }
 }
 
@@ -132,7 +149,7 @@ VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
     return VectF3(x, y, z);
 }
 
-void Engine::DrawPoint(SDL_Renderer* renderer, VectF3 const& p) {
+void Engine::drawPoint(SDL_Renderer* renderer, VectF3 const& p) {
     // TODO replace w and h by actual current size.
     const float w = WINDOW_DEFAULT_SIZE_W;
     const float h = WINDOW_DEFAULT_SIZE_H;
@@ -143,6 +160,16 @@ void Engine::DrawPoint(SDL_Renderer* renderer, VectF3 const& p) {
             SDL_RenderDrawPoint(renderer, x, y);
         }
     }
+}
+
+void Engine::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2) {
+    const float w = WINDOW_DEFAULT_SIZE_W;
+    const float h = WINDOW_DEFAULT_SIZE_H;
+    const float x1 = p1.x * w + w / 2.0f;
+    const float y1 = p1.y * h + h / 2.0f;
+    const float x2 = p2.x * w + w / 2.0f;
+    const float y2 = p2.y * h + h / 2.0f;
+    DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
 }
 
 bool Engine::stopRendering(){

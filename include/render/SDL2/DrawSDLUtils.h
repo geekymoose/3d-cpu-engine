@@ -6,6 +6,10 @@
 /**
  *
  * \note
+ * TODO This class is temporary and will be re factored.
+ * (Design pattern strategy + Factory for instance, to be able to switch used algorithm.)
+ *
+ * \note
  * These functions are mainly already implemented by SDL (And probably way better).
  * It is for the pure learning purpose.
  *
@@ -24,6 +28,12 @@ class DrawSDLUtils {
          * per pixel).
          */
         static void drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, int w, int h);
+
+        /**
+         * Draw a line using Midpoint Line Algorithm.
+         * A.k.a Bresenham's ALgorithm.
+         */
+        static void drawLineMidpoint(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, int w, int h);
 
         static void drawClippedPoint(SDL_Renderer* renderer, int x, int y, int w, int h);
 };

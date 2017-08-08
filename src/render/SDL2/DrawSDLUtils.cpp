@@ -4,24 +4,41 @@ void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, i
     float dx    = x2 - x1;
     float dy    = y2 - y1;
     float m     = dy / dx;
-    float y     = 0.0f;
-    int x_start = 0;
-    int x_end   = 0;
-    // This is used to start drawing from the point with lower x value.
-    if(dx >= 0) {
-        x_start = x1;
-        x_end   = x2;
-        y       = y1;
+    if(m <= 1 && m >= -1) {
+        int x_start = x1;
+        int x_end   = x2;
+        float y     = y1;
+        // This is used to start drawing from the point with lower x value.
+        if(dx < 0) {
+            x_start = x2;
+            x_end   = x1;
+            y       = y2;
+        }
+        for(int x = x_start; x <= x_end; x++) {
+            y += m;
+            DrawSDLUtils::drawClippedPoint(renderer, x, (int)y, w, h);
+        }
     }
     else {
-        x_start = x2;
-        x_end   = x1;
-        y       = y2;
+        m = dx / dy;
+        int y_start = y1;
+        int y_end   = y2;
+        float x     = x1;
+        // This is used to start drawing from the point with lower y value.
+        if(dy < 0) {
+            y_start = y2;
+            y_end   = y1;
+            x       = x2;
+        }
+        for(int y = y_start; y <= y_end; y++) {
+            x += m;
+            DrawSDLUtils::drawClippedPoint(renderer, x, (int)y, w, h);
+        }
     }
-    for(int x = x_start; x <= x_end; x++) {
-        y += m;
-        DrawSDLUtils::drawClippedPoint(renderer, x, (int)y, w, h);
-    }
+}
+
+void DrawSDLUtils::drawLineMidpoint(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, int w, int h) {
+    // TODO
 }
 
 void DrawSDLUtils::drawClippedPoint(SDL_Renderer* renderer, int x, int y, int w, int h) {
