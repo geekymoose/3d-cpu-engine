@@ -133,10 +133,12 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
             VectF3 p1 = this->projectPoint(m.vertices[face.a], transformMatrix);
             VectF3 p2 = this->projectPoint(m.vertices[face.b], transformMatrix);
             VectF3 p3 = this->projectPoint(m.vertices[face.c], transformMatrix);
-            SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+            SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
             this->drawLine(renderer, p1, p2);
             this->drawLine(renderer, p2, p3);
             this->drawLine(renderer, p3, p1);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+            this->drawFilledTriangle(renderer, p1, p2, p3);
         }
     }
 }
@@ -170,6 +172,18 @@ void Engine::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2
     const float x2 = p2.x * w + w / 2.0f;
     const float y2 = p2.y * h + h / 2.0f;
     DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
+}
+
+void Engine::drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, VectF3 const& p3) {
+    const float w = WINDOW_DEFAULT_SIZE_W;
+    const float h = WINDOW_DEFAULT_SIZE_H;
+    const float x1 = p1.x * w + w / 2.0f;
+    const float x2 = p2.x * w + w / 2.0f;
+    const float x3 = p3.x * w + w / 2.0f;
+    const float y1 = p1.y * h + h / 2.0f;
+    const float y2 = p2.y * h + h / 2.0f;
+    const float y3 = p3.y * h + h / 2.0f;
+    DrawSDLUtils::drawScanLineTriangle(renderer, x1, y1, x2, y2, x3, y3, w, h);
 }
 
 bool Engine::stopRendering(){

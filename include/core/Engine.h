@@ -57,6 +57,7 @@ class Engine {
         void drawPoint(SDL_Renderer* renderer, VectF3 const& p);
         void drawPoint(SDL_Renderer* renderer, VectF3 const& p, MatrixF4 const& transformMatrix);
         void drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2);
+        void drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, VectF3 const& p3);
         void handleEvent(SDL_Event* sdlevent);
 };
 

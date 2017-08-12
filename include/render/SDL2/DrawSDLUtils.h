@@ -35,6 +35,8 @@ class DrawSDLUtils {
          */
         static void drawLineMidpoint(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, int w, int h);
 
+        static void drawScanLineTriangle(SDL_Renderer* renderer, int p1_x, int p1_y, int p2_x, int p2_y, int p3_x, int p3_y, int w, int h);
+
         static void drawClippedPoint(SDL_Renderer* renderer, int x, int y, int w, int h);
 };
 
