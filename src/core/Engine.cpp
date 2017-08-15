@@ -133,12 +133,12 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
             VectF3 p1 = this->projectPoint(m.vertices[face.a], transformMatrix);
             VectF3 p2 = this->projectPoint(m.vertices[face.b], transformMatrix);
             VectF3 p3 = this->projectPoint(m.vertices[face.c], transformMatrix);
+            SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+            this->drawFilledTriangle(renderer, p1, p2, p3);
             SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
             this->drawLine(renderer, p1, p2);
             this->drawLine(renderer, p2, p3);
             this->drawLine(renderer, p3, p1);
-            SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
-            this->drawFilledTriangle(renderer, p1, p2, p3);
         }
     }
 }

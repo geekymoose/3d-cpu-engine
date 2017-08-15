@@ -52,7 +52,7 @@ static void drawScanlineBottomFlatTriangle(SDL_Renderer* renderer, int p1_x, int
     P P3 = {p3_x, p3_y};
     const float invSlopeP1P2 = (P2.x - P1.x) / (float)(P2.y - P1.y);
     const float invSlopeP1P3 = (P3.x - P1.x) / (float)(P3.y - P1.y);
-    float sx = P1.x, ex = P2.x;
+    float sx = P1.x, ex = P1.x;
     for(int y = P1.y; y <= P2.y; y++) {
         for(int x = sx; x <= ex; x++) {
             DrawSDLUtils::drawClippedPoint(renderer, (int)x, y, w, h);
@@ -73,13 +73,13 @@ static void drawScanlineTopFlatTriangle(SDL_Renderer* renderer, int p1_x, int p1
     P P3 = {p3_x, p3_y};
     const float invSlopeP1P2 = (P2.x - P1.x) / (float)(P2.y - P1.y);
     const float invSlopeP1P3 = (P3.x - P1.x) / (float)(P3.y - P1.y);
-    float sx = P1.x, ex = P2.x;
+    float sx = P1.x, ex = P1.x;
     for(int y = P1.y; y >= P2.y; y--) {
         for(int x = sx; x <= ex; x++) {
             DrawSDLUtils::drawClippedPoint(renderer, (int)x, y, w, h);
         }
-        sx += invSlopeP1P2;
-        ex += invSlopeP1P3;
+        sx -= invSlopeP1P2;
+        ex -= invSlopeP1P3;
     }
 }
 
@@ -116,7 +116,20 @@ void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer, int p1_x, int p1
         }
     }
     else {
-        // TODO
+        const float invSlopeP1P3 = (P3.x - P1.x) / (float)(P3.y - P1.y);
+        P P4;
+        P4.y = P2.y;
+        P4.x = invSlopeP1P3 * (P2.y - P3.y) + P3.x;
+
+        // P4 at the right of P2
+        if(P4.x > P2.x) {
+            drawScanlineBottomFlatTriangle(renderer, P1.x, P1.y, P2.x, P2.y, P4.x, P4.y, w, h);
+            drawScanlineTopFlatTriangle(renderer, P3.x, P3.y, P2.x, P2.y, P4.x, P4.y, w, h);
+        }
+        else {
+            drawScanlineBottomFlatTriangle(renderer, P1.x, P1.y, P4.x, P4.y, P2.x, P2.y, w, h);
+            drawScanlineTopFlatTriangle(renderer, P3.x, P3.y, P4.x, P4.y, P2.x, P2.y, w, h);
+        }
     }
 }
 
