@@ -133,11 +133,13 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
     for(auto m : meshes){
         worldMatrix = MatrixTransform::creaTranslate(m.position) * MatrixTransform::creaRotateZYX(m.rotation);
         MatrixF4 transformMatrix = projectionMatrix * viewMatrix * worldMatrix;
+        int color = 100;
         for(auto face : m.faces) {
             VectF3 p1 = this->projectPoint(m.vertices[face.a], transformMatrix);
             VectF3 p2 = this->projectPoint(m.vertices[face.b], transformMatrix);
             VectF3 p3 = this->projectPoint(m.vertices[face.c], transformMatrix);
-            SDL_SetRenderDrawColor(renderer, 138, 43, 226, SDL_ALPHA_OPAQUE);
+            color = (color+42) % 255;
+            SDL_SetRenderDrawColor(renderer, color, color, color, SDL_ALPHA_OPAQUE);
             this->drawFilledTriangle(renderer, p1, p2, p3);
             //SDL_SetRenderDrawColor(renderer, 92, 92, 92, SDL_ALPHA_OPAQUE);
             //this->drawLine(renderer, p1, p2);
