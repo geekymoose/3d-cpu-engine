@@ -100,11 +100,15 @@ bool Engine::startRendering(){
         // Note: FPS not fixed. Fast computer -> fast rotation (It's just temporary)
         this->listMeshes[0].rotation.x += 0.0005;
         this->listMeshes[0].rotation.y += 0.0005;
+        this->listMeshes[0].rotation.z += 0.0005;
     }
     return true;
 }
 
 bool Engine::renderOneFrame(){
+    for(int k = 0; k < WINDOW_DEFAULT_SIZE_H * WINDOW_DEFAULT_SIZE_W; k++) {
+        this->depthBuffer[k] = 2;
+    }
     SDL_Renderer* renderer = this->renderWindow.sdl_renderer;
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
@@ -133,12 +137,12 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
             VectF3 p1 = this->projectPoint(m.vertices[face.a], transformMatrix);
             VectF3 p2 = this->projectPoint(m.vertices[face.b], transformMatrix);
             VectF3 p3 = this->projectPoint(m.vertices[face.c], transformMatrix);
-            SDL_SetRenderDrawColor(renderer, 255, 255, 0, SDL_ALPHA_OPAQUE);
+            SDL_SetRenderDrawColor(renderer, 138, 43, 226, SDL_ALPHA_OPAQUE);
             this->drawFilledTriangle(renderer, p1, p2, p3);
-            SDL_SetRenderDrawColor(renderer, 255, 0, 0, SDL_ALPHA_OPAQUE);
-            this->drawLine(renderer, p1, p2);
-            this->drawLine(renderer, p2, p3);
-            this->drawLine(renderer, p3, p1);
+            //SDL_SetRenderDrawColor(renderer, 92, 92, 92, SDL_ALPHA_OPAQUE);
+            //this->drawLine(renderer, p1, p2);
+            //this->drawLine(renderer, p2, p3);
+            //this->drawLine(renderer, p3, p1);
         }
     }
 }
@@ -183,7 +187,8 @@ void Engine::drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1, VectF3
     const float y1 = p1.y * h + h / 2.0f;
     const float y2 = p2.y * h + h / 2.0f;
     const float y3 = p3.y * h + h / 2.0f;
-    DrawSDLUtils::drawScanLineTriangle(renderer, x1, y1, x2, y2, x3, y3, w, h);
+    //DrawSDLUtils::drawScanLineTriangle(renderer, x1, y1, x2, y2, x3, y3, w, h);
+    DrawSDLUtils::drawScanLineTriangle(renderer, this->depthBuffer, x1, y1, p1.z, x2, y2, p2.z, x3, y3, p3.z, w, h);
 }
 
 bool Engine::stopRendering(){

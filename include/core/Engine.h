@@ -33,6 +33,7 @@ class Engine {
     private:
         bool isRunning;
         AppWindowSDL2 renderWindow;
+        float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H];
 
 
     private:
