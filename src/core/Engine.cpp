@@ -149,7 +149,7 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
     }
 }
 
-VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
+inline VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
     const VectF4 p_prim = mTransform * VectF4(p.x, p.y, p.z, 1.0f);
     float x = p_prim.x / p_prim.w;
     float y = p_prim.y / p_prim.w;
@@ -157,7 +157,7 @@ VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
     return VectF3(x, y, z);
 }
 
-void Engine::drawPoint(SDL_Renderer* renderer, VectF3 const& p) {
+inline void Engine::drawPoint(SDL_Renderer* renderer, VectF3 const& p) {
     // TODO replace w and h by actual current size.
     const float w = WINDOW_DEFAULT_SIZE_W;
     const float h = WINDOW_DEFAULT_SIZE_H;
@@ -170,7 +170,7 @@ void Engine::drawPoint(SDL_Renderer* renderer, VectF3 const& p) {
     }
 }
 
-void Engine::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2) {
+inline void Engine::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2) {
     const float w = WINDOW_DEFAULT_SIZE_W;
     const float h = WINDOW_DEFAULT_SIZE_H;
     const float x1 = p1.x * w + w / 2.0f;
@@ -180,7 +180,7 @@ void Engine::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2
     DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
 }
 
-void Engine::drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, VectF3 const& p3) {
+inline void Engine::drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, VectF3 const& p3) {
     const float w = WINDOW_DEFAULT_SIZE_W;
     const float h = WINDOW_DEFAULT_SIZE_H;
     const float x1 = p1.x * w + w / 2.0f;
