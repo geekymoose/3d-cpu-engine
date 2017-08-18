@@ -1,7 +1,7 @@
 #include "core/Engine.h"
 
 
-Engine::Engine() : renderWindow() {
+Engine::Engine() : meshManager(MeshManager::getSingleton()), renderWindow() {
     this->isRunning = false;
 }
 
@@ -9,7 +9,11 @@ Engine::Engine() : renderWindow() {
 // Body function (Execution)
 //------------------------------------------------------------------------------
 
-bool Engine::init(){
+bool Engine::init(void){
+    this->meshManager.startUp();
+    //this->meshManager.loadMeshesFromJSON("./resources/meshes/suzanne.babylon");
+
+
     // Init the hard coded elements (Camera, meshes).
     Mesh meshCube;
 
@@ -76,11 +80,11 @@ bool Engine::init(){
     return true;
 }
 
-void destroy(){
+void destroy(void){
     SDL_Quit();
 }
 
-bool Engine::startRendering(){
+bool Engine::startRendering(void){
     if(isRunning){
         return false;
     }
@@ -105,7 +109,7 @@ bool Engine::startRendering(){
     return true;
 }
 
-bool Engine::renderOneFrame(){
+bool Engine::renderOneFrame(void){
     for(int k = 0; k < WINDOW_DEFAULT_SIZE_H * WINDOW_DEFAULT_SIZE_W; k++) {
         this->depthBuffer[k] = 2;
     }
@@ -193,7 +197,7 @@ inline void Engine::drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1,
     DrawSDLUtils::drawScanLineTriangle(renderer, this->depthBuffer, x1, y1, p1.z, x2, y2, p2.z, x3, y3, p3.z, w, h);
 }
 
-bool Engine::stopRendering(){
+bool Engine::stopRendering(void){
     this->isRunning = false;
     return true;
 }

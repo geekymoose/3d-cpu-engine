@@ -3,11 +3,12 @@
 
 #include <SDL2/SDL.h>
 
+#include "core/Camera.h"
+#include "core/Mesh.h"
+#include "core/MeshManager.h"
 #include "render/AppWindow.h"
 #include "render/SDL2/AppWindowSDL2.h"
 #include "render/SDL2/DrawSDLUtils.h"
-#include "core/Camera.h"
-#include "core/Mesh.h"
 #include "math/VectF2.h"
 #include "math/VectF3.h"
 #include "math/VectF4.h"
@@ -31,9 +32,13 @@
  */
 class Engine {
     private:
+        MeshManager &meshManager;
+
+    private:
         bool isRunning;
         AppWindowSDL2 renderWindow;
-        float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H];
+
+        float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H]; // TODO tmp
 
 
     private:
@@ -43,16 +48,16 @@ class Engine {
         Camera cctv; // CCTV is watching you!
 
     public:
-        Engine();
+        Engine(void);
 
     public:
-        bool init();
-        bool startRendering();
-        bool stopRendering();
-        void destroy();
+        bool init(void);
+        bool startRendering(void);
+        bool stopRendering(void);
+        void destroy(void);
 
     private:
-        bool renderOneFrame();
+        bool renderOneFrame(void);
         void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> meshes);
         VectF3 projectPoint(VectF3 const& p, MatrixF4 const& mTransform);
         void drawPoint(SDL_Renderer* renderer, VectF3 const& p);
