@@ -16,7 +16,7 @@
  * \author  Constantin Masson
  */
 class MeshManager {
-    private:
+    public:
         // ---------------------------------------------------------------------
         // Attributes
         // ---------------------------------------------------------------------
@@ -24,6 +24,7 @@ class MeshManager {
         /** List of all loaded meshes. */
         std::vector<Mesh> listMeshes;
 
+    private:
         /** Keep track if manager has been initialized */
         bool isInitialized;
 

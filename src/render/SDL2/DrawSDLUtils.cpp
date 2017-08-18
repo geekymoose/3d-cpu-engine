@@ -52,6 +52,14 @@ static void drawScanlineTopFlatTriangle(SDL_Renderer* renderer, int p1_x, int p1
 // Class functions
 // -----------------------------------------------------------------------------
 
+void DrawSDLUtils::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, int w, int h) {
+    const float x1 = p1.x * w + w / 2.0f;
+    const float x2 = p2.x * w + w / 2.0f;
+    const float y1 = p1.y * h + h / 2.0f;
+    const float y2 = p2.y * h + h / 2.0f;
+    DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
+}
+
 void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, int w, int h) {
     float dx    = x2 - x1;
     float dy    = y2 - y1;
@@ -87,6 +95,22 @@ void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, i
             DrawSDLUtils::drawClippedPoint(renderer, x, (int)y, w, h);
         }
     }
+}
+
+void DrawSDLUtils::drawFilledTriangle(SDL_Renderer* renderer,
+                                        float *depthBuffer,
+                                        VectF3 const& p1,
+                                        VectF3 const& p2,
+                                        VectF3 const& p3,
+                                        int w, int h) {
+    const float x1 = p1.x * w + w / 2.0f;
+    const float x2 = p2.x * w + w / 2.0f;
+    const float x3 = p3.x * w + w / 2.0f;
+    const float y1 = p1.y * h + h / 2.0f;
+    const float y2 = p2.y * h + h / 2.0f;
+    const float y3 = p3.y * h + h / 2.0f;
+    //DrawSDLUtils::drawScanLineTriangle(renderer, x1, y1, x2, y2, x3, y3, w, h);
+    DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer, x1, y1, p1.z, x2, y2, p2.z, x3, y3, p3.z, w, h);
 }
 
 void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer, int p1_x, int p1_y, int p2_x, int p2_y, int p3_x, int p3_y, int w, int h) {

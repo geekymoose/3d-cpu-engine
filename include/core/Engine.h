@@ -43,8 +43,7 @@ class Engine {
 
     private:
         // These variable are hard coded for now
-        // TODO: Later, add meshes manager systems etc
-        std::vector<Mesh> listMeshes;
+        //std::vector<Mesh> listMeshes;
         Camera cctv; // CCTV is watching you!
 
     public:
@@ -58,12 +57,8 @@ class Engine {
 
     private:
         bool renderOneFrame(void);
-        void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> meshes);
+        void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> &meshes);
         VectF3 projectPoint(VectF3 const& p, MatrixF4 const& mTransform);
-        void drawPoint(SDL_Renderer* renderer, VectF3 const& p);
-        void drawPoint(SDL_Renderer* renderer, VectF3 const& p, MatrixF4 const& transformMatrix);
-        void drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2);
-        void drawFilledTriangle(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, VectF3 const& p3);
         void handleEvent(SDL_Event* sdlevent);
 };
 

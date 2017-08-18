@@ -22,14 +22,17 @@ class Mesh {
         /** The nice mesh's name */
         std::string name;
 
-        /** All mesh's vertices */
-        std::vector<VectF3> vertices;
-
         /** Mesh's position in 3D world space */
         VectF3 position;
 
         /** Mesh's rotation */
         VectF3 rotation;
+
+        /** Mesh's scale */
+        VectF3 scale;
+
+        /** All mesh's vertices */
+        std::vector<VectF3> vertices;
 
         /** All faces */
         std::vector<Face> faces;
