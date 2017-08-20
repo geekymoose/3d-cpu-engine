@@ -1,6 +1,8 @@
 # 3D Software Engine
 > A simple 3D Rendering Engine using CPU for learning purpose.
 
+[![Build Status](https://travis-ci.org/GeekyMoose/3d-soft-engine.svg?branch=master)](https://travis-ci.org/GeekyMoose/3d-soft-engine)
+
 ![Imgur](http://i.imgur.com/794m2up.png)
 ![Imgur](http://i.imgur.com/92bPmsc.png)
 
