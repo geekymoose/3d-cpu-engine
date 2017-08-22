@@ -92,7 +92,7 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
         }
         // TODO Temporary rotate the first mesh (And actually unique for now)
         // Note: FPS not fixed. Fast computer -> fast rotation (It's just temporary)
-        m.rotation.y += 0.0005;
+        m.rotation.y += 0.0015;
     }
 }
 

@@ -144,7 +144,7 @@ static void drawOneScanLineTriangle(SDL_Renderer* renderer,
             int index = y * w + x;
             float gradientz = (x - sx) / (float)(ex - sx);
             float z = interpolate(z1, z2, gradientz);
-            if(depthBuffer[index] >= z) {
+            if(depthBuffer[index] > z) {
                 depthBuffer[index] = z;
                 SDL_RenderDrawPoint(renderer, x, y);
             }
@@ -181,8 +181,11 @@ void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer,
         P2 = tmp;
     }
 
+    float invSlopeP1P2 = (P2.x - P1.x) / (float)(P2.y - P1.y);
+    float invSlopeP1P3 = (P3.x - P1.x) / (float)(P3.y - P1.y);
+
     // P2 at the right of P1P3
-    if(P2.x >= P3.x) {
+    if(invSlopeP1P2 > invSlopeP1P3) {
         for(int y = P1.y; y < P2.y; y++) {
             drawOneScanLineTriangle(renderer, depthBuffer, y,
                     P1.x, P1.y, P1.z,
