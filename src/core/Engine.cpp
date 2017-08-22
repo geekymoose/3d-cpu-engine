@@ -92,17 +92,15 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
         }
         // TODO Temporary rotate the first mesh (And actually unique for now)
         // Note: FPS not fixed. Fast computer -> fast rotation (It's just temporary)
-        m.rotation.x += 0.0005;
         m.rotation.y += 0.0005;
-        m.rotation.z += 0.0005;
     }
 }
 
 inline VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
     const VectF4 p_prim = mTransform * VectF4(p.x, p.y, p.z, 1.0f);
-    float x = p_prim.x / p_prim.w;
-    float y = -p_prim.y / p_prim.w; // 0:0 at top-let corner, thuz -y
-    float z = p_prim.z / p_prim.w;
+    float x = p_prim.x  / p_prim.w;
+    float y = p_prim.y  / p_prim.w;
+    float z = p_prim.z  / p_prim.w;
     return VectF3(x, y, z);
 }
 
