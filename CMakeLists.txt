@@ -1,6 +1,11 @@
 cmake_minimum_required(VERSION 2.8.2 FATAL_ERROR)
 project(3d-soft-engine)
 
+if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
+    message(FATAL_ERROR "Use another directory to start cmake!")
+    exit()
+endif()
+
 
 # -----------------------------------------------------------------------------
 # SSE Optimizations
@@ -65,4 +70,6 @@ endif()
 # -----------------------------------------------------------------------------
 # Other
 # -----------------------------------------------------------------------------
+set(CMAKE_CXX_FLAGS "-std=c++11 ${CMAKE_CXX_FLAGS}")
+file(COPY resources DESTINATION "${CMAKE_BINARY_DIR}/src")
 add_subdirectory(src)

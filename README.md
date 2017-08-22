@@ -36,6 +36,8 @@ This is for the learning purpose. (Otherwise, SDL already implements these algor
 
 
 # Build and run the project on Linux
+> Require C++11. Compiled and tested with gcc 6.3.0
+
 ```
 mkdir build
 cd build
