@@ -108,3 +108,14 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, 
     return result;
 }
 
+FORCE_INLINE VectF3 MatrixTransform::projectOnScreen(VectF3 const& point,
+                                                     MatrixF4 const& mTransform,
+                                                     const int width,
+                                                     const int height) {
+    VectF4 vec = VectF4(point.x, point.y, point.z, 1.0f);
+    vec = mTransform * vec;
+    vec /= vec.w;
+    vec.x = (vec.x * width) + (width * 0.5);
+    vec.y = (-vec.y * height) + (height * 0.5); // upper-left is 0:0 thuz -y
+    return VectF3(vec.x, vec.y, vec.z);
+}

@@ -76,13 +76,12 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
         MatrixF4 transformMatrix = projectionMatrix * viewMatrix * worldMatrix;
         int color = 100;
         for(auto & face : m.faces) {
-            VectF3 p1 = this->projectPoint(m.vertices[face.a], transformMatrix);
-            VectF3 p2 = this->projectPoint(m.vertices[face.b], transformMatrix);
-            VectF3 p3 = this->projectPoint(m.vertices[face.c], transformMatrix);
+            VectF3 p1 = MatrixTransform::projectOnScreen(m.vertices[face.a], transformMatrix, w, h);
+            VectF3 p2 = MatrixTransform::projectOnScreen(m.vertices[face.b], transformMatrix, w, h);
+            VectF3 p3 = MatrixTransform::projectOnScreen(m.vertices[face.c], transformMatrix, w, h);
             color = (color+42) % 255;
             SDL_SetRenderDrawColor(renderer, color, color, color, SDL_ALPHA_OPAQUE);
-            DrawSDLUtils::drawFilledTriangle(renderer, this->depthBuffer, p1, p2, p3, w, h);
-
+            DrawSDLUtils::drawFilledTriangle(renderer, depthBuffer, p1, p2, p3, w, h);
             /*
             SDL_SetRenderDrawColor(renderer, 92, 92, 92, SDL_ALPHA_OPAQUE);
             DrawSDLUtils::drawLine(renderer, p1, p2, w, h);
@@ -94,14 +93,6 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
         // Note: FPS not fixed. Fast computer -> fast rotation (It's just temporary)
         m.rotation.y += 0.0015;
     }
-}
-
-inline VectF3 Engine::projectPoint(VectF3 const& p, MatrixF4 const& mTransform) {
-    const VectF4 p_prim = mTransform * VectF4(p.x, p.y, p.z, 1.0f);
-    float x = p_prim.x  / p_prim.w;
-    float y = p_prim.y  / p_prim.w;
-    float z = p_prim.z  / p_prim.w;
-    return VectF3(x, y, z);
 }
 
 bool Engine::stopRendering(void){

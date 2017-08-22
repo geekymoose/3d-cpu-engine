@@ -44,6 +44,11 @@
     ASSERT_FLOAT_EQ(vect.z, Z); \
     ASSERT_FLOAT_EQ(vect.w, W)
 
+#define ASSERT_VECTF3_VALUES_EQ(vect, X, Y, Z) \
+    ASSERT_FLOAT_EQ(vect.x, X); \
+    ASSERT_FLOAT_EQ(vect.y, Y); \
+    ASSERT_FLOAT_EQ(vect.z, Z)
+
 
 namespace {
 
@@ -92,14 +97,14 @@ TEST_F(MatrixTransformTest, creaRotateZ) {
 TEST_F(MatrixTransformTest, creaRotateZYX_floats) {
     MatrixF4 mm1 = MatrixTransform::creaRotateZYX(0,0,0);
     ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
-    // TODO
+    // TODO Add more tests
 }
 
 TEST_F(MatrixTransformTest, creaRotateZYX_VectF3) {
     VectF3 v1(0.0f, 0.0f, 0.0f);
     MatrixF4 mm1 = MatrixTransform::creaRotateZYX(v1);
     ASSERT_MATRIXF4_EQ(mm1, 1,0,0,0, 0,1,0,0, 0,0,1,0, 0,0,0,1);
-    // TODO
+    // TODO Add more tests
 }
 
 TEST_F(MatrixTransformTest, creaLookAtLH) {
@@ -122,8 +127,26 @@ TEST_F(MatrixTransformTest, creaLookAtLH) {
 }
 
 TEST_F(MatrixTransformTest, creaPerspectiveFovLH) {
-    MatrixF4 m = MatrixTransform::creaPerspectiveFovLH(0.70f, 1024, 640, 0.01f, 1.0f);
-    // TODO
+    MatrixF4 mm1 = MatrixTransform::creaPerspectiveFovLH(1.57f, 960, 540, 1.0f, 45.0f);
+    ASSERT_MATRIXF4_EQ(mm1,
+        0.562948048, 0, 0, 0,
+        0, 1.00079656, 0, 0,
+        0, 0, 1.02272725, -1.02272725,
+        0, 0, 1, 0);
+    // TODO Add more tests
+}
+
+TEST_F(MatrixTransformTest, projectOnScreen) {
+    // Test1
+    MatrixF4 mTransform(
+        -0.216998681, 0, 0.519443989, 0,
+        0, 1.00079656, 0, 0,
+        -0.943691969, 0, -0.394229025, 3.06818175,
+        -0.922721028, 0, -0.385468394, 4);
+    VectF3 point(-0.718800008, 0.0390999988, 0.1875);
+    VectF3 project = MatrixTransform::projectOnScreen(point, mTransform, 960, 540);
+    ASSERT_VECTF3_VALUES_EQ(project, 532.982056, 265.39731, 0.799958229);
+    // TODO Add more tests
 }
 
 

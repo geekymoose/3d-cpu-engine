@@ -148,6 +148,24 @@ class MatrixTransform {
          * \return The left-handed perspective matrix.
          */
         static MatrixF4 creaPerspectiveFovLH(float fov, float w, float h, float n, float f);
+
+        /**
+         * Project a 3D point into a 2D screen.
+         *
+         * \note
+         * The screen use the common upper-left corner as 0:0.
+         * Y coordinates are going down.
+         *
+         * \param point The point to project.
+         * \param mTransform Transformation matrix to apply (usually proj * view * world).
+         * \param width The screen width.
+         * \param height The screen height.
+         * \return Projected point (x,y) on the screen. z is the Z-Buffering value.
+         */
+        static VectF3 projectOnScreen(VectF3 const& point,
+                                      MatrixF4 const& mTransform,
+                                      const int width,
+                                      const int height);
 };
 
 

@@ -5,6 +5,11 @@
 // Static functions
 // -----------------------------------------------------------------------------
 
+// TODO To move in math lib
+static float interpolate(const float min, const float max, const float gradient) {
+    return min + (max - min) * gradient;
+}
+
 // TODO To clean
 // Vertices must be ordonated
 // P1 has lower y, P2 and P3 has same y and highter
@@ -49,15 +54,11 @@ static void drawScanlineTopFlatTriangle(SDL_Renderer* renderer, int p1_x, int p1
 
 
 // -----------------------------------------------------------------------------
-// Class functions
+// Class functions (LINE)
 // -----------------------------------------------------------------------------
 
 void DrawSDLUtils::drawLine(SDL_Renderer* renderer, VectF3 const& p1, VectF3 const& p2, int w, int h) {
-    const float x1 = p1.x * w + w / 2.0f;
-    const float x2 = p2.x * w + w / 2.0f;
-    const float y1 = p1.y * h + h / 2.0f;
-    const float y2 = p2.y * h + h / 2.0f;
-    DrawSDLUtils::drawLineDDA(renderer, x1, y1, x2, y2, w, h);
+    DrawSDLUtils::drawLineDDA(renderer, p1.x, p1.y, p2.x, p2.y, w, h);
 }
 
 void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, int y2, int w, int h) {
@@ -97,25 +98,21 @@ void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, i
     }
 }
 
+
+// -----------------------------------------------------------------------------
+// Class functions (TRIANGLE)
+// -----------------------------------------------------------------------------
 void DrawSDLUtils::drawFilledTriangle(SDL_Renderer* renderer,
                                         float *depthBuffer,
                                         VectF3 const& p1,
                                         VectF3 const& p2,
                                         VectF3 const& p3,
                                         int w, int h) {
-    // Project from -1 : 1 to screen size
-    const int x1 = static_cast<int>(p1.x * w + w / 2.0f);
-    const int x2 = static_cast<int>(p2.x * w + w / 2.0f);
-    const int x3 = static_cast<int>(p3.x * w + w / 2.0f);
-    const int y1 = static_cast<int>(-p1.y * h + h / 2.0f); // 0:0 at top-let corner, thuz -y
-    const int y2 = static_cast<int>(-p2.y * h + h / 2.0f);
-    const int y3 = static_cast<int>(-p3.y * h + h / 2.0f);
-    //DrawSDLUtils::drawScanLineTriangle(renderer, x1, y1, x2, y2, x3, y3, w, h);
-    DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer, x1, y1, p1.z, x2, y2, p2.z, x3, y3, p3.z, w, h);
-}
-
-static float interpolate(const float min, const float max, const float gradient) {
-    return min + (max - min) * gradient;
+    DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer,
+                                          p1.x, p1.y, p1.z,
+                                          p2.x, p2.y, p2.z,
+                                          p3.x, p3.y, p3.z,
+                                          w, h);
 }
 
 // Draw line between 2 points, at y position, from left to right.

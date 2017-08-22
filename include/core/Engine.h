@@ -58,7 +58,6 @@ class Engine {
     private:
         bool renderOneFrame(void);
         void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> &meshes);
-        VectF3 projectPoint(VectF3 const& p, MatrixF4 const& mTransform);
         void handleEvent(SDL_Event* sdlevent);
 };
 
