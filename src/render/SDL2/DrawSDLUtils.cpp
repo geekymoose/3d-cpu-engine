@@ -173,6 +173,21 @@ void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer,
     float invSlopeP1P2 = (v2.screenPos->x - v1.screenPos->x) / (float)(v2.screenPos->y - v1.screenPos->y);
     float invSlopeP1P3 = (v3.screenPos->x - v1.screenPos->x) / (float)(v3.screenPos->y - v1.screenPos->y);
 
+    VectF3 faceNormal = (*v1.normal + *v2.normal + *v3.normal) / 3;
+    VectF3 faceCenter = (*v1.worldPos + *v2.worldPos + *v3.worldPos) / 3;
+    VectF3 lightSource(0, -42, 42); // TODO Hard coded, should be moved outside
+    VectF3 lightDir = faceCenter - lightSource;
+
+    // Get cos of the angle normal and light
+    lightDir.normalizeFast();
+    faceNormal.normalizeFast();
+    float cosNormLight = std::max(VectF3::dotProduct(faceNormal, lightDir), 0.0f);
+
+    // Calculate new color
+    color->r *=  cosNormLight;
+    color->g *=  cosNormLight;
+    color->b *=  cosNormLight;
+
     // P2 at the right of P1P3
     if(invSlopeP1P2 > invSlopeP1P3) {
         for(int y = v1.screenPos->y; y < v2.screenPos->y; y++) {

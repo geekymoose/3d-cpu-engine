@@ -3,8 +3,8 @@
 
 [![Build Status](https://travis-ci.org/GeekyMoose/3d-soft-engine.svg?branch=master)](https://travis-ci.org/GeekyMoose/3d-soft-engine)
 
+![Imgur](http://i.imgur.com/hMiDdnz.png)
 ![Imgur](http://i.imgur.com/794m2up.png)
-![Imgur](http://i.imgur.com/92bPmsc.png)
 
 
 # Description
@@ -98,9 +98,12 @@ CMake variables may be used to set several options.
 - Mesh
 	- Loading from JSON (.babylon format)
 - Rendering
-	- Draw line (Scanline algorithm)
-	- Draw filled triangle (Scanline algorithm)
-	- Draw filled triangle with z-depth (Scanline algorithm)
+	- Draw line
+		- DDA algo
+	- Draw filled triangle
+		- Scanline Algorithm
+		- Scanline Algorithm with z-buffering
+		- Scanline Algorithm with z-buffering and flat-shading `new`
 - SSE4.1 optimization (Used by math library)
 - Engine
 	- Render loaded meshes (By default, render Suzanne monkey)
@@ -108,6 +111,7 @@ CMake variables may be used to set several options.
 
 
 # Screenshots
+![Imgur](http://i.imgur.com/hMiDdnz.png)
 ![Imgur](http://i.imgur.com/whVWbI2.png)
 ![Imgur](http://i.imgur.com/794m2up.png)
 ![Imgur](http://i.imgur.com/92bPmsc.png)
