@@ -9,9 +9,9 @@
  * Data for a vertices.
  */
 typedef struct {
-    VectF3 *screenPos;
-    VectF3 *normal;
-    VectF3 *worldPos;
+    VectF3 *screenPos; // Position projected on the 2D screen
+    VectF3 *normal; // Normal position in transformed coordinates
+    VectF3 *transPos; // Position in transformed coordinates
 } VertexData;
 
 

@@ -141,15 +141,15 @@ static void drawOneScanLineTriangle(SDL_Renderer* renderer,
 
 // Swap v1 with v2
 static void swapVerticeData(VertexData &v1, VertexData &v2) {
-    VertexData tmp  = {v1.screenPos, v1.normal, v1.worldPos};
+    VertexData tmp  = {v1.screenPos, v1.normal, v1.transPos};
     // v1 = v2
     v1.screenPos    = v2.screenPos;
     v1.normal       = v2.normal;
-    v1.worldPos     = v2.worldPos;
+    v1.transPos     = v2.transPos;
     // v2 = tmp
     v2.screenPos    = tmp.screenPos;
     v2.normal       = tmp.normal;
-    v2.worldPos     = tmp.worldPos;
+    v2.transPos     = tmp.transPos;
 }
 
 void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer,
@@ -173,12 +173,10 @@ void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer,
     float invSlopeP1P2 = (v2.screenPos->x - v1.screenPos->x) / (float)(v2.screenPos->y - v1.screenPos->y);
     float invSlopeP1P3 = (v3.screenPos->x - v1.screenPos->x) / (float)(v3.screenPos->y - v1.screenPos->y);
 
-    VectF3 faceNormal = (*v1.normal + *v2.normal + *v3.normal) / 3;
-    VectF3 faceCenter = (*v1.worldPos + *v2.worldPos + *v3.worldPos) / 3;
-    VectF3 lightSource(0, -42, 42); // TODO Hard coded, should be moved outside
-    VectF3 lightDir = faceCenter - lightSource;
-
-    // Get cos of the angle normal and light
+    VectF3 lightSource(100, 50, -50); // TODO Hard coded, should be moved outside
+    VectF3 faceNormal   = (*v1.normal + *v2.normal + *v3.normal) / 3;
+    VectF3 faceCenter   = (*v1.transPos + *v2.transPos + *v3.transPos) / 3;
+    VectF3 lightDir     = lightSource - faceCenter;
     lightDir.normalizeFast();
     faceNormal.normalizeFast();
     float cosNormLight = std::max(VectF3::dotProduct(faceNormal, lightDir), 0.0f);

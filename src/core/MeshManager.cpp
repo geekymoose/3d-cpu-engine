@@ -11,12 +11,10 @@ MeshManager* MeshManager::mSingleton = NULL;
 // Init - Constructors
 // -----------------------------------------------------------------------------
 MeshManager::MeshManager(void) {
-    MeshManager::mSingleton = NULL;
     this->isInitialized = false;
 }
 
 MeshManager::~MeshManager(void) {
-    MeshManager::mSingleton = NULL;
 }
 
 MeshManager& MeshManager::getSingleton(void) {
