@@ -1,5 +1,4 @@
-#ifndef ENGINE_CORE_ENGINE_H_
-#define ENGINE_CORE_ENGINE_H_
+#pragma once
 
 #include <SDL2/SDL.h>
 
@@ -25,10 +24,8 @@
 /**
  * The core engine that runs the rendering.
  *
- * \remark
- * This class is subject to many change an is currently used to have a first
- * working version.
- * Don't pay attention to ugly elements that will go away later.
+ * \warning
+ * Alpha version subject to many changes.
  */
 class Engine {
     private:
@@ -38,13 +35,12 @@ class Engine {
         bool isRunning;
         AppWindowSDL2 renderWindow;
 
-        float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H]; // TODO tmp
 
 
     private:
         // These variable are hard coded for now
-        //std::vector<Mesh> listMeshes;
         Camera cctv; // CCTV is watching you!
+        float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H];
 
     public:
         Engine(void);
@@ -60,9 +56,4 @@ class Engine {
         void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> &meshes);
         void handleEvent(SDL_Event* sdlevent);
 };
-
-
-#endif // End header
-
-
 

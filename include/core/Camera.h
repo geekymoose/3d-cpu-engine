@@ -1,5 +1,4 @@
-#ifndef ENGINE_CORE_CAMERA_H_
-#define ENGINE_CORE_CAMERA_H_
+#pragma once
 
 #include "math/VectF3.h"
 
@@ -19,9 +18,4 @@ class Camera {
     public:
         Camera(void);
 };
-
-
-#endif // End header
-
-
 

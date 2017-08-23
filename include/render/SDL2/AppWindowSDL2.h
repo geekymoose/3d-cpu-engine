@@ -1,5 +1,4 @@
-#ifndef ENGINE_RENDER_SDL_WINDOW_H_
-#define ENGINE_RENDER_SDL_WINDOW_H_
+#pragma once
 
 #include <iostream>
 #include <SDL2/SDL.h>
@@ -67,9 +66,4 @@ class AppWindowSDL2 : public AppWindow {
         /** \copydoc AppWindow::getPosition() */
         void getPosition(int* left, int* top) const;
 };
-
-
-#endif // End header guard
-
-
 

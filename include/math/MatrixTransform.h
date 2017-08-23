@@ -1,7 +1,7 @@
-#ifndef ENGINE_MATH_MATRIX_TRANSFORM_H_
-#define ENGINE_MATH_MATRIX_TRANSFORM_H_
+#pragma once
 
 #include <cmath>
+
 #include "core/config.h"
 #include "core/debug.h"
 #include "math/MatrixF3.h"
@@ -170,9 +170,4 @@ class MatrixTransform {
 
 
 #include "MatrixTransform.inl"
-
-
-#endif // End header guard
-
-
 

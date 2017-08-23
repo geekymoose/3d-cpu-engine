@@ -1,5 +1,4 @@
-#ifndef ENGINE_MATH_MATRIXF4_H_
-#define ENGINE_MATH_MATRIXF4_H_
+#pragma once
 
 #include "core/config.h"
 #include "core/debug.h"
@@ -215,9 +214,4 @@ class MatrixF4 {
 
 
 #include "MatrixF4.inl"
-
-
-#endif // End Header
-
-
 

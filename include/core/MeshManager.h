@@ -1,5 +1,4 @@
-#ifndef ENGINE_CORE_MESH_MANAGER_H_
-#define ENGINE_CORE_MESH_MANAGER_H_
+#pragma once
 
 #include <fstream>
 #include <stdlib.h> // For atoi, ...
@@ -94,9 +93,4 @@ class MeshManager {
          */
         void loadMeshesFromJSON(const char* file);
 };
-
-
-#endif // Header guard
-
-
 

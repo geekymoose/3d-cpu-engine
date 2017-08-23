@@ -1,14 +1,11 @@
-#ifndef ENGINE_MATH_VECTF3_H_
-#define ENGINE_MATH_VECTF3_H_
+#pragma once
 
-// General includes
 #include <iostream>
 #include <cmath>
 #ifdef __SSE4_1__
-    #include <x86intrin.h>
+#   include <x86intrin.h>
 #endif
 
-// Project includes
 #include "core/config.h"
 
 
@@ -379,9 +376,4 @@ class VectF3 {
 
 
 #include "VectF3.inl"
-
-
-#endif
-
-
 

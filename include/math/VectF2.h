@@ -1,11 +1,8 @@
-#ifndef ENGINE_MATH_VECTF2_H_
-#define ENGINE_MATH_VECTF2_H_
+#pragma once
 
-// General includes
 #include <iostream>
 #include <cmath>
 
-// Project includes
 #include "core/config.h"
 
 
@@ -327,9 +324,4 @@ class VectF2 {
 
 
 #include "VectF2.inl"
-
-
-#endif
-
-
 

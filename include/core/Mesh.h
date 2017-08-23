@@ -1,8 +1,8 @@
-#ifndef ENGINE_CORE_MESH_H_
-#define ENGINE_CORE_MESH_H_
+#pragma once
 
 #include <vector>
 #include <string>
+
 #include "math/VectF3.h"
 
 
@@ -16,6 +16,9 @@ typedef struct {
 /**
  * Mesh is used to represent a 3D object.
  * It is made of a set of vertices.
+ *
+ * \since   July 2017
+ * \author  Constantin Masson
  */
 class Mesh {
     public:
@@ -41,9 +44,4 @@ class Mesh {
         Mesh(void);
         explicit Mesh(std::string name);
 };
-
-
-#endif // End header
-
-
 

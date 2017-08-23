@@ -1,13 +1,11 @@
 /*
- * Debug header
- *
- * WARNING: for the moment, GCC with Intel processor only supported
+ * WARNING
+ * For the moment, GCC with Intel processor only supported
  * INTEL is due to INTEL asm instruction
  * TODO: propably better to fix this
  */
 
-#ifndef ENGINE_CORE_DEBUG_H_
-#define ENGINE_CORE_DEBUG_H_
+#pragma once
 
 #include <stdio.h>
 
@@ -35,9 +33,4 @@
     // Simply skip the insert
 #   define ASSERT(EXP)
 #endif
-
-
-
-#endif // End header protector
-
 

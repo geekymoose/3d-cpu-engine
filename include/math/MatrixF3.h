@@ -1,5 +1,4 @@
-#ifndef ENGINE_MATH_MATRIXF3_H_
-#define ENGINE_MATH_MATRIXF3_H_
+#pragma once
 
 #include "core/config.h"
 #include "core/debug.h"
@@ -65,9 +64,4 @@ class MatrixF3 {
 
 
 #include "MatrixF3.inl"
-
-
-#endif // End Header
-
-
 

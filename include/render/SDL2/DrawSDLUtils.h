@@ -1,5 +1,4 @@
-#ifndef ENGINE_RENDER_SDL_H_
-#define ENGINE_RENDER_SDL_H_
+#pragma once
 
 #include <SDL2/SDL.h>
 #include "math/VectF3.h"
@@ -50,8 +49,4 @@ class DrawSDLUtils {
 
         static void drawClippedPoint(SDL_Renderer* renderer, int x, int y, int w, int h);
 };
-
-#endif // Header guard
-
-
 

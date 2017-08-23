@@ -1,5 +1,4 @@
-#ifndef ENGINE_RENDER_WINDOW_H_
-#define ENGINE_RENDER_WINDOW_H_
+#pragma once
 
 #include <iostream>
 
@@ -94,9 +93,4 @@ class AppWindow {
          */
         virtual void getPosition(int* left, int* top) const = 0;
 };
-
-
-#endif // End header guard
-
-
 

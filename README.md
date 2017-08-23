@@ -37,6 +37,7 @@ This is for the learning purpose. (Otherwise, SDL already implements these algor
 
 # Build and run the project on Linux
 > Require C++11. Compiled and tested with gcc 6.3.0
+> (Require pragma once support)
 
 ```
 mkdir build
@@ -93,6 +94,7 @@ CMake variables may be used to set several options.
 		- Rotations
 		- LookAt
 		- Perspective
+		- Project 3D point into 2D screen `new`
 - Mesh
 	- Loading from JSON (.babylon format)
 - Rendering

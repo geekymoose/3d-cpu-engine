@@ -5,8 +5,7 @@
  * At the moment, only GCC supported.
  */
 
-#ifndef ENGINE_CORE_CONFIG_H_
-#define ENGINE_CORE_CONFIG_H_
+#pragma once
 
 
 // FORCE_INLINE MACRO
@@ -18,9 +17,4 @@
 
 
 #define GCC_ALIGNED(n) __attribute__((aligned(n)))
-
-
-#endif // End header protector
-
-
 
