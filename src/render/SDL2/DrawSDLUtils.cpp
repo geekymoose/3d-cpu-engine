@@ -102,30 +102,19 @@ void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, i
 // -----------------------------------------------------------------------------
 // Class functions (TRIANGLE)
 // -----------------------------------------------------------------------------
-void DrawSDLUtils::drawFilledTriangle(SDL_Renderer* renderer,
-                                        float *depthBuffer,
-                                        VectF3 const& p1,
-                                        VectF3 const& p2,
-                                        VectF3 const& p3,
-                                        int w, int h) {
-    DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer,
-                                          p1.x, p1.y, p1.z,
-                                          p2.x, p2.y, p2.z,
-                                          p3.x, p3.y, p3.z,
-                                          w, h);
-}
 
 // Draw line between 2 points, at y position, from left to right.
 // Points are start point (On line p1p2) and end point (On line p3p4);
 // p1p2 is at the left, p3p4 at the right
 static void drawOneScanLineTriangle(SDL_Renderer* renderer,
-                                float *depthBuffer,
-                                int y,
-                                int p1_x, int p1_y, float p1_z,
-                                int p2_x, int p2_y, float p2_z,
-                                int p3_x, int p3_y, float p3_z,
-                                int p4_x, int p4_y, float p4_z,
-                                int w, int h) {
+                                    float *depthBuffer,
+                                    int y,
+                                    int p1_x, int p1_y, float p1_z,
+                                    int p2_x, int p2_y, float p2_z,
+                                    int p3_x, int p3_y, float p3_z,
+                                    int p4_x, int p4_y, float p4_z,
+                                    int w, int h,
+                                    SDL_Color *color) {
     float gradientP1P2 = ((p2_y - p1_y) != 0) ? (y - p1_y) / (float)(p2_y - p1_y) : 1;
     float gradientP3P4 = ((p4_y - p3_y) != 0) ? (y - p3_y) / (float)(p4_y - p3_y) : 1;
 
@@ -143,83 +132,91 @@ static void drawOneScanLineTriangle(SDL_Renderer* renderer,
             float z = interpolate(z1, z2, gradientz);
             if(depthBuffer[index] > z) {
                 depthBuffer[index] = z;
+                SDL_SetRenderDrawColor(renderer, color->r, color->g, color->b, color->a);
                 SDL_RenderDrawPoint(renderer, x, y);
             }
         }
     }
 }
 
+// Swap v1 with v2
+static void swapVerticeData(VertexData &v1, VertexData &v2) {
+    VertexData tmp  = {v1.screenPos, v1.normal, v1.worldPos};
+    // v1 = v2
+    v1.screenPos    = v2.screenPos;
+    v1.normal       = v2.normal;
+    v1.worldPos     = v2.worldPos;
+    // v2 = tmp
+    v2.screenPos    = tmp.screenPos;
+    v2.normal       = tmp.normal;
+    v2.worldPos     = tmp.worldPos;
+}
+
 void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer,
                                         float *depthBuffer,
-                                        int p1_x, int p1_y, float p1_z,
-                                        int p2_x, int p2_y, float p2_z,
-                                        int p3_x, int p3_y, float p3_z,
-                                        int w, int h) {
-    // Just for readability
-    typedef struct { int x; int y; float z; } P;
-    P P1 = {p1_x, p1_y, p1_z};
-    P P2 = {p2_x, p2_y, p2_z};
-    P P3 = {p3_x, p3_y, p3_z};
-
+                                        VertexData & v1,
+                                        VertexData & v2,
+                                        VertexData & v3,
+                                        int w, int h,
+                                        SDL_Color *color) {
     // After that, P1 has lower y value and P3 has higher y value.
-    if(P1.y > P2.y) {
-        P tmp = P1;
-        P1 = P2;
-        P2 = tmp;
+    if(v1.screenPos->y > v2.screenPos->y) {
+        swapVerticeData(v1, v2);
     }
-    if(P2.y > P3.y) {
-        P tmp = P2;
-        P2 = P3;
-        P3 = tmp;
+    if(v2.screenPos->y > v3.screenPos->y) {
+        swapVerticeData(v2, v3);
     }
-    if(P1.y > P2.y) {
-        P tmp = P1;
-        P1 = P2;
-        P2 = tmp;
+    if(v1.screenPos->y > v2.screenPos->y) {
+        swapVerticeData(v1, v2);
     }
 
-    float invSlopeP1P2 = (P2.x - P1.x) / (float)(P2.y - P1.y);
-    float invSlopeP1P3 = (P3.x - P1.x) / (float)(P3.y - P1.y);
+    float invSlopeP1P2 = (v2.screenPos->x - v1.screenPos->x) / (float)(v2.screenPos->y - v1.screenPos->y);
+    float invSlopeP1P3 = (v3.screenPos->x - v1.screenPos->x) / (float)(v3.screenPos->y - v1.screenPos->y);
 
     // P2 at the right of P1P3
     if(invSlopeP1P2 > invSlopeP1P3) {
-        for(int y = P1.y; y < P2.y; y++) {
+        for(int y = v1.screenPos->y; y < v2.screenPos->y; y++) {
             drawOneScanLineTriangle(renderer, depthBuffer, y,
-                    P1.x, P1.y, P1.z,
-                    P3.x, P3.y, P3.z,
-                    P1.x, P1.y, P1.z,
-                    P2.x, P2.y, P2.z,
-                    w, h);
+                    v1.screenPos->x, v1.screenPos->y, v1.screenPos->z,
+                    v3.screenPos->x, v3.screenPos->y, v3.screenPos->z,
+                    v1.screenPos->x, v1.screenPos->y, v1.screenPos->z,
+                    v2.screenPos->x, v2.screenPos->y, v2.screenPos->z,
+                    w, h, color);
         }
-        for(int y = P2.y; y <= P3.y; y++) {
+        for(int y = v2.screenPos->y; y <= v3.screenPos->y; y++) {
             drawOneScanLineTriangle(renderer, depthBuffer, y,
-                    P1.x, P1.y, P1.z,
-                    P3.x, P3.y, P3.z,
-                    P2.x, P2.y, P2.z,
-                    P3.x, P3.y, P3.z,
-                    w, h);
+                    v1.screenPos->x, v1.screenPos->y, v1.screenPos->z,
+                    v3.screenPos->x, v3.screenPos->y, v3.screenPos->z,
+                    v2.screenPos->x, v2.screenPos->y, v2.screenPos->z,
+                    v3.screenPos->x, v3.screenPos->y, v3.screenPos->z,
+                    w, h, color);
         }
     }
     // P2 at the left of P1P3
     else {
-        for(int y = P1.y; y < P2.y; y++) {
+        for(int y = v1.screenPos->y; y < v2.screenPos->y; y++) {
             drawOneScanLineTriangle(renderer, depthBuffer, y,
-                    P1.x, P1.y, P1.z,
-                    P2.x, P2.y, P2.z,
-                    P1.x, P1.y, P1.z,
-                    P3.x, P3.y, P3.z,
-                    w, h);
+                    v1.screenPos->x, v1.screenPos->y, v1.screenPos->z,
+                    v2.screenPos->x, v2.screenPos->y, v2.screenPos->z,
+                    v1.screenPos->x, v1.screenPos->y, v1.screenPos->z,
+                    v3.screenPos->x, v3.screenPos->y, v3.screenPos->z,
+                    w, h, color);
         }
-        for(int y = P2.y; y <= P3.y; y++) {
+        for(int y = v2.screenPos->y; y <= v3.screenPos->y; y++) {
             drawOneScanLineTriangle(renderer, depthBuffer, y,
-                    P2.x, P2.y, P2.z,
-                    P3.x, P3.y, P3.z,
-                    P1.x, P1.y, P1.z,
-                    P3.x, P3.y, P3.z,
-                    w, h);
+                    v2.screenPos->x, v2.screenPos->y, v2.screenPos->z,
+                    v3.screenPos->x, v3.screenPos->y, v3.screenPos->z,
+                    v1.screenPos->x, v1.screenPos->y, v1.screenPos->z,
+                    v3.screenPos->x, v3.screenPos->y, v3.screenPos->z,
+                    w, h, color);
         }
     }
 }
+
+
+// -----------------------------------------------------------------------------
+// Other functions
+// -----------------------------------------------------------------------------
 
 void DrawSDLUtils::drawClippedPoint(SDL_Renderer* renderer, int x, int y, int w, int h) {
     if(x >= 0 && x <= w && y >= 0 && y <= h) {

@@ -89,7 +89,7 @@ void MeshManager::loadMeshesFromJSON(const char* file) {
         }
         mesh.scale = VectF3(scales[0], scales[1], scales[2]);
 
-        // Vertices
+        // Vertices + normals
         std::vector<float> listVertices;
         for(auto & vertice : child.second.get_child("vertices")) {
             std::string value = vertice.second.data();
@@ -103,7 +103,11 @@ void MeshManager::loadMeshesFromJSON(const char* file) {
             VectF3 v(listVertices[i * verticesPerStep],
                      listVertices[i * verticesPerStep + 1],
                      listVertices[i * verticesPerStep + 2]);
+            VectF3 n(listVertices[i * verticesPerStep + 3],
+                     listVertices[i * verticesPerStep + 4],
+                     listVertices[i * verticesPerStep + 5]);
             mesh.vertices.push_back(v);
+            mesh.normals.push_back(n);
         }
 
         // Faces

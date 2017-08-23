@@ -37,6 +37,9 @@ class Mesh {
         /** All mesh's vertices */
         std::vector<VectF3> vertices;
 
+        /** All normal vectors for vertices */
+        std::vector<VectF3> normals;
+
         /** All faces */
         std::vector<Face> faces;
 

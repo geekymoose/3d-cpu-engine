@@ -60,6 +60,14 @@ bool Engine::renderOneFrame(void){
     return true;
 }
 
+// Do a projection but don't project on screen, stay un frustum
+static VectF3 projectPoint(VectF3 const& v, MatrixF4 const& m) {
+    VectF4 vec(v.x, v.y, v.z, 1.0f);
+    vec = m * vec;
+    vec /= vec.w;
+    return VectF3(vec.x, vec.y, vec.z);
+}
+
 void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> &meshes) {
     MatrixF4 viewMatrix;
     MatrixF4 worldMatrix;
@@ -74,19 +82,37 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
     for(Mesh & m : meshes){
         worldMatrix = MatrixTransform::creaTranslate(m.position) * MatrixTransform::creaRotateZYX(m.rotation);
         MatrixF4 transformMatrix = projectionMatrix * viewMatrix * worldMatrix;
-        int color = 100;
+        int c = 100;
         for(auto & face : m.faces) {
-            VectF3 p1 = MatrixTransform::projectOnScreen(m.vertices[face.a], transformMatrix, w, h);
-            VectF3 p2 = MatrixTransform::projectOnScreen(m.vertices[face.b], transformMatrix, w, h);
-            VectF3 p3 = MatrixTransform::projectOnScreen(m.vertices[face.c], transformMatrix, w, h);
-            color = (color+42) % 255;
-            SDL_SetRenderDrawColor(renderer, color, color, color, SDL_ALPHA_OPAQUE);
-            DrawSDLUtils::drawFilledTriangle(renderer, depthBuffer, p1, p2, p3, w, h);
+            VectF3 p1_proj = MatrixTransform::projectOnScreen(m.vertices[face.a], transformMatrix, w, h);
+            VectF3 p2_proj = MatrixTransform::projectOnScreen(m.vertices[face.b], transformMatrix, w, h);
+            VectF3 p3_proj = MatrixTransform::projectOnScreen(m.vertices[face.c], transformMatrix, w, h);
+
+            VectF3 p1_norm = projectPoint(m.normals[face.a], transformMatrix);
+            VectF3 p2_norm = projectPoint(m.normals[face.b], transformMatrix);
+            VectF3 p3_norm = projectPoint(m.normals[face.c], transformMatrix);
+
+            VectF3 p1_world = projectPoint(m.vertices[face.a], transformMatrix);
+            VectF3 p2_world = projectPoint(m.vertices[face.b], transformMatrix);
+            VectF3 p3_world = projectPoint(m.vertices[face.c], transformMatrix);
+
+            VertexData v1 = {&p1_proj, &p1_norm, &p1_world};
+            VertexData v2 = {&p2_proj, &p2_norm, &p2_world};
+            VertexData v3 = {&p3_proj, &p3_norm, &p3_world};
+
+            c = (c + 42) % 255; // TODO TMP generated color
+            SDL_Color color;
+            color.r = c;
+            color.g = c;
+            color.b = c;
+            color.a = SDL_ALPHA_OPAQUE;
+            DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer, v1, v2, v3, w, h, &color);
+
             /*
             SDL_SetRenderDrawColor(renderer, 92, 92, 92, SDL_ALPHA_OPAQUE);
-            DrawSDLUtils::drawLine(renderer, p1, p2, w, h);
-            DrawSDLUtils::drawLine(renderer, p2, p3, w, h);
-            DrawSDLUtils::drawLine(renderer, p3, p1, w, h);
+            DrawSDLUtils::drawLine(renderer, p1_proj, p2_proj, w, h);
+            DrawSDLUtils::drawLine(renderer, p2_proj, p3_proj, w, h);
+            DrawSDLUtils::drawLine(renderer, p3_proj, p1_proj, w, h);
             */
         }
         // TODO Temporary rotate the first mesh (And actually unique for now)
