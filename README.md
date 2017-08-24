@@ -103,7 +103,8 @@ CMake variables may be used to set several options.
 	- Draw filled triangle
 		- Scanline Algorithm
 		- Scanline Algorithm with z-buffering
-		- Scanline Algorithm with z-buffering and flat-shading `new`
+		- Scanline Algorithm with z-buffering and Flat-Shading `new`
+		- Scanline Algorithm with z-buffering and Gouraud Shading `new`
 - SSE4.1 optimization (Used by math library)
 - Engine
 	- Render loaded meshes (By default, render Suzanne monkey)
@@ -112,6 +113,7 @@ CMake variables may be used to set several options.
 
 # Screenshots
 ![Imgur](http://i.imgur.com/hMiDdnz.png)
+![Imgur](http://i.imgur.com/OS8aK45.png)
 ![Imgur](http://i.imgur.com/whVWbI2.png)
 ![Imgur](http://i.imgur.com/794m2up.png)
 ![Imgur](http://i.imgur.com/92bPmsc.png)

@@ -114,7 +114,8 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
             color.g = 240;
             color.b = 42;
             color.a = SDL_ALPHA_OPAQUE;
-            DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer, v1, v2, v3, w, h, &color);
+            DrawSDLUtils::drawGouraudTriangle(renderer, depthBuffer, v1, v2, v3, w, h, &color);
+            //DrawSDLUtils::drawScanLineTriangle(renderer, depthBuffer, v1, v2, v3, w, h, &color);
             /*
             SDL_SetRenderDrawColor(renderer, 92, 92, 92, SDL_ALPHA_OPAQUE);
             DrawSDLUtils::drawLine(renderer, p1_proj, p2_proj, w, h);

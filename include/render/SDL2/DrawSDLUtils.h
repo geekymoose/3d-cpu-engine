@@ -51,6 +51,14 @@ class DrawSDLUtils {
                                         int w, int h,
                                         SDL_Color *color);
 
+        static void drawGouraudTriangle(SDL_Renderer* renderer,
+                                        float *depthBuffer,
+                                        VertexData & v1,
+                                        VertexData & v2,
+                                        VertexData & v3,
+                                        int w, int h,
+                                        SDL_Color *color);
+
         static void drawScanLineTriangle(SDL_Renderer* renderer,
                                         int p1_x, int p1_y,
                                         int p2_x, int p2_y,
