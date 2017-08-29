@@ -5,81 +5,108 @@
 // =============================================================================
 
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(VectF3 const& v) {
-    return MatrixTransform::creaTranslate(v.x, v.y, v.z);
+// -----------------------------------------------------------------------------
+// Translation methods
+// -----------------------------------------------------------------------------
+
+FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(VectF3 const& translate) {
+    return MatrixTransform::creaTranslate(translate.x, translate.y, translate.z);
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(const float tx, const float ty, const float tz) {
+FORCE_INLINE MatrixF4 MatrixTransform::creaTranslate(const float translateX,
+                                                     const float translateY,
+                                                     const float translateZ) {
     MatrixF4 momo = MatrixF4::IDENTITY(); // Yeah, momo is a cool name
-    momo._m[0][3] = tx;
-    momo._m[1][3] = ty;
-    momo._m[2][3] = tz;
-    return momo; // In case of: [3][3] already set to 1 thanks to IDENTITY
+    momo._m[0][3] = translateX;
+    momo._m[1][3] = translateY;
+    momo._m[2][3] = translateZ;
+    return momo; // [3][3] already sets to 1 thanks to IDENTITY
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaScale(VectF3 const& v) {
-    return MatrixTransform::creaScale(v.x, v.y, v.z);
+
+// -----------------------------------------------------------------------------
+// Scaling methods
+// -----------------------------------------------------------------------------
+
+FORCE_INLINE MatrixF4 MatrixTransform::creaScale(VectF3 const& scaleXVZ) {
+    return MatrixTransform::creaScale(scaleXVZ.x, scaleXVZ.y, scaleXVZ.z);
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaScale(const float sx, const float sy, const float sz) {
+FORCE_INLINE MatrixF4 MatrixTransform::creaScale(const float scaleX,
+                                                 const float scaleY,
+                                                 const float scaleZ) {
     MatrixF4 soso = MatrixF4::ZERO();
-    soso._m[0][0] = sx;
-    soso._m[1][1] = sy;
-    soso._m[2][2] = sz;
-    soso._m[3][3] = 1;
+    soso._m[0][0] = scaleX;
+    soso._m[1][1] = scaleY;
+    soso._m[2][2] = scaleZ;
+    soso._m[3][3] = 1.0f;
     return soso;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float angle) {
-    MatrixF4 roo = MatrixF4::IDENTITY(); // Pronounce "Roooohhh!!!" like if someone does something stupid! :P
-    const float c = std::cos(angle);
-    const float s = std::sin(angle);
-    roo._m[1][1] = c;
-    roo._m[1][2] = -s;
-    roo._m[2][1] = s;
-    roo._m[2][2] = c;
+
+// -----------------------------------------------------------------------------
+// Rotation methods
+// -----------------------------------------------------------------------------
+
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateX(const float radiansX) {
+    MatrixF4 roo = MatrixF4::IDENTITY(); // Pronounced "Roooohhh!!!"
+    const float cos = std::cos(radiansX);
+    const float sin = std::sin(radiansX);
+    roo._m[1][1] = cos;
+    roo._m[1][2] = -sin;
+    roo._m[2][1] = sin;
+    roo._m[2][2] = cos;
     return roo;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateY(const float angle) {
-    MatrixF4 roo = MatrixF4::IDENTITY();
-    const float c = std::cos(angle);
-    const float s = std::sin(angle);
-    roo._m[0][0] = c;
-    roo._m[0][2] = s;
-    roo._m[2][0] = -s;
-    roo._m[2][2] = c;
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateY(const float radiansY) {
+    MatrixF4 roo = MatrixF4::IDENTITY(); // Pronounced "Roooohhh!!!"
+    const float cos = std::cos(radiansY);
+    const float sin = std::sin(radiansY);
+    roo._m[0][0] = cos;
+    roo._m[0][2] = sin;
+    roo._m[2][0] = -sin;
+    roo._m[2][2] = cos;
     return roo;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float angle) {
-    MatrixF4 roo = MatrixF4::IDENTITY();
-    const float c = std::cos(angle);
-    const float s = std::sin(angle);
-    roo._m[0][0] = c;
-    roo._m[0][1] = -s;
-    roo._m[1][0] = s;
-    roo._m[1][1] = c;
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZ(const float radiansZ) {
+    MatrixF4 roo = MatrixF4::IDENTITY(); // Pronounced "Roooohhh!!!"
+    const float cos = std::cos(radiansZ);
+    const float sin = std::sin(radiansZ);
+    roo._m[0][0] = cos;
+    roo._m[0][1] = -sin;
+    roo._m[1][0] = sin;
+    roo._m[1][1] = cos;
     return roo;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float rz, const float ry, const float rx) {
-    MatrixF4 m = MatrixF4::IDENTITY();
-    m *= MatrixTransform::creaRotateZ(rz);
-    m *= MatrixTransform::creaRotateY(ry);
-    m *= MatrixTransform::creaRotateX(rx);
-    return m;
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(const float radiansZ,
+                                                     const float radiansY,
+                                                     const float radiansX) {
+    MatrixF4 mRotate = MatrixF4::IDENTITY();
+    mRotate *= MatrixTransform::creaRotateZ(radiansZ);
+    mRotate *= MatrixTransform::creaRotateY(radiansY);
+    mRotate *= MatrixTransform::creaRotateX(radiansX);
+    return mRotate;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(VectF3 const& v) {
-    return MatrixTransform::creaRotateZYX(v.x, v.y, v.z);
+FORCE_INLINE MatrixF4 MatrixTransform::creaRotateZYX(VectF3 const& rotateZYX) {
+    return MatrixTransform::creaRotateZYX(rotateZYX.x, rotateZYX.y, rotateZYX.z);
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 const& cTarget, VectF3 const& cUp) {
+
+// -----------------------------------------------------------------------------
+// Matrix Utils methods
+// -----------------------------------------------------------------------------
+
+FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cameraPos,
+                                                    VectF3 const& targetPos,
+                                                    VectF3 const& upVector) {
     // Creates the 3 Camera's vectors.
     VectF3 cx, cy, cz;
-    cz = cTarget - cPos;
-    cx = VectF3::crossProduct(cUp, cz);
+    cz = targetPos - cameraPos;
+    cx = VectF3::crossProduct(upVector, cz);
     cy = VectF3::crossProduct(cz, cx);
     cz.normalizeFast();
     cx.normalizeFast();
@@ -87,35 +114,43 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaLookAtLH(VectF3 const& cPos, VectF3 c
 
     // Creates the lookAt matrix from camera vectors.
     MatrixF3 m3(cx, cy, cz);
-    MatrixF4 m(m3);
-    m._m[0][3] = -(VectF3::dotProduct(cx, cPos));
-    m._m[1][3] = -(VectF3::dotProduct(cy, cPos));
-    m._m[2][3] = -(VectF3::dotProduct(cz, cPos));
-    return m;
+    MatrixF4 mLookAt(m3);
+    mLookAt._m[0][3] = -(VectF3::dotProduct(cx, cameraPos));
+    mLookAt._m[1][3] = -(VectF3::dotProduct(cy, cameraPos));
+    mLookAt._m[2][3] = -(VectF3::dotProduct(cz, cameraPos));
+    return mLookAt;
 }
 
-FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(float fov, float w, float h, float n, float f) {
+FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(
+        const float radiansFov,
+        const float screenWidth,
+        const float screenHeight,
+        const float near,
+        const float far) {
     // TODO Add assert to check invalid values
     MatrixF4 result     = MatrixF4::ZERO();
-    const float cotanFov= 1 / std::tan(fov * 0.5);
-    const float depth   = f - n;
-    const float aspect  = h / w; // Actual ratio is w/h but x/(w/h) == x*(h/w)
+    const float cotanFov= 1 / std::tan(radiansFov * 0.5);
+    const float depth   = far - near;
+    const float aspect  = screenHeight / screenWidth;
+    // Actual ratio is w/h but x / (w/h) == x * (h/w)
     result._m[0][0]     = cotanFov * aspect;
     result._m[1][1]     = cotanFov;
-    result._m[2][2]     = f / depth;
-    result._m[2][3]     = -(f * n) / depth;
+    result._m[2][2]     = far / depth;
+    result._m[2][3]     = -(far * near) / depth;
     result._m[3][2]     = 1.0f;
     return result;
 }
 
-FORCE_INLINE VectF3 MatrixTransform::projectOnScreen(VectF3 const& point,
-                                                     MatrixF4 const& mTransform,
-                                                     const int width,
-                                                     const int height) {
-    VectF4 vec = VectF4(point.x, point.y, point.z, 1.0f);
-    vec = mTransform * vec;
-    vec /= vec.w;
-    vec.x = (vec.x * width) + (width * 0.5);
-    vec.y = (-vec.y * height) + (height * 0.5); // upper-left is 0:0 thuz -y
+FORCE_INLINE VectF3 MatrixTransform::projectOnScreen(
+        VectF3 const& point3D,
+        MatrixF4 const& matrixTransform,
+        const int screenWidth,
+        const int screenHeight) {
+    VectF4 vec  = VectF4(point3D.x, point3D.y, point3D.z, 1.0f);
+    vec         = matrixTransform * vec;
+    vec         /= vec.w;
+    vec.x       = (vec.x * screenWidth) + (screenWidth * 0.5);
+    vec.y       = (-vec.y * screenHeight) + (screenHeight * 0.5);
+    // upper-left is 0:0 thuz -vec.y
     return VectF3(vec.x, vec.y, vec.z);
 }
