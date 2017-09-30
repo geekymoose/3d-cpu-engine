@@ -8,7 +8,7 @@
 // -----------------------------------------------------------------------------
 // Constructors
 // -----------------------------------------------------------------------------
-FORCE_INLINE VectF4::VectF4(void) {
+FORCE_INLINE VectF4::VectF4() {
     this->x = 0.0f;
     this->y = 0.0f;
     this->z = 0.0f;
@@ -22,7 +22,10 @@ FORCE_INLINE VectF4::VectF4(const float s) {
     this->w = s;
 }
 
-FORCE_INLINE VectF4::VectF4(const float x, const float y, const float z, const float w) {
+FORCE_INLINE VectF4::VectF4(const float x,
+                            const float y,
+                            const float z,
+                            const float w) {
     this->x = x;
     this->y = y;
     this->z = z;
@@ -100,7 +103,10 @@ FORCE_INLINE VectF4 VectF4::crossProduct(VectF4 const& v1, VectF4 const& v2) {
 // -----------------------------------------------------------------------------
 // Getters - Setters
 // -----------------------------------------------------------------------------
-FORCE_INLINE void VectF4::set(float const x, float const y, float const z, float const w) {
+FORCE_INLINE void VectF4::set(float const x,
+                              float const y,
+                              float const z,
+                              float const w) {
     this->x = x;
     this->y = y;
     this->z = z;

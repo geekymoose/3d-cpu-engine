@@ -7,12 +7,13 @@
 
 
 /**
- * A 4x4 matrix with float components.
+ * A 4x4 matrix with floating point precision.
  *
  * \remarks
  * Matrix multiplication with Vector use a 'Column vector' transformation.
  * This means a multiplication with a vector V is done in the right-to-left order.
- * For instance, M1 * M2 * M3 * Vect will actually calculate M3 * V1 first.
+ * For instance, M1 * M2 * M3 * V1 will actually calculate M3 * V1 first.
+ *
  * This is an illustration of the final calculation: (M1 * (M2 * (M3 * V1) ) )
  *
  * \par
@@ -60,7 +61,7 @@ class MatrixF4 {
         /**
          * Create a new 4x4 matrix filled with zero.
          */
-        MatrixF4(void);
+        MatrixF4();
 
         /**
          * Create a new 4x4 matrix with all components set to a specific value.
@@ -72,15 +73,38 @@ class MatrixF4 {
         /**
          * Create a new 4x4 matrix from 4 vectors.
          *
-         * \param r1 The matrix row 1.
-         * \param r2 The matrix row 2.
-         * \param r3 The matrix row 3.
-         * \param r4 The matrix row 4.
+         * \param row1 Values for positions m[0][0] to m[0][3].
+         * \param row2 Values for positions m[1][0] to m[1][3].
+         * \param row3 Values for positions m[2][0] to m[2][3].
+         * \param row4 Values for positions m[3][0] to m[3][3].
          */
-        explicit MatrixF4(VectF4 const& r1, VectF4 const& r2, VectF4 const& r3, VectF4 const& r4);
+        explicit MatrixF4(VectF4 const& row1,
+                          VectF4 const& row2,
+                          VectF4 const& row3,
+                          VectF4 const& row4);
 
         /**
          * Create a new 4x4 matrix with each component explicitly set.
+         *
+         * \param m00 Component at Row 0 Column 0.
+         * \param m01 Component at Row 0 Column 1.
+         * \param m02 Component at Row 0 Column 2.
+         * \param m03 Component at Row 0 Column 3.
+         *
+         * \param m10 Component at Row 1 Column 0.
+         * \param m11 Component at Row 1 Column 1.
+         * \param m12 Component at Row 1 Column 2.
+         * \param m13 Component at Row 1 Column 3.
+         *
+         * \param m20 Component at Row 2 Column 0.
+         * \param m21 Component at Row 2 Column 1.
+         * \param m22 Component at Row 2 Column 2.
+         * \param m23 Component at Row 2 Column 3.
+         *
+         * \param m30 Component at Row 3 Column 0.
+         * \param m31 Component at Row 3 Column 1.
+         * \param m32 Component at Row 3 Column 2.
+         * \param m33 Component at Row 3 Column 3.
          */
         explicit MatrixF4(
             const float m00, const float m01, const float m02, const float m03,

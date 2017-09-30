@@ -44,7 +44,7 @@ class VectF3 {
         /**
          * Create a new null vector (All components to 0).
          */
-        VectF3(void);
+        VectF3();
 
         /**
          * Create initialized vector.
@@ -341,7 +341,7 @@ class VectF3 {
          * Gets a copy of the component at requested position.
          *
          * \warning
-         * Index must be in ranger, otherwise this function will crash.
+         * Index must be in range, otherwise this function will crash.
          * For performance raison, no check is done.
          *
          * \return Copy of component v[index].
@@ -352,7 +352,7 @@ class VectF3 {
          * Gets a reference to the  component at requested position.
          *
          * \warning
-         * Index must be in ranger, otherwise this function will crash.
+         * Index must be in range, otherwise this function will crash.
          * For performance raison, no check is done.
          *
          * \return Reference to component v[index].

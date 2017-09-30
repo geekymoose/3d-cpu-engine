@@ -46,7 +46,7 @@ class VectF4 {
         /**
          * Create a new null vector (All components to 0).
          */
-        VectF4(void);
+        VectF4();
 
         /**
          * Create initialized vector.
@@ -56,7 +56,10 @@ class VectF4 {
          * \param z The z value to set.
          * \param w The w value to set.
          */
-        explicit VectF4(const float x, const float y, const float z, const float w);
+        explicit VectF4(const float x,
+                        const float y,
+                        const float z,
+                        const float w);
 
         /**
          * Create initialized vector.
@@ -392,7 +395,7 @@ class VectF4 {
          * Gets a copy of the component at requested position.
          *
          * \warning
-         * Index must be in ranger, otherwise this function will crash.
+         * Index must be in range, otherwise this function will crash.
          * For performance raison, no check is done.
          *
          * \return Copy of component v[index].
@@ -403,7 +406,7 @@ class VectF4 {
          * Gets a reference to the  component at requested position.
          *
          * \warning
-         * Index must be in ranger, otherwise this function will crash.
+         * Index must be in range, otherwise this function will crash.
          * For performance raison, no check is done.
          *
          * \return Reference to component v[index].

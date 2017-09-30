@@ -34,16 +34,18 @@ FORCE_INLINE MatrixF3::MatrixF3() {
     _m[3][0] = _m[3][1] = _m[3][2] = _m[3][3] = 0.0f;
 }
 
-FORCE_INLINE MatrixF3::MatrixF3(VectF3 const v1, VectF3 const v2, VectF3 const v3) {
-    _m[0][0] = v1.x; _m[0][1] = v1.y; _m[0][2] = v1.z;
-    _m[1][0] = v2.x; _m[1][1] = v2.y; _m[1][2] = v2.z;
-    _m[2][0] = v3.x; _m[2][1] = v3.y; _m[2][2] = v3.z;
+FORCE_INLINE MatrixF3::MatrixF3(VectF3 const& row1,
+                                VectF3 const& row2,
+                                VectF3 const& row3) {
+    _m[0][0] = row1.x; _m[0][1] = row1.y; _m[0][2] = row1.z;
+    _m[1][0] = row2.x; _m[1][1] = row2.y; _m[1][2] = row2.z;
+    _m[2][0] = row3.x; _m[2][1] = row3.y; _m[2][2] = row3.z;
 }
 
 FORCE_INLINE MatrixF3::MatrixF3(
-        float m00, float m01, float m02,
-        float m10, float m11, float m12,
-        float m20, float m21, float m22) {
+        const float m00, const float m01, const float m02,
+        const float m10, const float m11, const float m12,
+        const float m20, const float m21, const float m22) {
     // Row 1
     this->_m[0][0] = m00;
     this->_m[0][1] = m01;

@@ -114,9 +114,7 @@ CMake variables may be used to set several options.
 # Screenshots
 ![Imgur](http://i.imgur.com/hMiDdnz.png)
 ![Imgur](http://i.imgur.com/OS8aK45.png)
-![Imgur](http://i.imgur.com/whVWbI2.png)
 ![Imgur](http://i.imgur.com/794m2up.png)
-![Imgur](http://i.imgur.com/92bPmsc.png)
 
 
 # Author

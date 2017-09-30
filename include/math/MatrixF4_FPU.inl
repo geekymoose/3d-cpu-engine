@@ -4,7 +4,7 @@
 // Author: Constantin Masson
 //
 // TODO: refactoring
-// There are probably several duplicates and not optimized thing in term of code size.
+// There are probably several duplicates and not optimized thing (Code size...).
 // It's ok for now, but refactoring may be a good idea later.
 // =============================================================================
 
@@ -12,7 +12,7 @@
 // -----------------------------------------------------------------------------
 // Constructors - Initialization
 // -----------------------------------------------------------------------------
-FORCE_INLINE MatrixF4::MatrixF4(void) {
+FORCE_INLINE MatrixF4::MatrixF4() {
     _m[0][0] = _m[0][1] = _m[0][2] = _m[0][3] = 0.0f;
     _m[1][0] = _m[1][1] = _m[1][2] = _m[1][3] = 0.0f;
     _m[2][0] = _m[2][1] = _m[2][2] = _m[2][3] = 0.0f;
@@ -26,11 +26,30 @@ FORCE_INLINE MatrixF4::MatrixF4(const float value) {
     _m[3][0] = _m[3][1] = _m[3][2] = _m[3][3] = value;
 }
 
-FORCE_INLINE MatrixF4::MatrixF4(VectF4 const& v1, VectF4 const& v2, VectF4 const& v3, VectF4 const& v4) {
-    _m[0][0] = v1.x; _m[0][1] = v1.y; _m[0][2] = v1.z; _m[0][3] = v1.w;
-    _m[1][0] = v2.x; _m[1][1] = v2.y; _m[1][2] = v2.z; _m[1][3] = v2.w;
-    _m[2][0] = v3.x; _m[2][1] = v3.y; _m[2][2] = v3.z; _m[2][3] = v3.w;
-    _m[3][0] = v4.x; _m[3][1] = v4.y; _m[3][2] = v4.z; _m[3][3] = v4.w;
+FORCE_INLINE MatrixF4::MatrixF4(VectF4 const& row1,
+                                VectF4 const& row2,
+                                VectF4 const& row3,
+                                VectF4 const& row4) {
+    // Row 1
+    _m[0][0] = row1.x;
+    _m[0][1] = row1.y;
+    _m[0][2] = row1.z;
+    _m[0][3] = row1.w;
+    // Row 2
+    _m[1][0] = row2.x;
+    _m[1][1] = row2.y;
+    _m[1][2] = row2.z;
+    _m[1][3] = row2.w;
+    // Row 3
+    _m[2][0] = row3.x;
+    _m[2][1] = row3.y;
+    _m[2][2] = row3.z;
+    _m[2][3] = row3.w;
+    // Row 4
+    _m[3][0] = row4.x;
+    _m[3][1] = row4.y;
+    _m[3][2] = row4.z;
+    _m[3][3] = row4.w;
 }
 
 FORCE_INLINE MatrixF4::MatrixF4(

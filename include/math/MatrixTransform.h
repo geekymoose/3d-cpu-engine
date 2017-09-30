@@ -39,7 +39,7 @@ class MatrixTransform {
 
     private:
         // This is an abstract class
-        MatrixTransform(void) {}
+        MatrixTransform() = default;
 
     // -------------------------------------------------------------------------
     // Translation methods
