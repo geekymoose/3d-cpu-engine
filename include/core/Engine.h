@@ -29,9 +29,6 @@
  */
 class Engine {
     private:
-        MeshManager &meshManager;
-
-    private:
         bool isRunning;
         AppWindowSDL2 renderWindow;
 
@@ -43,16 +40,16 @@ class Engine {
         float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H];
 
     public:
-        Engine(void);
+        Engine();
 
     public:
-        bool init(void);
-        bool startRendering(void);
-        bool stopRendering(void);
-        void destroy(void);
+        bool init();
+        bool startRendering();
+        bool stopRendering();
+        void destroy();
 
     private:
-        bool renderOneFrame(void);
+        bool renderOneFrame();
         void renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> &meshes);
         void handleEvent(SDL_Event* sdlevent);
 };

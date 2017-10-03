@@ -6,6 +6,7 @@
 #include <boost/property_tree/json_parser.hpp>
 
 #include "Mesh.h"
+#include "Singleton.h"
 
 
 /**
@@ -14,7 +15,7 @@
  * \since   August 2017
  * \author  Constantin Masson
  */
-class MeshManager {
+class MeshManager : public Singleton<MeshManager> {
     public:
         // ---------------------------------------------------------------------
         // Attributes
@@ -27,55 +28,27 @@ class MeshManager {
         /** Keep track if manager has been initialized */
         bool isInitialized;
 
-        /** The famous singleton element */
-        static MeshManager* mSingleton;
-
-    private:
-        // ---------------------------------------------------------------------
-        // Forbidden area
-        // ---------------------------------------------------------------------
-
-        /** Explicitely disable copy constructor. */
-        MeshManager(MeshManager const& obj);
-
-        /** Explicitely disable constructor. */
-        MeshManager(void);
-
-        /** Explicitely disable destructor. */
-        ~MeshManager(void);
 
     public:
         // ---------------------------------------------------------------------
         // Init methods
         // ---------------------------------------------------------------------
 
-        /**
-         * Returns the singleton instance.
-         *
-         * \return Singleton instance.
-         */
-        static MeshManager& getSingleton(void);
-
-        /**
-         * Returns the pointer to the singleton instance.
-         *
-         * \return Pointer to the singleton instance.
-         */
-        static MeshManager* getSingletonPtr(void);
+        MeshManager();
 
         /**
          * Initialize the MeshManager.
          * Should be called once at the beginning.
          * Do nothing if already already called.
          */
-        void startUp(void);
+        void startUp();
 
         /**
          * Stop and clean the MeshManager.
          * Should be called once at the end.
          * Do nothing if already already called.
          */
-        void shutDown(void);
+        void shutDown();
 
     public:
         // ---------------------------------------------------------------------
@@ -93,4 +66,3 @@ class MeshManager {
          */
         void loadMeshesFromJSON(const char* file);
 };
-

@@ -1,7 +1,7 @@
 #include "core/Engine.h"
 
 
-Engine::Engine() : meshManager(MeshManager::getSingleton()), renderWindow() {
+Engine::Engine() : renderWindow() {
     this->isRunning = false;
 }
 
@@ -9,11 +9,12 @@ Engine::Engine() : meshManager(MeshManager::getSingleton()), renderWindow() {
 // Body function (Execution)
 //------------------------------------------------------------------------------
 
-bool Engine::init(void){
-    this->meshManager.startUp();
-    this->meshManager.loadMeshesFromJSON("resources/meshes/suzanne.babylon");
+bool Engine::init(){
+    MeshManager& meshManager = MeshManager::getInstance();
+    meshManager.startUp();
+    meshManager.loadMeshesFromJSON("resources/meshes/suzanne.babylon");
     this->cctv.position = VectF3(0.0f, 0.0f, -4.0f);
-    this->cctv.target = this->meshManager.listMeshes[0].position;
+    this->cctv.target = meshManager.listMeshes[0].position;
 
     //Init SDL
     // TODO Dev Note: To export from Engine to a general 'init manager' or something like
@@ -26,11 +27,11 @@ bool Engine::init(void){
     return true;
 }
 
-void destroy(void){
+void destroy(){
     SDL_Quit();
 }
 
-bool Engine::startRendering(void){
+bool Engine::startRendering(){
     if(isRunning){
         return false;
     }
@@ -50,7 +51,8 @@ bool Engine::startRendering(void){
     return true;
 }
 
-bool Engine::renderOneFrame(void){
+bool Engine::renderOneFrame(){
+    MeshManager& meshManager = MeshManager::getInstance();
     for(int k = 0; k < WINDOW_DEFAULT_SIZE_H * WINDOW_DEFAULT_SIZE_W; k++) {
         this->depthBuffer[k] = 2;
     }
@@ -58,7 +60,7 @@ bool Engine::renderOneFrame(void){
     SDL_SetRenderDrawColor(renderer, 0, 0, 0, SDL_ALPHA_OPAQUE);
     SDL_RenderClear(renderer);
     SDL_SetRenderDrawColor(renderer, 255, 255, 255, SDL_ALPHA_OPAQUE);
-    this->renderAll(renderer, this->cctv, this->meshManager.listMeshes);
+    this->renderAll(renderer, this->cctv, meshManager.listMeshes);
     SDL_RenderPresent(renderer);
     return true;
 }
@@ -127,7 +129,7 @@ void Engine::renderAll(SDL_Renderer* renderer, Camera camera, std::vector<Mesh> 
     }
 }
 
-bool Engine::stopRendering(void){
+bool Engine::stopRendering(){
     this->isRunning = false;
     return true;
 }

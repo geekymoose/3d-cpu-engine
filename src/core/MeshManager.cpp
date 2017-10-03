@@ -1,43 +1,20 @@
 #include "core/MeshManager.h"
 
 
-// -----------------------------------------------------------------------------
-// Attributes
-// -----------------------------------------------------------------------------
-MeshManager* MeshManager::mSingleton = NULL;
-
+MeshManager::MeshManager() {
+    this->isInitialized = false;
+}
 
 // -----------------------------------------------------------------------------
 // Init - Constructors
 // -----------------------------------------------------------------------------
-MeshManager::MeshManager(void) {
-    this->isInitialized = false;
-}
-
-MeshManager::~MeshManager(void) {
-}
-
-MeshManager& MeshManager::getSingleton(void) {
-    if(MeshManager::mSingleton == NULL) {
-        MeshManager::mSingleton = new MeshManager();
-    }
-    return *mSingleton;
-}
-
-MeshManager* MeshManager::getSingletonPtr(void) {
-    if(MeshManager::mSingleton == NULL) {
-        MeshManager::mSingleton = new MeshManager();
-    }
-    return mSingleton;
-}
-
-void MeshManager::startUp(void) {
+void MeshManager::startUp() {
     if(!isInitialized) {
         this->isInitialized = true;
     }
 }
 
-void MeshManager::shutDown(void) {
+void MeshManager::shutDown() {
     if(isInitialized) {
         this->isInitialized = false;
         this->listMeshes.clear();
