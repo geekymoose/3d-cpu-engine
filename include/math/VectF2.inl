@@ -157,7 +157,7 @@ FORCE_INLINE bool VectF2::operator==(VectF2 const& v) const {
 }
 
 FORCE_INLINE bool VectF2::operator!=(VectF2 const& v) const {
-    return this->x != v.x || this->y != v.y;
+    return !(*this == v);
 }
 
 

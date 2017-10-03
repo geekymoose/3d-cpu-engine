@@ -16,6 +16,6 @@ class Camera {
         VectF3 target;
 
     public:
-        Camera(void);
+        Camera();
 };
 

@@ -44,7 +44,7 @@ class Mesh {
         std::vector<Face> faces;
 
     public:
-        Mesh(void);
+        Mesh();
         explicit Mesh(std::string name);
 };
 

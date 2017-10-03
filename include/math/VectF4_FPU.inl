@@ -228,9 +228,6 @@ FORCE_INLINE bool VectF4::operator==(VectF4 const& v) const {
 }
 
 FORCE_INLINE bool VectF4::operator!=(VectF4 const& v) const {
-    return  this->x != v.x ||
-            this->y != v.y ||
-            this->z != v.z ||
-            this->w != v.w;
+    return !(*this == v);
 }
 

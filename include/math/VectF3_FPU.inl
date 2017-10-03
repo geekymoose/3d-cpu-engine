@@ -188,8 +188,6 @@ FORCE_INLINE bool VectF3::operator==(VectF3 const& v) const {
 }
 
 FORCE_INLINE bool VectF3::operator!=(VectF3 const& v) const {
-    return  this->x != v.x ||
-            this->y != v.y ||
-            this->z != v.z;
+    return !(*this == v);
 }
 
