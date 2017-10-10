@@ -8,14 +8,17 @@
  *
  * \remark
  * Singleton can't be copied and can't be instanciated (new).
+ *
+ * \author  Constantin Masson
  */
 template<class T>
-class Singleton : virtual public Uncopyable<Singleton<T>> {
+class Singleton : virtual private Uncopyable<Singleton<T>> {
     private:
-        static T* instance; // TODO Tmp
+        friend T;
 
-    protected:
+    private:
         Singleton() = default; // Can't be instanciated
+        virtual ~Singleton() = default;
 
     public:
 
@@ -27,7 +30,6 @@ class Singleton : virtual public Uncopyable<Singleton<T>> {
         static T& getInstance() {
             static T m;
             return m;
-            //return *Singleton<T>::instance;
         }
 
         /**
@@ -37,8 +39,5 @@ class Singleton : virtual public Uncopyable<Singleton<T>> {
          */
         static T* getInstancePtr() {
             return &Singleton<T>::getSingleton();
-            //return Singleton<T>::instance;
         }
 };
-
-template<class T> T* Singleton<T>::instance = nullptr;

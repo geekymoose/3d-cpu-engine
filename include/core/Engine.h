@@ -27,20 +27,23 @@
  * \warning
  * Alpha version subject to many changes.
  */
-class Engine {
+class Engine : private Singleton<Engine>{
+    private:
+        Engine();
+        friend Singleton<Engine>;
+
+    public:
+        using Singleton<Engine>::getInstance;
+        using Singleton<Engine>::getInstancePtr;
+
     private:
         bool isRunning;
         AppWindowSDL2 renderWindow;
-
-
 
     private:
         // These variable are hard coded for now
         Camera cctv; // CCTV is watching you!
         float depthBuffer[WINDOW_DEFAULT_SIZE_W * WINDOW_DEFAULT_SIZE_H];
-
-    public:
-        Engine();
 
     public:
         bool init();

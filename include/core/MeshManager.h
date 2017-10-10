@@ -15,26 +15,35 @@
  * \since   August 2017
  * \author  Constantin Masson
  */
-class MeshManager : public Singleton<MeshManager> {
+class MeshManager : private Singleton<MeshManager> {
     public:
         // ---------------------------------------------------------------------
         // Attributes
         // ---------------------------------------------------------------------
 
         /** List of all loaded meshes. */
-        std::vector<Mesh> listMeshes;
+        std::vector<Mesh> listMeshes; // TODO Change to private
 
     private:
-        /** Keep track if manager has been initialized */
+        /** Keep track if manager has been initialized. */
         bool isInitialized;
 
+
+        // ---------------------------------------------------------------------
+        // Singleton Override
+        // ---------------------------------------------------------------------
+    private:
+        MeshManager();
+        friend Singleton<MeshManager>;
+
+    public:
+        using Singleton<MeshManager>::getInstance;
+        using Singleton<MeshManager>::getInstancePtr;
 
     public:
         // ---------------------------------------------------------------------
         // Init methods
         // ---------------------------------------------------------------------
-
-        MeshManager();
 
         /**
          * Initialize the MeshManager.
