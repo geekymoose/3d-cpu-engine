@@ -129,7 +129,7 @@ FORCE_INLINE MatrixF4 MatrixTransform::creaPerspectiveFovLH(
         const float far) {
     // TODO Add assert to check invalid values
     MatrixF4 result     = MatrixF4::ZERO();
-    const float cotanFov= 1 / std::tan(radiansFov * 0.5);
+    const float cotanFov= 1.0f / std::tan(radiansFov * 0.5f);
     const float depth   = far - near;
     const float aspect  = screenHeight / screenWidth;
     // Actual ratio is w/h but x / (w/h) == x * (h/w)
@@ -149,8 +149,8 @@ FORCE_INLINE VectF3 MatrixTransform::projectOnScreen(
     VectF4 vec  = VectF4(point3D.x, point3D.y, point3D.z, 1.0f);
     vec         = matrixTransform * vec;
     vec         /= vec.w;
-    vec.x       = (vec.x * screenWidth) + (screenWidth * 0.5);
-    vec.y       = (-vec.y * screenHeight) + (screenHeight * 0.5);
+    vec.x       = (vec.x * screenWidth) + (screenWidth * 0.5f);
+    vec.y       = (-vec.y * screenHeight) + (screenHeight * 0.5f);
     // upper-left is 0:0 thuz -vec.y
     return VectF3(vec.x, vec.y, vec.z);
 }

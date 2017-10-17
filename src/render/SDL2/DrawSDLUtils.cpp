@@ -44,12 +44,12 @@ void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, i
     float dx    = x2 - x1;
     float dy    = y2 - y1;
     float m     = dy / dx;
-    if(m <= 1 && m >= -1) {
+    if(m <= 1.0f && m >= -1.0f) {
         int x_start = x1;
         int x_end   = x2;
         float y     = y1;
         // This is used to start drawing from the point with lower x value.
-        if(dx < 0) {
+        if(dx < 0.0f) {
             x_start = x2;
             x_end   = x1;
             y       = y2;
@@ -65,7 +65,7 @@ void DrawSDLUtils::drawLineDDA(SDL_Renderer* renderer, int x1, int y1, int x2, i
         int y_end   = y2;
         float x     = x1;
         // This is used to start drawing from the point with lower y value.
-        if(dy < 0) {
+        if(dy < 0.0f) {
             y_start = y2;
             y_end   = y1;
             x       = x2;
@@ -139,9 +139,9 @@ void DrawSDLUtils::drawScanLineTriangle(SDL_Renderer* renderer,
     float invSlopeP1P2 = (v2.screenPos->x - v1.screenPos->x) / (float)(v2.screenPos->y - v1.screenPos->y);
     float invSlopeP1P3 = (v3.screenPos->x - v1.screenPos->x) / (float)(v3.screenPos->y - v1.screenPos->y);
 
-    VectF3 lightSource(100, 50, -50); // TODO Hard coded, should be moved outside
-    VectF3 faceNormal   = (*v1.normal + *v2.normal + *v3.normal) / 3;
-    VectF3 faceCenter   = (*v1.transPos + *v2.transPos + *v3.transPos) / 3;
+    VectF3 lightSource(100.0f, 50.0f, -50.0f); // TODO Hard coded, should be moved outside
+    VectF3 faceNormal   = (*v1.normal + *v2.normal + *v3.normal) / 3.0f;
+    VectF3 faceCenter   = (*v1.transPos + *v2.transPos + *v3.transPos) / 3.0f;
     float cosNormLight  = calCosNormLight(faceCenter, faceNormal, lightSource);
 
     // Calculate new color
@@ -376,7 +376,7 @@ void DrawSDLUtils::drawGouraudTriangle(SDL_Renderer* renderer,
     const float invSlopeP1P2 = (v2.screenPos->x - v1.screenPos->x) / (float)(v2.screenPos->y - v1.screenPos->y);
     const float invSlopeP1P3 = (v3.screenPos->x - v1.screenPos->x) / (float)(v3.screenPos->y - v1.screenPos->y);
 
-    const VectF3 lightSource(100, 50, -50); // TODO Hard coded, should be moved outside
+    const VectF3 lightSource(100.0f, 50.0f, -50.0f); // TODO Hard coded, should be moved outside
     const float cos1 = calCosNormLight(*v1.transPos, *v1.normal, lightSource);
     const float cos2 = calCosNormLight(*v2.transPos, *v2.normal, lightSource);
     const float cos3 = calCosNormLight(*v3.transPos, *v3.normal, lightSource);

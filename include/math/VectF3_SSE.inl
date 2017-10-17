@@ -58,7 +58,7 @@ FORCE_INLINE VectF3 VectF3::getCrossProduct(VectF3 const& v) const {
             _mm_mul_ps(
                 _mm_shuffle_ps(this->m128, this->m128, _MM_SHUFFLE(3,1,0,2)),
                 _mm_shuffle_ps(v.m128, v.m128, _MM_SHUFFLE(3,0,2,1))));
-    rabit[3] = 0; // Set w to 0
+    rabit[3] = 0.0f; // Set w to 0
     return VectF3(rabit);
 }
 
@@ -78,7 +78,7 @@ FORCE_INLINE VectF3 VectF3::crossProduct(VectF3 const& v1, VectF3 const& v2) {
             _mm_mul_ps(
                 _mm_shuffle_ps(v1.m128, v1.m128, _MM_SHUFFLE(3,1,0,2)),
                 _mm_shuffle_ps(v2.m128, v2.m128, _MM_SHUFFLE(3,0,2,1))));
-    rabit[3] = 0; // Set w to 0 (crossProduct only on 3 axis)
+    rabit[3] = 0.0f; // Set w to 0 (crossProduct only on 3 axis)
     return VectF3(rabit);
 }
 
