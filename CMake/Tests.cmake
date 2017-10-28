@@ -1,0 +1,10 @@
+option(ENGINE_ENABLE_TESTS "Build Unit tests" OFF)
+
+if(ENGINE_ENABLE_TESTS)
+    message(STATUS "Test enabled")
+    enable_testing()
+    include(CTest)
+    add_subdirectory(test)
+else()
+    message(STATUS "Test disabled")
+endif()

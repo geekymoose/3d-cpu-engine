@@ -3,8 +3,8 @@
 
 [![Build Status](https://travis-ci.org/GeekyMoose/3d-soft-engine.svg?branch=master)](https://travis-ci.org/GeekyMoose/3d-soft-engine)
 
+![Imgur](http://i.imgur.com/OS8aK45.png)
 ![Imgur](http://i.imgur.com/hMiDdnz.png)
-![Imgur](http://i.imgur.com/794m2up.png)
 
 
 # Description
@@ -44,7 +44,7 @@ mkdir build
 cd build
 cmake ..
 make
-make runengine
+make run
 ```
 
 You can run manually with `./src/3d-soft-engine` or run on gdb with
@@ -53,11 +53,14 @@ cd src
 gdb ./3d-soft-engine
 ```
 
+
 # Build and run the project on Windows
 Not supported
 
+
 # Build and run the project on Mac
 Not supported
+
 
 # Start Unit Tests
 ```
@@ -73,42 +76,44 @@ You can start a test manually with `./test/testToStart`
 
 # Set CMake variables
 CMake variables may be used to set several options.
-- SSE optimizations
-	- ON to use SSE (Force to use even if you don't support. But it will fail then)
-	- OFF to disable SSE (Default option)
-- Unit test
-	- ON to also build tests (Default option)
-	- OFF to disable tests
+- `ENGINE_ENABLE_TESTS`
+    - ON to build tests.
+    - OFF to disable tests.
+- `ENGINE_ENABLE_SSE`
+    - ON to automatically detect and use SSE. If no SSE support found, skip it.
+    - OFF to disable SSE.
+- `-DCMAKE_BUILD_TYPE`
+    - Default CMake build type. See https://cmake.org/cmake/help/v3.0/variable/CMAKE_BUILD_TYPE.html
 
 
 # Features
 - Math library (Header only)
-	- Vectors 2
-	- Vectors 3
-	- Vectors 4
-	- Matrix 3
-	- Matrix 4
-	- Matrix Transformations
-		- Translation
-		- Scaling
-		- Rotations
-		- LookAt
-		- Perspective
-		- Project 3D point into 2D screen `new`
+    - Vectors 2
+    - Vectors 3
+    - Vectors 4
+    - Matrix 3
+    - Matrix 4
+    - Matrix Transformations
+        - Translation
+        - Scaling
+        - Rotations
+        - LookAt
+        - Perspective
+        - Project 3D point into 2D screen
 - Mesh
-	- Loading from JSON (.babylon format)
+    - Loading from JSON (.babylon format)
 - Rendering
-	- Draw line
-		- DDA algo
-	- Draw filled triangle
-		- Scanline Algorithm
-		- Scanline Algorithm with z-buffering
-		- Scanline Algorithm with z-buffering and Flat-Shading `new`
-		- Scanline Algorithm with z-buffering and Gouraud Shading `new`
+    - Draw line
+        - DDA algo
+    - Draw filled triangle
+        - Scanline Algorithm
+        - Scanline Algorithm with z-buffering
+        - Scanline Algorithm with z-buffering and Flat-Shading
+        - Scanline Algorithm with z-buffering and Gouraud Shading
 - SSE4.1 optimization (Used by math library)
 - Engine
-	- Render loaded meshes (By default, render Suzanne monkey)
-	- Zoom in / out
+    - Render loaded meshes (By default, render Suzanne monkey)
+    - Zoom in / out
 
 
 # Screenshots
