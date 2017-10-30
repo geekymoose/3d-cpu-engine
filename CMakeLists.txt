@@ -3,7 +3,6 @@ project(3d-soft-engine)
 
 if("${PROJECT_SOURCE_DIR}" STREQUAL "${PROJECT_BINARY_DIR}")
     message(FATAL_ERROR "in-source build not allowed. Use another directory.")
-    exit()
 endif()
 
 include(CMake/CompilerFlags.cmake)
