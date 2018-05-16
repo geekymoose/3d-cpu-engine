@@ -11,5 +11,5 @@ include(CMake/Tests.cmake)
 
 add_subdirectory(src)
 
-#TMP, copy resources
+# Copy resources in build
 file(COPY resources DESTINATION "${CMAKE_BINARY_DIR}/src")
