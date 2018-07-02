@@ -1,6 +1,6 @@
 # Perso adds
-3d-soft-engine
-build/*
+dependencies
+build/
 *__pycache__
 
 # ------------------------------------------------------------------------------
