@@ -1,22 +1,16 @@
-![Imgur](https://i.imgur.com/tLicIC9.png)
+![3d-cpu-engine-screenshot](screenshots/monkey-screenshot05.png)
+
 
 # 3D CPU Engine
-[![Build Status](https://travis-ci.org/GeekyMoose/3d-cpu-engine.svg?branch=master)](https://travis-ci.org/GeekyMoose/3d-cpu-engine)
-
-| master | dev |
-| :-----: | :-----: |
-| [![Build Status](https://travis-ci.org/GeekyMoose/3d-cpu-engine.svg?branch=master)](https://travis-ci.org/GeekyMoose/3d-cpu-engine) | [![Build Status](https://travis-ci.org/GeekyMoose/3d-cpu-engine.svg?branch=dev)](https://travis-ci.org/GeekyMoose/3d-cpu-engine) |
-
-
-
-## Description
-This is a simple 3D Rendering Engine using CPU for learning purpose.
-The main goal of this project is to understand low-level components of 3D engine.
-For that reason, I use few libraries and try to re-implements everything such
-as math library and drawing algorithms.
+My very first 3D engine!
+This is a simple 3D rendering engine using CPU (no GPU), for learning purpose.
+The main goal of this project was to understand the low-level components of
+a 3D engine (e.g., rendering pipeline, drawing algorithm, maths for 3D, rendering loop), as well as learning the C++ language.
+Therefore, I used few libraries and tried to re-implements everything,
+such as math library and drawing algorithms.
 
 
-## Features
+# Features
 - Math library
     - Vectors 2
     - Vectors 3
@@ -40,29 +34,27 @@ as math library and drawing algorithms.
         - Scanline Algorithm with z-buffering
         - Scanline Algorithm with z-buffering and Flat-Shading
         - Scanline Algorithm with z-buffering and Gouraud Shading
-- Render Engine
-    - Render loaded meshes (By default, render Suzanne monkey)
+- Render engine
+    - Render loaded meshes (by default, renders Suzanne monkey)
     - Zoom in / out
-- SSE4.1 optimization (Used by math library)
+- SSE4.1 optimization (used by the math library)
 
 
-## Requirements
-- C++11
-- `pragma once` support
-
-
-## Dependencies
+# Dependencies
 > Dependencies marked with *(CMake)* are automatically downloaded by CMake
-> script and placed in *bin* folder.
-> Others must be installed manually (Generally system-wide install).
+> and placed in the *dependencies* folder.
+> The Others must be installed manually (generally system-wide install).
 
 - [SDL2](https://www.libsdl.org/) (**Must be installed system-wide**)
-- [Boost property tree](http://www.boost.org/doc/libs/1_64_0/doc/html/property_tree.html) (**System-wide**)
-- [GoogleTest](https://github.com/google/googletest) (CMake)
+- [Boost property tree](http://www.boost.org/doc/libs/1_64_0/doc/html/property_tree.html) (**Must be installed system-wide**)
+- [GoogleTest](https://github.com/google/googletest) (Downloaded by CMake)
 
 
-## Build instructions
-### Build and run engine (CMake)
+# Build instructions (Linux only)
+- Uses C++11
+- Requires `pragma once` support
+
+## Build and run engine (CMake)
 ```bash
 # Manual instructions
 mkdir build
@@ -75,7 +67,7 @@ make runEngine
 ./build.sh
 ```
 
-### Build and run tests (CMake)
+## Build and run tests (CMake)
 ```bash
 mkdir build
 cd build
@@ -88,19 +80,21 @@ make runAllTests
 ```
 
 
-## Work in progress
-As you may see, Gnu and Panda are working really hard on this project!
-Sometime, they even forget to eat the bamboo.
-(At least Panda, because Gnu probably prefers the emacs source code).
+# Hard work
+As you may see, Gnu and Panda have been working really hard on this project!
+Sometime, they even forgot to eat the bamboo.
+(At least Panda, Gnu probably prefers the emacs source code).
 
-![Imgur](http://i.imgur.com/TYmfaEw.jpg)
-
-
-## Screenshots
-![Imgur](http://i.imgur.com/hMiDdnz.png)
-![Imgur](http://i.imgur.com/OS8aK45.png)
-![Imgur](http://i.imgur.com/794m2up.png)
+![3d-cpu-engine-screenshot](screenshots/pandaworking.png)
 
 
-## Author
-Constantin Masson ([constantinmasson.com](http://constantinmasson.com/))
+# Screenshots
+![3d-cpu-engine-screenshot](screenshots/monkey-screenshot04.png)
+![3d-cpu-engine-screenshot](screenshots/monkey-screenshot05.png)
+![3d-cpu-engine-screenshot](screenshots/monkey-screenshot01.png)
+
+
+# Author
+Constantin Masson (geekymoose)
+
+
